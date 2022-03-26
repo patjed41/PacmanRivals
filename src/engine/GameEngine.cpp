@@ -1,4 +1,5 @@
-#include "../include/GameEngine.h"
+#include "GameEngine.h"
+#include "../../include/game_constants.h"
 
 GameEngine::GameEngine() {
   sf::Vector2<unsigned int> resolution;
@@ -6,6 +7,8 @@ GameEngine::GameEngine() {
   resolution.y = sf::VideoMode::getDesktopMode().height;
 
   _window.create(sf::VideoMode(resolution.x, resolution.y), "Pacman Rivals", sf::Style::Fullscreen);
+  _main_view.reset(sf::FloatRect(0, 0, (float)resolution.x, (float)resolution.y));
+  _main_view.setCenter(MAP_WIDTH * TILE_SIZE / 2.f, MAP_HEIGHT * TILE_SIZE / 2.f);
 }
 
 void GameEngine::run() {

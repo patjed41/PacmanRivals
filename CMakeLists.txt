@@ -15,10 +15,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 
 set(SOURCE_FILES
-        src/GameEngine.cpp
-        src/Input.cpp
-        src/Update.cpp
-        src/Draw.cpp)
+        src/engine/GameEngine.cpp
+        src/engine/Input.cpp
+        src/engine/Update.cpp
+        src/engine/Draw.cpp)
 
 # Creating game executable.
 add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
