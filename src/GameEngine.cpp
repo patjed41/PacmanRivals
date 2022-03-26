@@ -1,7 +1,7 @@
 #include "../include/GameEngine.h"
 
 GameEngine::GameEngine() {
-  sf::Vector2i resolution;
+  sf::Vector2<unsigned int> resolution;
   resolution.x = sf::VideoMode::getDesktopMode().width;
   resolution.y = sf::VideoMode::getDesktopMode().height;
 
