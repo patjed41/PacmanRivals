@@ -14,10 +14,14 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "-DNDEBUG")
 endif()
 
-set(SOURCE_FILES app/PacmanRivals.cpp)
+set(SOURCE_FILES
+        src/GameEngine.cpp
+        src/Input.cpp
+        src/Update.cpp
+        src/Draw.cpp)
 
 # Creating game executable.
-add_executable(PacmanRivals ${SOURCE_FILES})
+add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
 # Linking SFML libraries to game executable.
 target_link_libraries(PacmanRivals sfml-graphics sfml-window sfml-system sfml-audio)
 
