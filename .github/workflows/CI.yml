@@ -1,0 +1,33 @@
+
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Download SFML
+      run: sudo apt-get update && sudo apt-get install libsfml-dev
+
+    - name: Build
+      working-directory: ${{github.workspace}}
+      run: mkdir build && cd build && cmake -D CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .. && make
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: make test
+      
+    - name: Code Coverage
+      working-directory: ${{github.workspace}}/build
+      run: make ExperimentalCoverage
