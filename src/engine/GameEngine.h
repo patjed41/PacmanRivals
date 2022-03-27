@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../texture-holder/TextureHolder.h"
+
 class GameEngine {
 
 private:
@@ -9,6 +11,8 @@ private:
   sf::RenderWindow _window;
 
   sf::View _main_view; // view used for drawing game (map and characters)
+
+  TextureHolder texture_holder;
 
   void input();
 

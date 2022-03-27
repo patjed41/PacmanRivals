@@ -9,6 +9,7 @@ if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
     set(CMAKE_BUILD_TYPE "Release")
 endif ()
+
 # -DNDEBUG flag is set in Release build type.
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "-DNDEBUG")
@@ -18,7 +19,8 @@ set(SOURCE_FILES
         src/engine/GameEngine.cpp
         src/engine/Input.cpp
         src/engine/Update.cpp
-        src/engine/Draw.cpp)
+        src/engine/Draw.cpp
+        src/texture-holder/TextureHolder.cpp)
 
 # Creating game executable.
 add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
