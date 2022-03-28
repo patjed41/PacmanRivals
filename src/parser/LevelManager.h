@@ -30,4 +30,6 @@ public:
     std::vector<sf::Vector2i> &getPlayersPositions();
 
     std::shared_ptr<Map> loadNewLevel();
+
+    std::vector<sf::Sprite> ghosts;
 };

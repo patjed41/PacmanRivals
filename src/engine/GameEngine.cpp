@@ -1,6 +1,4 @@
 #include "GameEngine.h"
-#include "../../include/game_constants.h"
-#include "../parser/LevelManager.h"
 
 GameEngine::GameEngine() {
   sf::Vector2<unsigned int> resolution;

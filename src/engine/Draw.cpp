@@ -6,6 +6,7 @@ void GameEngine::draw() {
 
   // draw
   std::vector<std::vector<Tile>> map = _level_manager.getGrid()->getTiles();
+  std::vector<sf::Vector2i> players_positions = _level_manager.getPlayersPositions();
 
   for (int i = 0; i < MAP_HEIGHT; i++){
       for (int j = 0; j < MAP_WIDTH; j++){

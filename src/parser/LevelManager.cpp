@@ -38,6 +38,18 @@ void LevelManager::loadNewGrid() {
 }
 
 // wersja tmp
+enum ghost_enum
+{
+    RANDOM,
+    NOTRANDOM,
+};
+
+ghost_enum convert(const std::string& str)
+{
+    if(str == "random") return RANDOM;
+    else if(str == "not_random") return NOTRANDOM;
+    else return RANDOM; // space holder
+}
 void LevelManager::loadNewGhosts() {
     std::ifstream myfile;
     myfile.open("../assets/maps/ghosts/ghosts1.txt");
@@ -50,8 +62,17 @@ void LevelManager::loadNewGhosts() {
         for (int k = 0; k < size; k++) {
             ghosts.emplace_back(TextureHolder::GetTexture("../assets/graphics/ghost-pink.png"));
             std::string type;
-            int i, j;
-            myfile >> type >> i >> j;
+            int i, j, n;
+            myfile >> type;
+            ghost_enum ghost_type = convert(type);
+            switch (ghost_type) {
+                case RANDOM :
+                    myfile >> i >> j;
+                    break;
+                case NOTRANDOM :
+                    myfile >> n >> i >> j;
+                    break;
+            }
             ghosts[k].setPosition(j * TILE_SIZE, i * TILE_SIZE);
         }
         myfile.close();
@@ -64,7 +85,6 @@ void LevelManager::loadNewPlayers() {
     std::ifstream myfile;
     myfile.open("../assets/maps/players/players1.txt");
 
-    std::vector<sf::Sprite> ghosts;
     if (myfile.is_open()) {
         int size;
         myfile >> size;
