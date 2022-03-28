@@ -1,8 +1,9 @@
 #include "LevelManager.h"
+
+#include <utility>
 #include "../texture-holder/TextureHolder.h"
 
-//todo: shared_ptr
-Map LevelManager::getGrid() {
+std::shared_ptr<Map> LevelManager::getGrid() {
     return _grid;
 }
 
@@ -22,12 +23,12 @@ void LevelManager::loadNewGrid() {
 
     if (myfile.is_open()) {
         for (int i = 0; i < MAP_HEIGHT; i++) {
-            _grid.getTiles().emplace_back();
+            _grid->getTiles().emplace_back();
             for (int j = 0; j < MAP_WIDTH; j++) {
                 int tmp;
                 myfile >> tmp;
-                _grid.getTiles()[i].push_back(Tile(0));
-                _grid.setTile(i, j, tmp);
+                _grid->getTiles()[i].push_back(Tile(0));
+                _grid->setTile(i, j, tmp);
             }
         }
         myfile.close();
@@ -63,15 +64,16 @@ void LevelManager::loadNewPlayers() {
 
 }
 
-Map LevelManager::loadNewLevel() {
+std::shared_ptr<Map> LevelManager::loadNewLevel() {
     loadNewGrid();
     loadNewGhosts();
     loadNewPlayers();
     return _grid;
 }
 
-
-
-LevelManager::LevelManager() {
-    _grid = Map();
+LevelManager::LevelManager()  {
+    std::shared_ptr<Map> test(new Map());
+    _grid = test;
 }
+
+

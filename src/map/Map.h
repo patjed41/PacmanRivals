@@ -16,6 +16,6 @@ public:
 
     [[nodiscard]] std::vector<std::vector<Tile>> &getTiles();
 
-    void draw(sf::RenderWindow window);
+    //void draw(sf::RenderWindow window);
 
 };

@@ -13,30 +13,17 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::run() {
-  sf::Clock clock;
+    sf::Clock clock;
 
-  _level_manager = LevelManager();
-  _level_manager.loadNewLevel();
+    _level_manager = LevelManager();
+    _level_manager.loadNewLevel();
 
-  while (_window.isOpen()) {
-    sf::Time dt = clock.restart();
-    float dt_as_seconds = dt.asSeconds();
+    while (_window.isOpen()) {
+        sf::Time dt = clock.restart();
+        float dt_as_seconds = dt.asSeconds();
 
-    input();
-    update(dt_as_seconds);
-  //  draw();
-
-      _window.clear(sf::Color::Black);
-      _window.setView(_main_view);
-
-      std::vector<std::vector<Tile>> tmp = _level_manager.getGrid().getTiles();
-
-      for (int i = 0; i < MAP_HEIGHT; i++){
-          for (int j = 0; j < MAP_WIDTH; j++){
-              _window.draw( tmp[i][j].getSprite());
-          }
-      }
-
-      _window.display();
-  }
+        input();
+        update(dt_as_seconds);
+        draw();
+    }
 }

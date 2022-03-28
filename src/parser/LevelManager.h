@@ -10,8 +10,7 @@
 
 class LevelManager {
 private:
-    // std::shared_ptr<Map> _grid;
-    Map _grid;
+    std::shared_ptr<Map> _grid;
     //todo: int -> proper class
     std::vector<std::shared_ptr<int>> _ghosts;
     std::vector<std::pair<int, int>> _player_positions;
@@ -24,11 +23,11 @@ public:
 
     LevelManager();
 
-    Map getGrid();
+    std::shared_ptr<Map> getGrid();
 
     std::vector<std::shared_ptr<int>> &getGhosts();
 
     std::vector<std::pair<int, int>> &getPlayerPositions();
 
-    Map loadNewLevel();
+    std::shared_ptr<Map> loadNewLevel();
 };
