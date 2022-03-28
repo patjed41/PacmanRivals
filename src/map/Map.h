@@ -10,12 +10,11 @@ private:
     std::vector<std::vector<Tile>> _tiles;
 
 public:
-    Map() = default;
+
+    Map();
 
     void setTile(int i, int j, int type);
 
     [[nodiscard]] std::vector<std::vector<Tile>> &getTiles();
-
-    //void draw(sf::RenderWindow window);
 
 };

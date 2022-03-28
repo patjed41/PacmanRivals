@@ -14,11 +14,7 @@ const sf::Sprite &Tile::getSprite() const {
 }
 
 bool Tile::isWall() const {
-    if (_type == 1) {
-        return true;
-    } else {
-        return false;
-    }
+    return _type == 1;
 }
 
 void Tile::setPosition(int i, int j) {

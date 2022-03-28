@@ -22,12 +22,9 @@ set(SOURCE_FILES
         src/texture-holder/TextureHolder.cpp
         src/map/Tile.cpp
         src/map/Map.cpp
-        src/parser/LevelManager.cpp)
+        src/level-manager/LevelManager.cpp)
 
-file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY assets/graphics DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY assets/sounds DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY assets/maps DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # Creating game executable.
 add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
@@ -63,6 +60,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     endmacro()
 
     # Tests:
-    make_new_test(draw_initial_positions tests/board/draw_initial_positions_players.cpp src/parser/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
+    make_new_test(check_initial_positions tests/board/check_initial_positions_players.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
+    make_new_test(check_initial_board tests/board/check_initial_board.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
 
 endif()

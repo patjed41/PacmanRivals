@@ -14,7 +14,8 @@ void GameEngine::run() {
     sf::Clock clock;
 
     _level_manager = LevelManager();
-    _level_manager.loadNewLevel();
+
+    _new_map_indeed = true;
 
     while (_window.isOpen()) {
         sf::Time dt = clock.restart();

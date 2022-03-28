@@ -15,6 +15,10 @@ private:
     std::vector<std::shared_ptr<int>> _ghosts;
     std::vector<sf::Vector2i> _players_positions;
 
+    void loadNewGrid();
+    void loadNewGhosts();
+    void loadNewPlayers();
+
 public:
 
     LevelManager();
@@ -25,10 +29,6 @@ public:
 
     std::vector<sf::Vector2i> &getPlayersPositions();
 
-    void loadNewGrid();
-    void loadNewGhosts();
-    void loadNewPlayers();
-
-    std::shared_ptr<Map>  loadNewLevel();
+    void loadNewLevel();
 
 };

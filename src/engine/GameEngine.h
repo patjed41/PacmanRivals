@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../texture-holder/TextureHolder.h"
-#include "../parser/LevelManager.h"
+#include "../level-manager/LevelManager.h"
 
 class GameEngine {
 
@@ -16,6 +16,8 @@ private:
   TextureHolder _texture_holder;
 
   LevelManager _level_manager;
+
+  bool _new_map_indeed;
 
   void input();
 

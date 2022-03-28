@@ -22,17 +22,16 @@ void LevelManager::loadNewGrid() {
 
     if (myfile.is_open()) {
         for (int i = 0; i < MAP_HEIGHT; i++) {
-            _grid->getTiles().emplace_back();
             for (int j = 0; j < MAP_WIDTH; j++) {
                 int tmp;
                 myfile >> tmp;
-                _grid->getTiles()[i].push_back(Tile(0));
                 _grid->setTile(i, j, tmp);
             }
         }
         myfile.close();
     } else {
         std::cerr << "Can't find input file" << std::endl;
+        exit(1);
     }
 }
 
@@ -77,6 +76,7 @@ void LevelManager::loadNewGhosts() {
         myfile.close();
     } else {
         std::cerr << "Can't find input file" << std::endl;
+        exit(1);
     }
 }
 
@@ -96,14 +96,14 @@ void LevelManager::loadNewPlayers() {
         myfile.close();
     } else {
         std::cerr << "Can't find input file" << std::endl;
+        exit(1);
     }
 }
 
-std::shared_ptr<Map> LevelManager::loadNewLevel() {
+void LevelManager::loadNewLevel() {
     loadNewGrid();
     loadNewGhosts();
     loadNewPlayers();
-    return _grid;
 }
 
 LevelManager::LevelManager() {
