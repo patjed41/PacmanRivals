@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../texture-holder/TextureHolder.h"
+#include "../parser/LevelManager.h"
+
 class GameEngine {
 
 private:
@@ -9,6 +12,10 @@ private:
   sf::RenderWindow _window;
 
   sf::View _main_view; // view used for drawing game (map and characters)
+
+  TextureHolder _texture_holder;
+
+  LevelManager _level_manager;
 
   void input();
 

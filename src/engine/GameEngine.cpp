@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include "../../include/game_constants.h"
+#include "../parser/LevelManager.h"
 
 GameEngine::GameEngine() {
   sf::Vector2<unsigned int> resolution;
@@ -14,12 +15,28 @@ GameEngine::GameEngine() {
 void GameEngine::run() {
   sf::Clock clock;
 
+  _level_manager = LevelManager();
+  _level_manager.loadNewLevel();
+
   while (_window.isOpen()) {
     sf::Time dt = clock.restart();
     float dt_as_seconds = dt.asSeconds();
 
     input();
     update(dt_as_seconds);
-    draw();
+  //  draw();
+
+      _window.clear(sf::Color::Black);
+      _window.setView(_main_view);
+
+      std::vector<std::vector<Tile>> tmp = _level_manager.getGrid().getTiles();
+
+      for (int i = 0; i < MAP_HEIGHT; i++){
+          for (int j = 0; j < MAP_WIDTH; j++){
+              _window.draw( tmp[i][j].getSprite());
+          }
+      }
+
+      _window.display();
   }
 }

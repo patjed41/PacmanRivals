@@ -18,7 +18,14 @@ set(SOURCE_FILES
         src/engine/GameEngine.cpp
         src/engine/Input.cpp
         src/engine/Update.cpp
-        src/engine/Draw.cpp)
+        src/engine/Draw.cpp
+        src/texture-holder/TextureHolder.cpp
+        src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/texture-holder/TextureHolder.h src/map/Map.cpp src/map/Map.h src/parser/LevelManager.cpp src/parser/LevelManager.h)
+
+file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets/graphics DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets/sounds DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets/maps DESTINATION ${CMAKE_BINARY_DIR})
 
 # Creating game executable.
 add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
