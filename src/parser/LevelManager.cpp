@@ -1,6 +1,5 @@
 #include "LevelManager.h"
 
-#include <utility>
 #include "../texture-holder/TextureHolder.h"
 
 std::shared_ptr<Map> LevelManager::getGrid() {
@@ -107,9 +106,9 @@ std::shared_ptr<Map> LevelManager::loadNewLevel() {
     return _grid;
 }
 
-LevelManager::LevelManager()  {
-    std::shared_ptr<Map> test(new Map());
-    _grid = test;
+LevelManager::LevelManager() {
+    std::shared_ptr<Map> grid(new Map());
+    _grid = grid;
 }
 
 

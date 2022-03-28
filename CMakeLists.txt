@@ -20,7 +20,9 @@ set(SOURCE_FILES
         src/engine/Update.cpp
         src/engine/Draw.cpp
         src/texture-holder/TextureHolder.cpp
-        src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/texture-holder/TextureHolder.h src/map/Map.cpp src/map/Map.h src/parser/LevelManager.cpp src/parser/LevelManager.h)
+        src/map/Tile.cpp
+        src/map/Map.cpp
+        src/parser/LevelManager.cpp)
 
 file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY assets/graphics DESTINATION ${CMAKE_BINARY_DIR})
@@ -61,5 +63,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     endmacro()
 
     # Tests:
+    make_new_test(draw_initial_positions tests/board/draw_initial_positions_players.cpp src/parser/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
 
 endif()
