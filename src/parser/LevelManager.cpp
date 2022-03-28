@@ -11,8 +11,8 @@ std::vector<std::shared_ptr<int>> &LevelManager::getGhosts() {
     return _ghosts;
 }
 
-std::vector<std::pair<int, int>> &LevelManager::getPlayerPositions() {
-    return _player_positions;
+std::vector<sf::Vector2i> &LevelManager::getPlayersPositions() {
+    return _players_positions;
 }
 
 void LevelManager::loadNewGrid() {
@@ -33,7 +33,7 @@ void LevelManager::loadNewGrid() {
         }
         myfile.close();
     } else {
-        std::cerr << "Can't find input file " << std::endl;
+        std::cerr << "Can't find input file" << std::endl;
     }
 }
 
@@ -56,12 +56,28 @@ void LevelManager::loadNewGhosts() {
         }
         myfile.close();
     } else {
-        std::cerr << "Can't find input file " << std::endl;
+        std::cerr << "Can't find input file" << std::endl;
     }
 }
 
 void LevelManager::loadNewPlayers() {
+    std::ifstream myfile;
+    myfile.open("../assets/maps/players/players1.txt");
 
+    std::vector<sf::Sprite> ghosts;
+    if (myfile.is_open()) {
+        int size;
+        myfile >> size;
+
+        for (int k = 0; k < size; k++) {
+            int i, j;
+            myfile >> i >> j;
+            _players_positions.emplace_back(sf::Vector2(i, j));
+        }
+        myfile.close();
+    } else {
+        std::cerr << "Can't find input file" << std::endl;
+    }
 }
 
 std::shared_ptr<Map> LevelManager::loadNewLevel() {

@@ -13,7 +13,7 @@ private:
     std::shared_ptr<Map> _grid;
     //todo: int -> proper class
     std::vector<std::shared_ptr<int>> _ghosts;
-    std::vector<std::pair<int, int>> _player_positions;
+    std::vector<sf::Vector2i> _players_positions;
 
     void loadNewGrid();
     void loadNewGhosts();
@@ -27,7 +27,7 @@ public:
 
     std::vector<std::shared_ptr<int>> &getGhosts();
 
-    std::vector<std::pair<int, int>> &getPlayerPositions();
+    std::vector<sf::Vector2i> &getPlayersPositions();
 
     std::shared_ptr<Map> loadNewLevel();
 };
