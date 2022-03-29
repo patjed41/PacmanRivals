@@ -15,8 +15,6 @@ std::vector<sf::Vector2i> &LevelManager::getPlayersPositions() {
 }
 
 void LevelManager::loadNewGrid() {
-    // todo: inteligentne wybieranie numeru planszy
-
     std::ifstream myfile;
     myfile.open("../assets/maps/grids/grid1.txt");
 
@@ -36,18 +34,17 @@ void LevelManager::loadNewGrid() {
 }
 
 // wersja tmp
-enum ghost_enum
-{
+enum GhostEnum {
     RANDOM,
     NOTRANDOM,
 };
 
-ghost_enum convert(const std::string& str)
-{
-    if(str == "random") return RANDOM;
-    else if(str == "not_random") return NOTRANDOM;
+GhostEnum convert(const std::string& str) {
+    if (str == "random") return RANDOM;
+    else if (str == "not_random") return NOTRANDOM;
     else return RANDOM; // space holder
 }
+
 void LevelManager::loadNewGhosts() {
     std::ifstream myfile;
     myfile.open("../assets/maps/ghosts/ghosts1.txt");
@@ -62,7 +59,7 @@ void LevelManager::loadNewGhosts() {
             std::string type;
             int i, j, n;
             myfile >> type;
-            ghost_enum ghost_type = convert(type);
+            GhostEnum ghost_type = convert(type);
             switch (ghost_type) {
                 case RANDOM :
                     myfile >> i >> j;
@@ -101,14 +98,14 @@ void LevelManager::loadNewPlayers() {
 }
 
 void LevelManager::loadNewLevel() {
+    // todo: inteligentne wybieranie numeru planszy
     loadNewGrid();
     loadNewGhosts();
     loadNewPlayers();
 }
 
 LevelManager::LevelManager() {
-    std::shared_ptr<Map> grid(new Map());
-    _grid = grid;
+    _grid = std::make_shared<Map>();
 }
 
 

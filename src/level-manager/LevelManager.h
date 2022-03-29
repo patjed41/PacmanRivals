@@ -9,7 +9,9 @@
 #include "../map/Map.h"
 
 class LevelManager {
+
 private:
+
     std::shared_ptr<Map> _grid;
     //todo: int -> proper class
     std::vector<std::shared_ptr<int>> _ghosts;

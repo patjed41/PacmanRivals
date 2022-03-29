@@ -6,11 +6,13 @@
 class Tile {
 
 private:
+
     int _type;
+
     sf::Sprite _sprite;
 
-
 public:
+
     explicit Tile(int type);
 
     void setPosition(int i, int j);
@@ -18,4 +20,5 @@ public:
     const sf::Sprite &getSprite() const;
 
     bool isWall() const;
+
 };

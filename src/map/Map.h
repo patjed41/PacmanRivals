@@ -4,9 +4,11 @@
 
 #include "Tile.h"
 #include "../../include/game_constants.h"
+
 class Map {
 
 private:
+
     std::vector<std::vector<Tile>> _tiles;
 
 public:

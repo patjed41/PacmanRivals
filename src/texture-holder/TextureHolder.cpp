@@ -1,22 +1,24 @@
 #include "TextureHolder.h"
-#include "../../include/debug.h"
 
 #include <iostream>
 
 TextureHolder* TextureHolder::_instance = nullptr;
 
 TextureHolder::TextureHolder() {
-    if (debug) {
-        if (_instance != nullptr) {
-            std::cerr << "Object of TextureHolder already created but it is a singleton class\n";
-            exit(1);
-        }
+    if (_instance != nullptr) {
+        std::cerr << "Object of TextureHolder already created but it is a singleton class\n";
+        exit(1);
     }
 
     _instance = this;
 }
 
 sf::Texture & TextureHolder::GetTexture(const std::string &filename) {
+    if (_instance == nullptr) {
+        std::cerr << "TextureHolder instance not created\n";
+        exit(1);
+    }
+
     std::map<std::string, sf::Texture> &texture_map = _instance->_textures;
 
     auto key_value_pair = texture_map.find(filename);
@@ -26,7 +28,12 @@ sf::Texture & TextureHolder::GetTexture(const std::string &filename) {
     }
     else {
         auto &texture = texture_map[filename];
-        texture.loadFromFile(filename);
+
+        if (!texture.loadFromFile(filename)) {
+            std::cerr << "Texture file not found\n";
+            exit(1);
+        }
+
         return texture;
     }
 }

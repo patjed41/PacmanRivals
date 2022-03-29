@@ -9,26 +9,26 @@ class GameEngine {
 
 private:
 
-  sf::RenderWindow _window;
+    sf::RenderWindow _window;
 
-  sf::View _main_view; // view used for drawing game (map and characters)
+    sf::View _main_view; // view used for drawing game (map and characters)
 
-  TextureHolder _texture_holder;
+    TextureHolder _texture_holder;
 
-  LevelManager _level_manager;
+    LevelManager _level_manager;
 
-  bool _new_map_indeed;
+    bool _new_map_indeed;
 
-  void input();
+    void input();
 
-  void update(float dt_as_seconds);
+    void update(float dt_as_seconds);
 
-  void draw();
+    void draw();
 
 public:
 
-  GameEngine();
+    GameEngine();
 
-  void run();
+    void run();
 
 };

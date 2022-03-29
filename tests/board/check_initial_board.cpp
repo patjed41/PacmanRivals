@@ -3,7 +3,6 @@
 #include "../../include/err.h"
 
 int main() {
-
     TextureHolder textureHolder;
     LevelManager manager = LevelManager();
 
