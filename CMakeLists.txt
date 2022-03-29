@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.2)
 
-project(PongCI)
+project(PacmanRivals)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -9,7 +9,6 @@ if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
     set(CMAKE_BUILD_TYPE "Release")
 endif ()
-
 # -DNDEBUG flag is set in Release build type.
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "-DNDEBUG")
@@ -20,7 +19,12 @@ set(SOURCE_FILES
         src/engine/Input.cpp
         src/engine/Update.cpp
         src/engine/Draw.cpp
-        src/texture-holder/TextureHolder.cpp)
+        src/texture-holder/TextureHolder.cpp
+        src/map/Tile.cpp
+        src/map/Map.cpp
+        src/level-manager/LevelManager.cpp)
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # Creating game executable.
 add_executable(PacmanRivals app/PacmanRivals.cpp ${SOURCE_FILES})
@@ -56,5 +60,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     endmacro()
 
     # Tests:
+    make_new_test(check_initial_positions tests/board/check_initial_positions_players.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
+    make_new_test(check_initial_board tests/board/check_initial_board.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp)
 
 endif()

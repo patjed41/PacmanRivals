@@ -8,14 +8,14 @@ class TextureHolder {
 
 private:
 
-  std::map<std::string, sf::Texture> _textures;
+    std::map<std::string, sf::Texture> _textures;
 
-  static TextureHolder* _instance;
+    static TextureHolder* _instance;
 
 public:
 
-  TextureHolder();
+    TextureHolder();
 
-  static sf::Texture & GetTexture(const std::string &filename);
+    static sf::Texture & GetTexture(const std::string &filename);
 
 };
