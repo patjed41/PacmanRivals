@@ -24,8 +24,11 @@ int main() {
         TestCharacter character = TestCharacter(sprite, shared_map);
         character.correctR();
 
-        err::checkEqual(sprite.getGlobalBounds().left, character.getSprite().getGlobalBounds().left);
-        err::checkEqual(sprite.getGlobalBounds().top, character.getSprite().getGlobalBounds().top);
+        sf::Sprite expected_sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
+        sprite.setPosition(TILE_SIZE, TILE_SIZE);
+
+        err::checkEqual(expected_sprite.getGlobalBounds().left, character.getSprite().getGlobalBounds().left);
+        err::checkEqual(expected_sprite.getGlobalBounds().top, character.getSprite().getGlobalBounds().top);
 
         myfile.close();
     } else {
