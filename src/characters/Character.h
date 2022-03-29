@@ -10,11 +10,11 @@ class Character {
 
 protected:
 
-    sf::Sprite _sprite;
+    float _speed = 10;
 
-    float _speed;
+    sf::Sprite _sprite{};
 
-    std::shared_ptr<Map> map;
+    std::shared_ptr<Map> _map;
 
     enum Direction {
         LEFT,
@@ -24,6 +24,8 @@ protected:
     };
 
 public:
+
+    Character(sf::Sprite sprite, std::shared_ptr<Map> map);
 
     sf::FloatRect getPosition();
 

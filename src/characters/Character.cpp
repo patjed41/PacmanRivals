@@ -1,5 +1,12 @@
 #include "Character.h"
 
+#include <utility>
+
+Character::Character(sf::Sprite sprite, std::shared_ptr<Map> map) {
+    _sprite = sprite;
+    _map = std::move(map);
+}
+
 sf::FloatRect Character::getPosition() {
     return _sprite.getGlobalBounds();
 }
