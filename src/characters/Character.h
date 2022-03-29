@@ -12,7 +12,7 @@ protected:
 
     float _speed = 10;
 
-    sf::Sprite _sprite{};
+    sf::Sprite _sprite;
 
     std::shared_ptr<Map> _map;
 

@@ -23,12 +23,14 @@ void Character::correctRight() {
 
 void Character::correctLeft() {
     sf::FloatRect position = getPosition();
+    if(position.left == position.left / TILE_SIZE * TILE_SIZE) return;
     position.left = (position.left / TILE_SIZE + 1) * TILE_SIZE;
     _sprite.setPosition(position.left, position.top);
 }
 
 void Character::correctUp() {
     sf::FloatRect position = getPosition();
+    if(position.top == position.top / TILE_SIZE * TILE_SIZE) return;
     position.top = (position.top / TILE_SIZE + 1) * TILE_SIZE;
     _sprite.setPosition(position.left, position.top);
 }
