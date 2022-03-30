@@ -25,10 +25,10 @@ int main() {
         character.correctD();
 
         sf::Sprite expected_sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
-        sprite.setPosition(TILE_SIZE, TILE_SIZE);
+        expected_sprite.setPosition(TILE_SIZE, TILE_SIZE);
 
-        err::checkEqual(expected_sprite.getGlobalBounds().left, character.getSprite().getGlobalBounds().left);
-        err::checkEqual(expected_sprite.getGlobalBounds().top, character.getSprite().getGlobalBounds().top);
+        err::checkEqual(expected_sprite.getGlobalBounds().left, character.getPosition().left);
+        err::checkEqual(expected_sprite.getGlobalBounds().top, character.getPosition().top);
 
         myfile.close();
     } else {

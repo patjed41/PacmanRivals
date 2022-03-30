@@ -12,7 +12,7 @@ protected:
 
     float _speed = 10;
 
-    sf::Sprite _sprite;
+    sf::Sprite _sprite{};
 
     std::shared_ptr<Map> _map;
 
@@ -20,8 +20,11 @@ protected:
         LEFT,
         RIGHT,
         UP,
-        DOWN
+        DOWN,
+        STOP
     };
+
+    Direction _direction;
 
 public:
 
@@ -32,6 +35,10 @@ public:
     sf::Sprite &getSprite();
 
     virtual void update(float dt_as_seconds) = 0;
+
+private:
+
+    bool reachedNewTile(float dt_as_seconds);
 
 protected:
 

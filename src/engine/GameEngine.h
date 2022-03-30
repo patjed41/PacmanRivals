@@ -17,7 +17,7 @@ private:
 
     LevelManager _level_manager;
 
-    bool _new_map_indeed;
+    bool _new_map_needed;
 
     void input();
 
