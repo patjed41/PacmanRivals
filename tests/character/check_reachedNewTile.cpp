@@ -4,6 +4,8 @@
 #include "../../include/err.h"
 #include "TestCharacter.h"
 
+#include <iostream>
+
 int main() {
     TextureHolder textureHolder;
 
@@ -15,7 +17,7 @@ int main() {
     // Right
     sprite.setPosition(TILE_SIZE - 5, TILE_SIZE);
     character = TestCharacter(sprite, map);
-    character.turnD();
+    character.turnR();
     err::check(character.checkReachedNewTile(1.f), 1);
     err::check(!character.checkReachedNewTile(0.1f), 2);
 

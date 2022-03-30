@@ -6,35 +6,20 @@
 
 int main() {
     TextureHolder textureHolder;
-    LevelManager manager = LevelManager();
 
-    manager.loadNewLevel();
-    auto grid = manager.getGrid();
+    sf::Sprite sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
+    sprite.setPosition(TILE_SIZE, TILE_SIZE - 1);
 
-    std::ifstream myfile;
-    myfile.open("../assets/maps/grids/grid1.txt");
+    std::shared_ptr shared_map = std::make_shared<Map>();
 
-    if (myfile.is_open()) {
-        sf::Sprite sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
-        sprite.setPosition(TILE_SIZE, TILE_SIZE - 1);
+    TestCharacter character = TestCharacter(sprite, shared_map);
+    character.correctU();
 
-        Map map = Map();
-        std::shared_ptr shared_map = std::make_shared<Map>();
+    sf::Sprite expected_sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
+    expected_sprite.setPosition(TILE_SIZE, TILE_SIZE);
 
-        TestCharacter character = TestCharacter(sprite, shared_map);
-        character.correctU();
-
-        sf::Sprite expected_sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
-        expected_sprite.setPosition(TILE_SIZE, TILE_SIZE);
-
-        err::checkEqual(expected_sprite.getGlobalBounds().left, character.getPosition().left);
-        err::checkEqual(expected_sprite.getGlobalBounds().top, character.getPosition().top);
-
-        myfile.close();
-    } else {
-        std::cerr << "Can't find input file" << std::endl;
-        exit(1);
-    }
+    err::checkEqual(expected_sprite.getGlobalBounds().left, character.getPosition().left);
+    err::checkEqual(expected_sprite.getGlobalBounds().top, character.getPosition().top);
 
     return 0;
 }

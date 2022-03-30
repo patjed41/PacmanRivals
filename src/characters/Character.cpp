@@ -20,13 +20,13 @@ bool Character::reachedNewTile(float dt_as_seconds) {
     sf::FloatRect position = getPosition();
     switch (_direction) {
         case LEFT:
-            return (position.left) / TILE_SIZE != (position.left - _speed * dt_as_seconds) / TILE_SIZE;
+            return int(position.left / TILE_SIZE) != int((position.left - _speed * dt_as_seconds) / TILE_SIZE);
         case RIGHT:
-            return (position.left) / TILE_SIZE != (position.left + _speed * dt_as_seconds) / TILE_SIZE;
+            return int(position.left / TILE_SIZE) != int((position.left + _speed * dt_as_seconds) / TILE_SIZE);
         case UP:
-            return (position.top) / TILE_SIZE != (position.top - _speed * dt_as_seconds) / TILE_SIZE;
+            return int(position.top / TILE_SIZE) != int((position.top - _speed * dt_as_seconds) / TILE_SIZE);
         case DOWN:
-            return (position.top) / TILE_SIZE != (position.top + _speed * dt_as_seconds) / TILE_SIZE;
+            return int(position.top / TILE_SIZE) != int((position.top + _speed * dt_as_seconds) / TILE_SIZE);
         default:
             return false;
     }
