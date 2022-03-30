@@ -36,6 +36,8 @@ public:
 
     virtual void update(float dt_as_seconds) = 0;
 
+    virtual ~Character() = default;
+
 protected:
 
     bool reachedNewTile(float dt_as_seconds);
