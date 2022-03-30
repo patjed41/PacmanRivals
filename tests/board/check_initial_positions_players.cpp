@@ -30,8 +30,8 @@ int main() {
             int i, j;
             myfile >> i >> j;
 
-            err::check((int)spritePacMan[k].getPosition().x == j * MAP_WIDTH, k);
-            err::check((int)spritePacMan[k].getPosition().y == i * MAP_HEIGHT, k);
+            err::check(spritePacMan[k].getPosition().x == i * MAP_WIDTH, k);
+            err::check(spritePacMan[k].getPosition().y == j * MAP_HEIGHT, k);
         }
         myfile.close();
     } else {
