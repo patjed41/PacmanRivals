@@ -67,5 +67,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_correctRight tests/character/check_correctRight.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
     make_new_test(check_correctUp tests/character/check_correctUp.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
     make_new_test(check_correctDown tests/character/check_correctDown.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
+    make_new_test(check_reachedNewTile tests/character/check_reachedNewTile.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
 
 endif()

@@ -2,7 +2,7 @@
 #include "../../src/level-manager/LevelManager.h"
 #include "../../src/texture-holder/TextureHolder.h"
 #include "../../include/err.h"
-#include "TestCharacter.cpp"
+#include "TestCharacter.h"
 
 int main() {
     TextureHolder textureHolder;

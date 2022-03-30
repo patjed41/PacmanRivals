@@ -36,11 +36,9 @@ public:
 
     virtual void update(float dt_as_seconds) = 0;
 
-private:
+protected:
 
     bool reachedNewTile(float dt_as_seconds);
-
-protected:
 
     void correctRight();
 
