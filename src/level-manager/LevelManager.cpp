@@ -1,6 +1,7 @@
 #include "LevelManager.h"
 
 #include "../texture-holder/TextureHolder.h"
+#include "../characters/player/Pacman.h"
 
 std::shared_ptr<Map> LevelManager::getGrid() {
     return _grid;
@@ -10,8 +11,8 @@ std::vector<std::shared_ptr<int>> &LevelManager::getGhosts() {
     return _ghosts;
 }
 
-std::vector<std::shared_ptr<Player>> &LevelManager::getPlayers() {
-    return _players;
+std::vector<std::shared_ptr<Pacman>> &LevelManager::getPlayers() {
+    return _pacmans;
 }
 
 void LevelManager::loadNewGrid() {
@@ -88,7 +89,7 @@ void LevelManager::loadNewPlayers() {
         for (int k = 0; k < size; k++) {
             int i, j;
             myfile >> i >> j;
-            _players.emplace_back(std::make_shared<Player>(float(i) * TILE_SIZE, float(j) * TILE_SIZE));
+            _pacmans.emplace_back(std::make_shared<Pacman>(float(i) * TILE_SIZE, float(j) * TILE_SIZE));
         }
         myfile.close();
     } else {

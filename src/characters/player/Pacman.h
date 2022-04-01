@@ -13,11 +13,17 @@ private:
 
 public:
 
-    Pacman();
+    Pacman(float start_tile_x, float start_tile_y);
 
     void update(float dt_as_seconds) override;
 
-    void changeDirection(int d);
+    void turnLeft();
+
+    void turnRight();
+
+    void turnUp();
+
+    void turnDown();
 
 };
 

@@ -4,6 +4,7 @@
 
 #include "../texture-holder/TextureHolder.h"
 #include "../level-manager/LevelManager.h"
+#include "../characters/player/Pacman.h"
 
 class GameEngine {
 
@@ -16,6 +17,8 @@ private:
     TextureHolder _texture_holder;
 
     LevelManager _level_manager;
+
+    std::vector<std::shared_ptr<Pacman>> _pacmans;
 
     bool _new_map_needed;
 
