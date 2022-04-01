@@ -1,5 +1,4 @@
 #include "../../src/map/Map.h"
-#include "../../src/level-manager/LevelManager.h"
 #include "../../src/texture-holder/TextureHolder.h"
 #include "../../include/err.h"
 #include "TestCharacter.h"

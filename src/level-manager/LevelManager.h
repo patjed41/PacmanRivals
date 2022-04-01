@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../map/Map.h"
+#include "../characters/player/Player.h"
 
 class LevelManager {
 
@@ -15,7 +16,7 @@ private:
     std::shared_ptr<Map> _grid;
     //todo: int -> proper class
     std::vector<std::shared_ptr<int>> _ghosts;
-    std::vector<sf::Vector2i> _players_positions;
+    std::vector<std::shared_ptr<Player>> _players;
 
     void loadNewGrid();
     void loadNewGhosts();
@@ -29,7 +30,7 @@ public:
 
     std::vector<std::shared_ptr<int>> &getGhosts();
 
-    std::vector<sf::Vector2i> &getPlayersPositions();
+    std::vector<std::shared_ptr<Player>> &getPlayers();
 
     void loadNewLevel();
 
