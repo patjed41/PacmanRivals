@@ -12,5 +12,10 @@ void GameEngine::draw() {
         }
     }
 
+    std::vector<std::shared_ptr<Player>> players = _level_manager.getPlayers();
+    for (int i = 0; i < players.size(); i++) {
+        _window.draw((*players[i].get()).getSprite());
+    }
+
     _window.display();
 }

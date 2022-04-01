@@ -7,16 +7,16 @@ int main() {
     LevelManager manager = LevelManager();
 
     manager.loadNewLevel();
-    std::vector<sf::Vector2i> players_positions = manager.getPlayersPositions();
+    std::vector<std::shared_ptr<Player>> players = manager.getPlayers();
 
     sf::Texture texturePacMan;
     texturePacMan.loadFromFile("../assets/graphics/pac-man.png");
-    std::vector<sf::Sprite> spritePacMan(players_positions.size());
+    std::vector<sf::Sprite> spritePacMan(players.size());
 
 
-    for (int i = 0; i < players_positions.size(); i++) {
+    for (int i = 0; i < players.size(); i++) {
         spritePacMan[i].setTexture(texturePacMan);
-        spritePacMan[i].setPosition(players_positions[i].x * MAP_WIDTH, players_positions[i].y * MAP_HEIGHT);
+        spritePacMan[i].setPosition((*players[i].get()).getSprite().getGlobalBounds().left, (*players[i].get()).getSprite().getGlobalBounds().top);
     }
 
     std::ifstream myfile;
@@ -30,8 +30,8 @@ int main() {
             int i, j;
             myfile >> i >> j;
 
-            err::check(spritePacMan[k].getPosition().x == i * MAP_WIDTH, k);
-            err::check(spritePacMan[k].getPosition().y == j * MAP_HEIGHT, k);
+            err::check(spritePacMan[k].getPosition().x == i * TILE_SIZE, k);
+            err::check(spritePacMan[k].getPosition().y == j * TILE_SIZE, k);
         }
         myfile.close();
     } else {

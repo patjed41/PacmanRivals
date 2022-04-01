@@ -28,6 +28,8 @@ protected:
 
 public:
 
+    Character() = default;
+
     Character(sf::Sprite sprite, std::shared_ptr<Map> map);
 
     sf::FloatRect getPosition();
