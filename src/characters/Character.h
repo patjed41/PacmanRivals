@@ -10,7 +10,7 @@ class Character {
 
 protected:
 
-    float _speed = 30;
+    float _speed = 100;
 
     sf::Sprite _sprite{};
 
