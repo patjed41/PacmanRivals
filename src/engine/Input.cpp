@@ -16,4 +16,18 @@ void GameEngine::input() {
     }
 
     // handle player input
+
+    while (_window.pollEvent(event)) {
+        if(event.type == sf::Event::KeyPressed) {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+
+            }
+        }
+    }
 }
