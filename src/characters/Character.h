@@ -10,18 +10,18 @@ class Character {
 
 protected:
 
-    float _speed = 10;
+    float _speed = 30;
 
     sf::Sprite _sprite{};
 
     std::shared_ptr<Map> _map;
 
     enum Direction {
-        LEFT,
-        RIGHT,
-        UP,
-        DOWN,
-        STOP
+        LEFT = 0,
+        RIGHT = 1,
+        UP = 2,
+        DOWN = 3,
+        STOP = 4
     };
 
     Direction _direction;

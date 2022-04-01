@@ -14,6 +14,8 @@ public:
 
     sf::Sprite &getSprite();
 
+    void update(float dt_as_seconds);
+
     void turnRight();
 
     void turnLeft();

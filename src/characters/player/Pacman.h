@@ -17,5 +17,7 @@ public:
 
     void update(float dt_as_seconds) override;
 
+    void changeDirection(int d);
+
 };
 
