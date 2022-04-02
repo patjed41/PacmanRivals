@@ -14,13 +14,13 @@ void GameEngine::input() {
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                (*_pacmans[0].get()).turnLeft();
+                _pacmans[0].get()->turnLeft();
             } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                (*_pacmans[0].get()).turnRight();
+                _pacmans[0].get()->turnRight();
             } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                (*_pacmans[0].get()).turnUp();
+                _pacmans[0].get()->turnUp();
             } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                (*_pacmans[0].get()).turnDown();
+                _pacmans[0].get()->turnDown();
             }
         }
     }
