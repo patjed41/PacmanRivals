@@ -1,7 +1,6 @@
 #include "Pacman.h"
 
 #include <utility>
-#include <iostream>
 #include "../../texture-holder/TextureHolder.h"
 
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
@@ -121,10 +120,6 @@ void Pacman::update(float dt_as_seconds) {
     if (!reachedNewTile(dt_as_seconds)) {
         move(dt_as_seconds);
     } else {
-        std::cerr << "current_tile: " << current_tile.x << " " << current_tile.y << '\n';
-        std::cerr << "new_tile: " << new_tile.x << " " << new_tile.y << '\n';
-        std::cerr << "tile_in_new_direction: " << tile_in_new_direction.x << " " << tile_in_new_direction.y << '\n';
-        std::cerr << "Skręcam z: " << getPosition().left << " " << getPosition().top << "\n";
         move(dt_as_seconds);
         if (_direction == _new_direction) {
             if(_map.get()->getTiles()[new_tile.y][new_tile.x].isWall()) {
@@ -133,9 +128,7 @@ void Pacman::update(float dt_as_seconds) {
             }
         } else {
             if (!_map.get()->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
-                std::cerr << "Skręcam z: " << getPosition().left << " " << getPosition().top << "\n";
                 correct();
-                std::cerr << "Skręcam z: " << getPosition().left << " " << getPosition().top << " do: " << tile_in_new_direction.x << " " << tile_in_new_direction.y << '\n';
                 _direction = _new_direction;
                 move(dt_as_seconds);
             } else if (_map.get()->getTiles()[new_tile.y][new_tile.x].isWall()) {
@@ -144,14 +137,6 @@ void Pacman::update(float dt_as_seconds) {
             }
         }
     }
-//        pójście do przodu - spr czy nowy to ściana i przesuwanie
-//          skręcanie - spr czy jest ściana na tilu na który chcemy wejsć
-//              - nie ma ściany - przesuniecie, correct, zmiana kierunku, przesunięcie
-//              - jest ściana tam gdzie chcemy skręcić, ale tam gdzie idziemy nie ma ściany to kontunuujemy ruch
-//              - jest ściana tam gdzie chcemy skręcić i tam gdzie idziemy, przesunięcie, correct, stop
-//      co jak kierunek to stop:
-//      spr new direction i jak sciana to nic jak nie to przesuwamy
-
 }
 
 void Pacman::turnLeft() {
