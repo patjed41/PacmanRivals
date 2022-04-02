@@ -44,6 +44,8 @@ protected:
 
     bool reachedNewTile(float dt_as_seconds);
 
+    sf::Vector2i positionOfNewTile(float dt_as_seconds);
+
     void correctRight();
 
     void correctLeft();
