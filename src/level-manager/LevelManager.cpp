@@ -1,12 +1,15 @@
 #include "LevelManager.h"
 
+#include "../characters/ghosts/LinearGhost.h"
+#include "../characters/ghosts/CycleGhost.h"
+#include "../characters/ghosts/RandomGhost.h"
 #include "../texture-holder/TextureHolder.h"
 
 std::shared_ptr<Map> LevelManager::getGrid() {
     return _grid;
 }
 
-std::vector<std::shared_ptr<int>> &LevelManager::getGhosts() {
+std::vector<std::shared_ptr<Ghost>> &LevelManager::getGhosts() {
     return _ghosts;
 }
 
@@ -35,13 +38,15 @@ void LevelManager::loadNewGrid() {
 
 // wersja tmp
 enum GhostEnum {
+    LINEAR,
+    CYCLE,
     RANDOM,
-    NOTRANDOM,
 };
 
 GhostEnum convert(const std::string& str) {
-    if (str == "random") return RANDOM;
-    else if (str == "not_random") return NOTRANDOM;
+    if (str == "linear") return LINEAR;
+    else if (str == "cycle") return CYCLE;
+    else if (str == "random") return RANDOM;
     else return RANDOM; // space holder
 }
 
@@ -49,26 +54,32 @@ void LevelManager::loadNewGhosts() {
     std::ifstream myfile;
     myfile.open("../assets/maps/ghosts/ghosts1.txt");
 
-    std::vector<sf::Sprite> ghosts;
     if (myfile.is_open()) {
         int size;
         myfile >> size;
 
         for (int k = 0; k < size; k++) {
-            ghosts.emplace_back(TextureHolder::GetTexture("../assets/graphics/ghost-pink.png"));
             std::string type;
             int i, j, n;
             myfile >> type;
             GhostEnum ghost_type = convert(type);
             switch (ghost_type) {
-                case RANDOM :
+                case LINEAR : {
+                    myfile >> i >> j >> n;
+                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<LinearGhost>(_grid, i, j, n)));
+                    break;
+                }
+                case CYCLE : {
                     myfile >> i >> j;
+                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<CycleGhost>(_grid, i, j)));
                     break;
-                case NOTRANDOM :
-                    myfile >> n >> i >> j;
+                }
+                case RANDOM : {
+                    myfile >> i >> j;
+                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<RandomGhost>(_grid, i, j)));
                     break;
+                }
             }
-            ghosts[k].setPosition(j * TILE_SIZE, i * TILE_SIZE);
         }
         myfile.close();
     } else {
@@ -100,12 +111,10 @@ void LevelManager::loadNewPlayers() {
 void LevelManager::loadNewLevel() {
     // todo: inteligentne wybieranie numeru planszy
     loadNewGrid();
-    loadNewGhosts();
     loadNewPlayers();
+    loadNewGhosts();
 }
 
 LevelManager::LevelManager() {
     _grid = std::make_shared<Map>();
 }
-
-

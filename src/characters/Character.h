@@ -17,16 +17,18 @@ protected:
     std::shared_ptr<Map> _map;
 
     enum Direction {
-        LEFT,
-        RIGHT,
-        UP,
-        DOWN,
-        STOP
+        LEFT = 0,
+        RIGHT = 1,
+        UP = 2,
+        DOWN = 3,
+        STOP = 4
     };
 
     Direction _direction;
 
 public:
+
+    Character() = default;
 
     Character(sf::Sprite sprite, std::shared_ptr<Map> map);
 

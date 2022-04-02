@@ -22,8 +22,12 @@ set(SOURCE_FILES
         src/texture-holder/TextureHolder.cpp
         src/map/Tile.cpp
         src/map/Map.cpp
-        src/level-manager/LevelManager.cpp
-        src/characters/Character.cpp)
+        src/characters/Character.cpp
+        src/characters/ghosts/Ghost.cpp
+        src/characters/ghosts/LinearGhost.cpp
+        src/characters/ghosts/RandomGhost.cpp
+        src/characters/ghosts/CycleGhost.cpp
+        src/level-manager/LevelManager.cpp)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 

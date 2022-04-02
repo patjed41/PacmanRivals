@@ -1,4 +1,4 @@
 3
-random 7 6
-random 3 15
-random 4 2
+linear 5 9 1
+cycle 14 1
+random 1 17
