@@ -13,7 +13,7 @@ void GameEngine::draw() {
     }
 
     for (int i = 0; i < _pacmans.size(); i++) {
-        _window.draw((*_pacmans[i].get()).getSprite());
+        _window.draw(_pacmans[i].get()->getSprite());
     }
 
     _window.display();

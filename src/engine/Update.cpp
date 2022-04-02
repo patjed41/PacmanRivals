@@ -9,6 +9,6 @@ void GameEngine::update(float dt_as_seconds) {
     }
 
     for (int i = 0; i < _pacmans.size(); ++i) {
-        (*_pacmans[i].get()).update(dt_as_seconds);
+        _pacmans[i].get()->update(dt_as_seconds);
     }
 }
