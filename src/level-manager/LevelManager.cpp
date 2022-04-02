@@ -89,7 +89,7 @@ void LevelManager::loadNewPlayers() {
         for (int k = 0; k < size; k++) {
             int i, j;
             myfile >> i >> j;
-            _pacmans.emplace_back(std::make_shared<Pacman>(float(i) * TILE_SIZE, float(j) * TILE_SIZE));
+            _pacmans.emplace_back(std::make_shared<Pacman>(_grid, float(i) * TILE_SIZE, float(j) * TILE_SIZE));
         }
         myfile.close();
     } else {

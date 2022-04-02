@@ -1,15 +1,22 @@
 #include "Pacman.h"
+
+#include <utility>
 #include "../../texture-holder/TextureHolder.h"
 
-Pacman::Pacman(float start_tile_x, float start_tile_y) : Character() {
+Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pac-man.png"));
+    _sprite.setPosition(start_tile_x, start_tile_y);
     _direction = STOP;
     _new_direction = STOP;
-    _sprite.setPosition(start_tile_x, start_tile_y);
+    _map = std::move(map);
 }
 
 void Pacman::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
+        sf::Vector2i new_tile = positionOfNewTile(dt_as_seconds);
+        if (_map.get()->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            _direction = _new_direction = STOP;
+        }
         if (_direction != _new_direction && _direction + _new_direction != 1 && _direction + _new_direction != 5) {
 //        zawracanie
             if (_direction == LEFT) {

@@ -13,7 +13,7 @@ private:
 
 public:
 
-    Pacman(float start_tile_x, float start_tile_y);
+    Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);
 
     void update(float dt_as_seconds) override;
 
