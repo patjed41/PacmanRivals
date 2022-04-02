@@ -108,6 +108,16 @@ void Pacman::update(float dt_as_seconds) {
         return;
     }
 
+    if (_direction == RIGHT) {
+        current_tile = {(int)(position.left + position.width) / TILE_SIZE, (int)position.top / TILE_SIZE};
+        new_tile = positionOfNewTile(current_tile);
+        tile_in_new_direction = positionOfTileInNewDirection(current_tile);
+    } else if (_direction == DOWN) {
+        current_tile = {(int)position.left / TILE_SIZE, (int)(position.top + position.height) / TILE_SIZE};
+        new_tile = positionOfNewTile(current_tile);
+        tile_in_new_direction = positionOfTileInNewDirection(current_tile);
+    }
+
     if (!reachedNewTile(dt_as_seconds)) {
         move(dt_as_seconds);
     } else {
