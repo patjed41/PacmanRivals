@@ -22,11 +22,11 @@ bool Character::reachedNewTile(float dt_as_seconds) {
         case LEFT:
             return int(position.left / TILE_SIZE) != int((position.left - _speed * dt_as_seconds) / TILE_SIZE);
         case RIGHT:
-            return int((position.left) / TILE_SIZE) != int((position.left + position.width + _speed * dt_as_seconds) / TILE_SIZE);
+            return int((position.left + position.width) / TILE_SIZE) != int((position.left + position.width + _speed * dt_as_seconds) / TILE_SIZE);
         case UP:
             return int(position.top / TILE_SIZE) != int((position.top - _speed * dt_as_seconds) / TILE_SIZE);
         case DOWN:
-            return int((position.top) / TILE_SIZE) != int((position.top + position.height + _speed * dt_as_seconds) / TILE_SIZE);
+            return int((position.top + position.height) / TILE_SIZE) != int((position.top + position.height + _speed * dt_as_seconds) / TILE_SIZE);
         default:
             return false;
     }
