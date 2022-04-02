@@ -5,7 +5,7 @@ class TestCharacter : public Character {
 public:
 
     TestCharacter(sf::Sprite sprite, std::shared_ptr<Map> map) : Character(sprite, map) {
-
+        _speed = 10;
     }
 
     void update(float dt_as_seconds) override {
