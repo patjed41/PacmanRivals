@@ -7,7 +7,7 @@
 
 class Pacman : public Character {
 
-private:
+protected:
 
     Direction _new_direction;
 
