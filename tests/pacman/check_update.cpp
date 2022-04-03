@@ -8,7 +8,7 @@ int main() {
 
     std::shared_ptr shared_map = std::make_shared<Map>();
 
-//    początkowy kierunek STOP i chcemy w lewo
+//    direction at the beginning - STOP, we want to turn RIGHT
     TestPacman pacman1 = TestPacman(shared_map, 5, 5);
     pacman1.turnR();
     pacman1.test_update(1.f);
@@ -17,7 +17,7 @@ int main() {
     err::checkEqual(expected_position1.x, pacman1.getPosition().left);
     err::checkEqual(expected_position1.y, pacman1.getPosition().top);
 
-//  zawracanie
+//  turing back
     TestPacman pacman2 = TestPacman(shared_map, 5, 5);
     pacman2.dirR();
     pacman2.turnL();
@@ -27,7 +27,7 @@ int main() {
     err::checkEqual(expected_position2.x, pacman2.getPosition().left);
     err::checkEqual(expected_position2.y, pacman2.getPosition().top);
 
-//    osiągnięto nowe pole i skręcamy
+//    new tile reached and we want to turn 90 degrees
     TestPacman pacman3 = TestPacman(shared_map, 50, 50);
     pacman3.dirL();
     pacman3.turnD();
@@ -37,7 +37,7 @@ int main() {
     err::checkEqual(expected_position3.x, pacman3.getPosition().left);
     err::checkEqual(expected_position3.y, pacman3.getPosition().top);
 
-//    osiągnięto nowe pole i idziemy nadal w tym samym kierunku
+//    new tile reached, we want to move in the same direction
     TestPacman pacman4 = TestPacman(shared_map, 50, 90);
     pacman4.dirD();
     pacman4.turnD();

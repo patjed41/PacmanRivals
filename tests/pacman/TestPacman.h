@@ -21,7 +21,7 @@ public:
     }
 
     sf::Vector2i test_positionOfTileInNewDirection(sf::Vector2i new_tile) {
-        return positionOfTileInNewDirection(new_tile);
+        return positionOfTileInNewDirection(new_tile, _new_direction);
     }
 
     sf::Vector2i test_positionOfNewTile(sf::Vector2i tile) {
