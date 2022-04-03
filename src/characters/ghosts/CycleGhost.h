@@ -12,7 +12,7 @@ private:
 
 public:
 
-    CycleGhost(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y, std::vector<int> directions);
+    CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, std::vector<int> directions);
 
     void update(float dt_as_seconds) override;
 

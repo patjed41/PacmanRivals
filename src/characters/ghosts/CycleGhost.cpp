@@ -2,7 +2,7 @@
 
 #include "../../texture-holder/TextureHolder.h"
 
-CycleGhost::CycleGhost(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y, std::vector<int> directions) {
+CycleGhost::CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, std::vector<int> directions) {
     _map = std::move(map);
 
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghost-green.png"));
