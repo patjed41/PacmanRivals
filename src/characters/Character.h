@@ -44,6 +44,8 @@ protected:
 
     bool reachedNewTile(float dt_as_seconds);
 
+    void correct();
+
     void correctRight();
 
     void correctLeft();
@@ -53,4 +55,3 @@ protected:
     void correctDown();
 
 };
-

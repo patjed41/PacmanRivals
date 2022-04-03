@@ -70,13 +70,17 @@ void LevelManager::loadNewGhosts() {
                     break;
                 }
                 case CYCLE : {
-                    myfile >> i >> j;
-                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<CycleGhost>(_grid, i, j)));
+                    myfile >> i >> j >> n;
+                    std::vector<int> directions(n);
+                    for (int l = 0; l < n; l++) {
+                        myfile >> directions[l];
+                    }
+                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<CycleGhost>(_grid, i, j, directions)));
                     break;
                 }
                 case RANDOM : {
-                    myfile >> i >> j;
-                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<RandomGhost>(_grid, i, j)));
+                    myfile >> i >> j >> n;
+                    _ghosts.emplace_back(std::static_pointer_cast<Ghost>(std::make_shared<RandomGhost>(_grid, i, j, n)));
                     break;
                 }
             }

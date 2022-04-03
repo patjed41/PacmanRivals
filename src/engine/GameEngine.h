@@ -17,6 +17,8 @@ private:
 
     LevelManager _level_manager;
 
+    std::vector<std::shared_ptr<Ghost>> _ghosts;
+
     bool _new_map_needed;
 
     void input();

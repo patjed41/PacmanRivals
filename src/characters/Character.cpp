@@ -33,6 +33,25 @@ bool Character::reachedNewTile(float dt_as_seconds) {
 
 }
 
+void Character::correct() {
+    switch (_direction) {
+        case RIGHT:
+            correctRight();
+            break;
+        case LEFT:
+            correctLeft();
+            break;
+        case UP:
+            correctUp();
+            break;
+        case DOWN:
+            correctDown();
+            break;
+        default:
+            break;
+    }
+}
+
 void Character::correctRight() {
     sf::FloatRect position = getPosition();
     position.left = std::floor(position.left / TILE_SIZE) * TILE_SIZE;
@@ -56,4 +75,3 @@ void Character::correctDown() {
     position.top = std::floor(position.top / TILE_SIZE) * TILE_SIZE;
     _sprite.setPosition(position.left, position.top);
 }
-

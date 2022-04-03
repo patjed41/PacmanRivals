@@ -13,10 +13,8 @@ void GameEngine::draw() {
         }
     }
 
-    std::vector<std::shared_ptr<Ghost>> ghosts = _level_manager.getGhosts();
-
-    for (int i = 0; i < ghosts.size(); i++) {
-        _window.draw((ghosts[i].get())->getSprite());
+    for (int i = 0; i < _ghosts.size(); i++) {
+        _window.draw((_ghosts[i].get())->getSprite());
     }
 
     _window.display();

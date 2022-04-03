@@ -1,27 +1,19 @@
 #pragma once
 
 #include "Ghost.h"
-#include "../../texture-holder/TextureHolder.h"
-
-#include <memory>
 
 class CycleGhost : public Ghost {
 
+private:
+
+    size_t _cycle_index = 0;
+
+    std::vector<int> _directions;
+
 public:
 
-    CycleGhost(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);
+    CycleGhost(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y, std::vector<int> directions);
 
     void update(float dt_as_seconds) override;
 
 };
-
-CycleGhost::CycleGhost(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) {
-    _map = std::move(map);
-
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghost-green.png"));
-    _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
-}
-
-void CycleGhost::update(float dt_as_seconds) {
-
-}
