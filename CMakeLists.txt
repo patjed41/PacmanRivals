@@ -46,9 +46,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     enable_testing()
 
     # Macro that allows tests to be easily added (usage below).
-    macro(make_new_test TEST_NAME)
+    macro(make_new_test TEST_NAME TEST_FOLDER)
         # Creating test executable.
-        add_executable(${TEST_NAME} ${ARGN})
+        add_executable(${TEST_NAME} "tests/${TEST_FOLDER}/${TEST_NAME}.cpp" ${ARGN})
         # Setting flags required for code coverage.
         target_compile_options(${TEST_NAME} PUBLIC "-O0" "-fprofile-arcs" "-ftest-coverage")
         # Linking gcov - library that handles code coverage.
@@ -61,19 +61,50 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         set_tests_properties(${TEST_NAME} PROPERTIES FAIL_REGULAR_EXPRESSION "^FAIL")
     endmacro()
 
+    # Groups of source files common for many tests:
+    set(TEST_FILES
+            src/texture-holder/TextureHolder.cpp
+            )
+
+    set(CHARACTER_FILES
+            ${TEST_FILES}
+            src/characters/Character.cpp
+            src/map/Map.cpp
+            src/map/Tile.cpp
+            )
+
+    set(GHOST_FILES
+            ${CHARACTER_FILES}
+            #todo
+            )
+
+    set(PLAYER_FILES
+            ${CHARACTER_FILES}
+            src/characters/player/Pacman.cpp
+            )
+
+    set(LEVEL_FILES
+            ${GHOST_FILES}
+            ${PLAYER_FILES}
+            src/level-manager/LevelManager.cpp
+            )
+
     # Tests:
-    make_new_test(check_initial_positions tests/board/check_initial_positions_players.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/player/Pacman.cpp src/characters/Character.cpp)
-    make_new_test(check_initial_board tests/board/check_initial_board.cpp src/level-manager/LevelManager.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/player/Pacman.cpp src/characters/Character.cpp)
-    make_new_test(check_correctLeft tests/character/check_correctLeft.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
-    make_new_test(check_correctRight tests/character/check_correctRight.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
-    make_new_test(check_correctUp tests/character/check_correctUp.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
-    make_new_test(check_correctDown tests/character/check_correctDown.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
-    make_new_test(check_reachedNewTile tests/character/check_reachedNewTile.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp)
-    make_new_test(check_turnLeft tests/pacman/check_turnLeft.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
-    make_new_test(check_turnRight tests/pacman/check_turnRight.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
-    make_new_test(check_turnUp tests/pacman/check_turnUp.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
-    make_new_test(check_turnDown tests/pacman/check_turnDown.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
-    make_new_test(check_turningBack tests/pacman/check_turningBack.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
-    make_new_test(check_move tests/pacman/check_move.cpp src/map/Map.cpp src/map/Tile.cpp src/texture-holder/TextureHolder.cpp src/characters/Character.cpp src/characters/player/Pacman.cpp)
+    make_new_test(check_initial_positions_players board ${LEVEL_FILES})
+    make_new_test(check_initial_board board ${LEVEL_FILES})
+    make_new_test(check_correctLeft character ${CHARACTER_FILES})
+    make_new_test(check_correctRight character ${CHARACTER_FILES})
+    make_new_test(check_correctUp character ${CHARACTER_FILES})
+    make_new_test(check_correctDown character ${CHARACTER_FILES})
+    make_new_test(check_reachedNewTile character ${CHARACTER_FILES})
+    make_new_test(check_turnLeft pacman ${PLAYER_FILES} )
+    make_new_test(check_turnRight pacman ${PLAYER_FILES})
+    make_new_test(check_turnUp pacman ${PLAYER_FILES})
+    make_new_test(check_turnDown pacman ${PLAYER_FILES})
+    make_new_test(check_turningBack pacman ${PLAYER_FILES})
+    make_new_test(check_move pacman ${PLAYER_FILES})
+    make_new_test(check_positionOfTileInNewDirection pacman ${PLAYER_FILES})
+    make_new_test(check_positionOfNewTile pacman ${PLAYER_FILES})
+    make_new_test(check_update pacman ${PLAYER_FILES})
 
 endif()
