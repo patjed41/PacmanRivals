@@ -1,5 +1,6 @@
 #include "RandomGhost.h"
 
+#include "../../../include/random.h"
 #include "../../texture-holder/TextureHolder.h"
 
 RandomGhost::RandomGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, int direction) {
@@ -11,7 +12,7 @@ RandomGhost::RandomGhost(std::shared_ptr<Map> map, int start_tile_x, int start_t
     _direction = static_cast<Direction>(direction);
 }
 
-void RandomGhost::randNewDirection() {
+Character::Direction RandomGhost::randNewDirection() {
     std::vector<Direction> directions;
 
     sf::Vector2i up_tile = getUpTile(), down_tile = getDownTile(), left_tile = getLeftTile(), right_tile = getRightTile();
@@ -42,26 +43,22 @@ void RandomGhost::randNewDirection() {
     }
 
     if (directions.empty()) {
-        _new_direction = _direction;
-        turnBack();
-        std::swap(_direction, _new_direction);
+        return getOppositeDirection();
     } else {
-        // TODO: wcale nie losuje liczby, zawsze są te same
-        size_t rand_idx = rand() % directions.size();
-        _new_direction = directions[rand_idx];
+        size_t rand_idx = random(0, (int) directions.size() - 1);
+        return directions[rand_idx];
     }
 }
 
 void RandomGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
-        randNewDirection();
+        Character::Direction new_direction = randNewDirection();
 
         moveForward(dt_as_seconds);
 
-        if (_direction != _new_direction) {
+        if (_direction != new_direction) {
             correct();
-            _direction = _new_direction;
-        } else{
+            _direction = new_direction;
             moveForward(dt_as_seconds);
         }
     } else {

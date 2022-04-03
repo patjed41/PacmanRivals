@@ -39,45 +39,45 @@ sf::Vector2i Ghost::getNextTile(sf::Vector2i tile) {
             res.y = tile.y + 1;
             return res;
         default:
-            return tile;
+            return res;
     }
 }
 
-void Ghost::turnBack() {
+Character::Direction Ghost::getOppositeDirection() {
     switch (_direction) {
         case LEFT:
-            _direction = RIGHT;
+            return RIGHT;
         case RIGHT:
-            _direction = LEFT;
+            return LEFT;
         case UP:
-            _direction = DOWN;
+            return DOWN;
         case DOWN:
-            _direction = UP;
+            return UP;
         default:
-            _direction =  STOP;
+            return STOP;
     }
 }
 
 sf::Vector2i Ghost::getUpTile() {
     sf::FloatRect pos = getPosition();
-    sf::Vector2i curr_tile = {(int) pos.left / TILE_SIZE, (int) pos.top / TILE_SIZE};
+    sf::Vector2i curr_tile = {(int) (pos.left / TILE_SIZE + 0.5), (int) (pos.top / TILE_SIZE + 0.5)};
     return {curr_tile.x, curr_tile.y - 1};
 }
 
 sf::Vector2i Ghost::getDownTile() {
     sf::FloatRect pos = getPosition();
-    sf::Vector2i curr_tile = {(int) pos.left / TILE_SIZE, (int) pos.top / TILE_SIZE};
+    sf::Vector2i curr_tile = {(int) (pos.left / TILE_SIZE + 0.5), (int) (pos.top / TILE_SIZE + 0.5)};
     return {curr_tile.x, curr_tile.y + 1};
 }
 
 sf::Vector2i Ghost::getLeftTile() {
     sf::FloatRect pos = getPosition();
-    sf::Vector2i curr_tile = {(int) pos.left / TILE_SIZE, (int) pos.top / TILE_SIZE};
+    sf::Vector2i curr_tile = {(int) (pos.left / TILE_SIZE + 0.5), (int) (pos.top / TILE_SIZE + 0.5)};
     return {curr_tile.x - 1, curr_tile.y};
 }
 
 sf::Vector2i Ghost::getRightTile() {
     sf::FloatRect pos = getPosition();
-    sf::Vector2i curr_tile = {(int) pos.left / TILE_SIZE, (int) pos.top / TILE_SIZE};
+    sf::Vector2i curr_tile = {(int) (pos.left / TILE_SIZE + 0.5), (int) (pos.top / TILE_SIZE + 0.5)};
     return {curr_tile.x + 1, curr_tile.y};
 }

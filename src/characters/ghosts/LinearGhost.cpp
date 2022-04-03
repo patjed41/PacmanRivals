@@ -15,14 +15,14 @@ void LinearGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
         sf::FloatRect curr_position = getPosition();
 
-        sf::Vector2i curr_tile = {(int) curr_position.left / TILE_SIZE, (int) curr_position.top / TILE_SIZE};
+        sf::Vector2i curr_tile = {(int) (curr_position.left / TILE_SIZE + 0.5), (int) (curr_position.top / TILE_SIZE + 0.5)};
         sf::Vector2i next_tile = getNextTile(curr_tile);
 
         moveForward(dt_as_seconds);
 
         if (_map.get()->getTiles()[next_tile.y][next_tile.x].isWall()) {
             correct();
-            turnBack();
+            _direction = getOppositeDirection();
             moveForward(dt_as_seconds);
         }
     } else {

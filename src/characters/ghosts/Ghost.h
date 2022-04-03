@@ -14,7 +14,7 @@ protected:
 
     sf::Vector2i getNextTile(sf::Vector2i tile);
 
-    void turnBack();
+    Character::Direction getOppositeDirection();
 
     sf::Vector2i getUpTile();
 
