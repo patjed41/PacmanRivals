@@ -15,9 +15,9 @@ int main() {
     cyc_ghost.test_moveForward(1.f);
     ran_ghost.test_moveForward(1.f);
 
-    err::checkEqual(lin_ghost.getPosition().left, 11.f);
-    err::checkEqual(lin_ghost.getPosition().left, 12.f);
-    err::checkEqual(lin_ghost.getPosition().top, 13.f);
+    err::checkEqualFloat(lin_ghost.getPosition().left, 60.f);
+    err::checkEqualFloat(cyc_ghost.getPosition().left, 110.f);
+    err::checkEqualFloat(ran_ghost.getPosition().top, 160.f);
 
     return 0;
 }

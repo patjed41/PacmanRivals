@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <cmath>
+
+#define EPSILON 0.001
 
 namespace err {
 
@@ -44,6 +47,30 @@ namespace err {
     template<typename T>
     inline void checkEqual(T a, T b, std::string message) {
         if (a != b) {
+            std::cout << "FAIL: " << message << ", expected " << a << ", actual " << b;
+            exit(0);
+        }
+    }
+
+    inline void checkEqualFloat(float a, float b) {
+        float diff = std::fabs(a - b);
+        if (diff > EPSILON) {
+            std::cout << "FAIL: expected " << a << ", actual " << b;
+            exit(0);
+        }
+    }
+
+    inline void checkEqualFloat(float a, float b, int label) {
+        float diff = std::fabs(a - b);
+        if (diff > EPSILON) {
+            std::cout << "FAIL - " << label << ": expected " << a << ", actual " << b;
+            exit(0);
+        }
+    }
+
+    inline void checkEqualFloat(float a, float b, std::string message) {
+        float diff = std::fabs(a - b);
+        if (diff > EPSILON) {
             std::cout << "FAIL: " << message << ", expected " << a << ", actual " << b;
             exit(0);
         }
