@@ -4,8 +4,8 @@
 #include "../texture-holder/TextureHolder.h"
 
 Coin::Coin(float tile_x, float tile_y) {
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/coin.png"));
-    _sprite.setPosition(tile_x, tile_y);
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/coin2.png"));
+    _sprite.setPosition(tile_x + (TILE_SIZE - COIN_SIZE) / 2, tile_y + (TILE_SIZE - COIN_SIZE) / 2);
 }
 
 void Coin::Take() {
