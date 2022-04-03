@@ -24,7 +24,8 @@ set(SOURCE_FILES
         src/map/Map.cpp
         src/level-manager/LevelManager.cpp
         src/characters/Character.cpp
-        src/characters/player/Pacman.cpp)
+        src/characters/player/Pacman.cpp
+        src/coins/Coin.cpp)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
