@@ -19,80 +19,13 @@ bool Pacman::turningBack() {
     return false;
 }
 
-void Pacman::move(float dt_as_seconds) {
-    switch (_direction) {
-        case LEFT:
-            _sprite.setPosition(getPosition().left - _speed * dt_as_seconds, getPosition().top);
-            break;
-        case RIGHT:
-            _sprite.setPosition(getPosition().left + _speed * dt_as_seconds, getPosition().top);
-            break;
-        case UP:
-            _sprite.setPosition(getPosition().left, getPosition().top - _speed * dt_as_seconds);
-            break;
-        case DOWN:
-            _sprite.setPosition(getPosition().left, getPosition().top + _speed * dt_as_seconds);
-            break;
-        default:
-            return;
-    }
-}
-
-sf::Vector2i Pacman::positionOfNewTile(sf::Vector2i tile) {
-    sf::Vector2i position;
-    switch (_direction) {
-        case LEFT:
-            position.x = tile.x - 1;
-            position.y = tile.y;
-            return position;
-        case RIGHT:
-            position.x = tile.x + 1;
-            position.y = tile.y;
-            return position;
-        case UP:
-            position.x = tile.x;
-            position.y = tile.y - 1;
-            return position;
-        case DOWN:
-            position.x = tile.x;
-            position.y = tile.y + 1;
-            return position;
-        default:
-            return position;
-    }
-}
-
-sf::Vector2i Pacman::positionOfTileInNewDirection(sf::Vector2i tile) {
-    sf::Vector2i position;
-    switch (_new_direction) {
-        case LEFT:
-            position.x = tile.x - 1;
-            position.y = tile.y;
-            return position;
-        case RIGHT:
-            position.x = tile.x + 1;
-            position.y = tile.y;
-            return position;
-        case UP:
-            position.x = tile.x;
-            position.y = tile.y - 1;
-            return position;
-        case DOWN:
-            position.x = tile.x;
-            position.y = tile.y + 1;
-            return position;
-        default:
-            return position;
-    }
-}
-
 void Pacman::update(float dt_as_seconds) {
 
     sf::FloatRect position = getPosition();
 
     sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
     sf::Vector2i new_tile = positionOfNewTile(current_tile);
-    sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile);
+    sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
     if (_direction == STOP) {
         if(!_map.get()->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
@@ -110,11 +43,11 @@ void Pacman::update(float dt_as_seconds) {
     if (_direction == RIGHT) {
         current_tile = {(int)(position.left + position.width) / TILE_SIZE, (int)position.top / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
-        tile_in_new_direction = positionOfTileInNewDirection(current_tile);
+        tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
     } else if (_direction == DOWN) {
         current_tile = {(int)position.left / TILE_SIZE, (int)(position.top + position.height) / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
-        tile_in_new_direction = positionOfTileInNewDirection(current_tile);
+        tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
     }
 
     if (!reachedNewTile(dt_as_seconds)) {
