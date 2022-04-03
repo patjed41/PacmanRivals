@@ -90,6 +90,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
             src/level-manager/LevelManager.cpp
             )
 
+    set(COINS_FILES
+            ${TEST_FILES}
+            src/coins/Coin.cpp
+            )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -107,5 +112,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_positionOfTileInNewDirection pacman ${PLAYER_FILES})
     make_new_test(check_positionOfNewTile pacman ${PLAYER_FILES})
     make_new_test(check_update pacman ${PLAYER_FILES})
+    make_new_test(check_coins coins ${COINS_FILES})
 
 endif()
