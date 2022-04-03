@@ -39,7 +39,7 @@ sf::Vector2i Ghost::getNextTile(sf::Vector2i tile) {
             res.y = tile.y + 1;
             return res;
         default:
-            return res;
+            return tile;
     }
 }
 

@@ -46,7 +46,8 @@ void RandomGhost::randNewDirection() {
         turnBack();
         std::swap(_direction, _new_direction);
     } else {
-        int rand_idx = rand() % directions.size();
+        // TODO: wcale nie losuje liczby, zawsze są te same
+        size_t rand_idx = rand() % directions.size();
         _new_direction = directions[rand_idx];
     }
 }
@@ -55,11 +56,15 @@ void RandomGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
         randNewDirection();
 
+        moveForward(dt_as_seconds);
+
         if (_direction != _new_direction) {
-            moveForward(dt_as_seconds);
             correct();
             _direction = _new_direction;
+        } else{
             moveForward(dt_as_seconds);
         }
+    } else {
+        moveForward(dt_as_seconds);
     }
 }
