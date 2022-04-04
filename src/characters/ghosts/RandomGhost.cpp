@@ -54,14 +54,14 @@ void RandomGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
         Character::Direction new_direction = randNewDirection();
 
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
 
         if (_direction != new_direction) {
             correct();
             _direction = new_direction;
-            moveForward(dt_as_seconds);
+            move(dt_as_seconds);
         }
     } else {
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
     }
 }

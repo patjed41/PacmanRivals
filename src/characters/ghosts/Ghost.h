@@ -10,18 +10,14 @@ public:
 
 protected:
 
-    void moveForward(float dt_as_seconds);
+    Character::Direction getOppositeDirection() const;
 
-    sf::Vector2i getNextTile(sf::Vector2i tile);
+    sf::Vector2i getUpTile() const;
 
-    Character::Direction getOppositeDirection();
+    sf::Vector2i getDownTile() const;
 
-    sf::Vector2i getUpTile();
+    sf::Vector2i getLeftTile() const;
 
-    sf::Vector2i getDownTile();
-
-    sf::Vector2i getLeftTile();
-
-    sf::Vector2i getRightTile();
+    sf::Vector2i getRightTile() const;
 
 };

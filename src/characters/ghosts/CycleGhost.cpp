@@ -16,14 +16,14 @@ void CycleGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds)) {
         _cycle_index = (_cycle_index + 1) % _directions.size();
 
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
 
         if (_direction != static_cast<Direction>(_directions[_cycle_index])) {
             correct();
             _direction = static_cast<Direction>(_directions[_cycle_index]);
-            moveForward(dt_as_seconds);
+            move(dt_as_seconds);
         }
     } else {
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
     }
 }

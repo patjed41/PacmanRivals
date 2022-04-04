@@ -18,10 +18,10 @@ public:
 
     void Take();
 
-    bool isTaken();
+    bool isTaken() const;
 
-    sf::Sprite &getSprite();
+    const sf::Sprite &getSprite() const;
 
-    sf::FloatRect getPosition();
+    sf::FloatRect getPosition() const;
 
 };
