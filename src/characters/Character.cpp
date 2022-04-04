@@ -4,11 +4,12 @@
 #include <cmath>
 
 Character::Character(sf::Sprite sprite, std::shared_ptr<Map> map) {
-    _sprite = sprite;
+    _direction = STOP;
+    _sprite = std::move(sprite);
     _map = std::move(map);
 }
 
-sf::FloatRect Character::getPosition() {
+sf::FloatRect Character::getPosition() const {
     return _sprite.getGlobalBounds();
 }
 
@@ -35,7 +36,7 @@ void Character::move(float dt_as_seconds) {
     }
 }
 
-sf::Vector2i Character::positionOfNewTile(sf::Vector2i tile) {
+sf::Vector2i Character::positionOfNewTile(sf::Vector2i tile) const {
     sf::Vector2i position;
     switch (_direction) {
         case LEFT:
@@ -59,7 +60,7 @@ sf::Vector2i Character::positionOfNewTile(sf::Vector2i tile) {
     }
 }
 
-sf::Vector2i Character::positionOfTileInNewDirection(sf::Vector2i tile, Direction _new_direction) {
+sf::Vector2i Character::positionOfTileInNewDirection(sf::Vector2i tile, Direction _new_direction) const {
     sf::Vector2i position;
     switch (_new_direction) {
         case LEFT:
@@ -83,7 +84,7 @@ sf::Vector2i Character::positionOfTileInNewDirection(sf::Vector2i tile, Directio
     }
 }
 
-bool Character::reachedNewTile(float dt_as_seconds) {
+bool Character::reachedNewTile(float dt_as_seconds) const {
     sf::FloatRect position = getPosition();
     switch (_direction) {
         case LEFT:

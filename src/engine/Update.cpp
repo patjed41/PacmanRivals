@@ -44,4 +44,13 @@ void GameEngine::update(float dt_as_seconds) {
             }
         }
     }
+
+    // collisions between Pacmans and Ghosts
+    for (auto & pacman : _pacmans) {
+        for (auto & ghost : _ghosts) {
+            if (!pacman->isDead() && pacman->getPosition().intersects(ghost->getPosition())) {
+                pacman->die();
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _sprite.setPosition(start_tile_x, start_tile_y);
     _direction = STOP;
     _new_direction = STOP;
+    _is_dead = false;
     _map = std::move(map);
 }
 
@@ -86,4 +87,12 @@ void Pacman::turnUp() {
 
 void Pacman::turnDown() {
     _new_direction = DOWN;
+}
+
+void Pacman::die() {
+    _is_dead = true;
+}
+
+bool Pacman::isDead() const {
+    return _is_dead;
 }
