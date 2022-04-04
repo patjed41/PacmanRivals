@@ -1,3 +1,5 @@
+#include <ctime>
+
 #include "GameEngine.h"
 
 GameEngine::GameEngine() {
@@ -11,6 +13,7 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::run() {
+    srand(time(nullptr));
     sf::Clock clock;
 
     _level_manager = LevelManager();
