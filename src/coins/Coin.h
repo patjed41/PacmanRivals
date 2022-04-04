@@ -22,4 +22,6 @@ public:
 
     sf::Sprite &getSprite();
 
+    sf::FloatRect getPosition();
+
 };

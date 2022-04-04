@@ -20,6 +20,8 @@ private:
 
     LevelManager _level_manager;
 
+    std::shared_ptr<Map> _grid;
+
     std::vector<std::shared_ptr<Ghost>> _ghosts;
 
     std::vector<std::shared_ptr<Pacman>> _pacmans;
