@@ -4,7 +4,7 @@
 
 Aplikacja jest uruchamiana na jednym komputerze i nie wymaga dostępu do Inernetu, więc jest zawsze dostępna.
 
-## Niezowodność
+## Niezawodność
 
 Aplikacja z prawdopodobieństwem 99,99% działa bezawaryjnie podczas jednej rozgrywki.
 
