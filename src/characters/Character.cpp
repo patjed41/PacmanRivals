@@ -16,17 +16,84 @@ sf::Sprite &Character::getSprite() {
     return _sprite;
 }
 
+void Character::move(float dt_as_seconds) {
+    switch (_direction) {
+        case LEFT:
+            _sprite.setPosition(getPosition().left - _speed * dt_as_seconds, getPosition().top);
+            break;
+        case RIGHT:
+            _sprite.setPosition(getPosition().left + _speed * dt_as_seconds, getPosition().top);
+            break;
+        case UP:
+            _sprite.setPosition(getPosition().left, getPosition().top - _speed * dt_as_seconds);
+            break;
+        case DOWN:
+            _sprite.setPosition(getPosition().left, getPosition().top + _speed * dt_as_seconds);
+            break;
+        default:
+            return;
+    }
+}
+
+sf::Vector2i Character::positionOfNewTile(sf::Vector2i tile) {
+    sf::Vector2i position;
+    switch (_direction) {
+        case LEFT:
+            position.x = tile.x - 1;
+            position.y = tile.y;
+            return position;
+        case RIGHT:
+            position.x = tile.x + 1;
+            position.y = tile.y;
+            return position;
+        case UP:
+            position.x = tile.x;
+            position.y = tile.y - 1;
+            return position;
+        case DOWN:
+            position.x = tile.x;
+            position.y = tile.y + 1;
+            return position;
+        default:
+            return position;
+    }
+}
+
+sf::Vector2i Character::positionOfTileInNewDirection(sf::Vector2i tile, Direction _new_direction) {
+    sf::Vector2i position;
+    switch (_new_direction) {
+        case LEFT:
+            position.x = tile.x - 1;
+            position.y = tile.y;
+            return position;
+        case RIGHT:
+            position.x = tile.x + 1;
+            position.y = tile.y;
+            return position;
+        case UP:
+            position.x = tile.x;
+            position.y = tile.y - 1;
+            return position;
+        case DOWN:
+            position.x = tile.x;
+            position.y = tile.y + 1;
+            return position;
+        default:
+            return position;
+    }
+}
+
 bool Character::reachedNewTile(float dt_as_seconds) {
     sf::FloatRect position = getPosition();
     switch (_direction) {
         case LEFT:
             return int(position.left / TILE_SIZE) != int((position.left - _speed * dt_as_seconds) / TILE_SIZE);
         case RIGHT:
-            return int(position.left / TILE_SIZE) != int((position.left + _speed * dt_as_seconds) / TILE_SIZE);
+            return int((position.left + position.width) / TILE_SIZE) != int((position.left + position.width + _speed * dt_as_seconds) / TILE_SIZE);
         case UP:
             return int(position.top / TILE_SIZE) != int((position.top - _speed * dt_as_seconds) / TILE_SIZE);
         case DOWN:
-            return int(position.top / TILE_SIZE) != int((position.top + _speed * dt_as_seconds) / TILE_SIZE);
+            return int((position.top + position.height) / TILE_SIZE) != int((position.top + position.height + _speed * dt_as_seconds) / TILE_SIZE);
         default:
             return false;
     }

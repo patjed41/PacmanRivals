@@ -10,11 +10,19 @@ void GameEngine::draw() {
     for (int i = 0; i < MAP_HEIGHT; i++) {
         for (int j = 0; j < MAP_WIDTH; j++) {
             _window.draw(map[i][j].getSprite());
+            int position = i * MAP_WIDTH + j;
+            if(_coins.find(position) != _coins.end()) {
+                if(!_coins[position].isTaken())
+                    _window.draw(_coins[position].getSprite());
+            }
         }
     }
 
-    for (int i = 0; i < _ghosts.size(); i++) {
-        _window.draw((_ghosts[i].get())->getSprite());
+    for (auto & ghost : _ghosts) {
+        _window.draw(ghost->getSprite());
+    }
+    for (auto & pacman : _pacmans) {
+        _window.draw(pacman->getSprite());
     }
 
     _window.display();

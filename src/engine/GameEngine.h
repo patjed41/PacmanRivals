@@ -1,9 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 #include "../texture-holder/TextureHolder.h"
 #include "../level-manager/LevelManager.h"
+#include "../characters/player/Pacman.h"
+#include "../coins/Coin.h"
 
 class GameEngine {
 
@@ -18,6 +21,10 @@ private:
     LevelManager _level_manager;
 
     std::vector<std::shared_ptr<Ghost>> _ghosts;
+
+    std::vector<std::shared_ptr<Pacman>> _pacmans;
+
+    std::unordered_map<int, Coin> _coins;
 
     bool _new_map_needed;
 

@@ -4,21 +4,19 @@
 #include <fstream>
 #include <string>
 #include <memory>
-
 #include <SFML/Graphics.hpp>
+
 #include "../map/Map.h"
 #include "../characters/ghosts/Ghost.h"
-
-class LinearGhost;
+#include "../characters/player/Pacman.h"
 
 class LevelManager {
 
 private:
 
     std::shared_ptr<Map> _grid;
-    //todo: int -> proper class
     std::vector<std::shared_ptr<Ghost>> _ghosts;
-    std::vector<sf::Vector2i> _players_positions;
+    std::vector<std::shared_ptr<Pacman>> _pacmans;
 
     void loadNewGrid();
     void loadNewGhosts();
@@ -32,7 +30,7 @@ public:
 
     std::vector<std::shared_ptr<Ghost>> &getGhosts();
 
-    std::vector<sf::Vector2i> &getPlayersPositions();
+    std::vector<std::shared_ptr<Pacman>> &getPlayers();
 
     void loadNewLevel();
 

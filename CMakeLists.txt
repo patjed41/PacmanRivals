@@ -24,10 +24,12 @@ set(SOURCE_FILES
     src/map/Map.cpp
     src/level-manager/LevelManager.cpp
     src/characters/Character.cpp
+    src/characters/player/Pacman.cpp
     src/characters/ghosts/Ghost.cpp
     src/characters/ghosts/LinearGhost.cpp
     src/characters/ghosts/RandomGhost.cpp
     src/characters/ghosts/CycleGhost.cpp
+    src/coins/Coin.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -87,13 +89,18 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
     set(PLAYER_FILES
         ${CHARACTER_FILES}
-        # TODO
+        src/characters/player/Pacman.cpp
     )
 
     set(LEVEL_FILES
-        ${GHOST_FILES}
         ${PLAYER_FILES}
+        ${GHOST_FILES}
         src/level-manager/LevelManager.cpp
+    )
+
+    set(COINS_FILES
+        ${TEST_FILES}
+        src/coins/Coin.cpp
     )
 
     # Tests:
@@ -104,6 +111,15 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_correctUp character ${CHARACTER_FILES})
     make_new_test(check_correctDown character ${CHARACTER_FILES})
     make_new_test(check_reachedNewTile character ${CHARACTER_FILES})
+    make_new_test(check_turnLeft pacman ${PLAYER_FILES} )
+    make_new_test(check_turnRight pacman ${PLAYER_FILES})
+    make_new_test(check_turnUp pacman ${PLAYER_FILES})
+    make_new_test(check_turnDown pacman ${PLAYER_FILES})
+    make_new_test(check_turningBack pacman ${PLAYER_FILES})
+    make_new_test(check_move pacman ${PLAYER_FILES})
+    make_new_test(check_positionOfTileInNewDirection pacman ${PLAYER_FILES})
+    make_new_test(check_positionOfNewTile pacman ${PLAYER_FILES})
+    make_new_test(check_update pacman ${PLAYER_FILES})
     make_new_test(check_moveForward ghost ${GHOST_FILES})
     make_new_test(check_getUpTile ghost ${GHOST_FILES})
     make_new_test(check_getDownTile ghost ${GHOST_FILES})
@@ -111,5 +127,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_getRightTile ghost ${GHOST_FILES})
     make_new_test(check_getNextTile ghost ${GHOST_FILES})
     make_new_test(check_getOppositeDirection ghost ${GHOST_FILES})
+    make_new_test(check_coins coins ${COINS_FILES})
 
 endif()

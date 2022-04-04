@@ -13,8 +13,8 @@ std::vector<std::shared_ptr<Ghost>> &LevelManager::getGhosts() {
     return _ghosts;
 }
 
-std::vector<sf::Vector2i> &LevelManager::getPlayersPositions() {
-    return _players_positions;
+std::vector<std::shared_ptr<Pacman>> &LevelManager::getPlayers() {
+    return _pacmans;
 }
 
 void LevelManager::loadNewGrid() {
@@ -103,7 +103,7 @@ void LevelManager::loadNewPlayers() {
         for (int k = 0; k < size; k++) {
             int i, j;
             myfile >> i >> j;
-            _players_positions.emplace_back(sf::Vector2(i, j));
+            _pacmans.emplace_back(std::make_shared<Pacman>(_grid, float(i) * TILE_SIZE, float(j) * TILE_SIZE));
         }
         myfile.close();
     } else {
