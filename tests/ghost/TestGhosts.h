@@ -16,11 +16,11 @@ public:
     }
 
     void test_moveForward(float dt_as_seconds) {
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
     }
 
     sf::Vector2i test_getNextTile(sf::Vector2i tile) {
-        return getNextTile(tile);
+        return positionOfNewTile(tile);
     }
 
     Character::Direction test_getOppositeDirection() {
@@ -53,11 +53,11 @@ public:
     }
 
     void test_moveForward(float dt_as_seconds) {
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
     }
 
     sf::Vector2i test_getNextTile(sf::Vector2i tile) {
-        return getNextTile(tile);
+        return positionOfNewTile(tile);
     }
 
     Character::Direction test_getOppositeDirection() {
@@ -90,11 +90,11 @@ public:
     }
 
     void test_moveForward(float dt_as_seconds) {
-        moveForward(dt_as_seconds);
+        move(dt_as_seconds);
     }
 
     sf::Vector2i test_getNextTile(sf::Vector2i tile) {
-        return getNextTile(tile);
+        return positionOfNewTile(tile);
     }
 
     Character::Direction test_getOppositeDirection() {

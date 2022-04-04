@@ -15,7 +15,7 @@ protected:
 
     Direction _new_direction;
 
-    bool turningBack();
+    bool turningBack() const;
 
 public:
 

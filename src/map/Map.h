@@ -17,6 +17,6 @@ public:
 
     void setTile(int i, int j, int type);
 
-    [[nodiscard]] std::vector<std::vector<Tile>> &getTiles();
+    std::vector<std::vector<Tile>> &getTiles();
 
 };

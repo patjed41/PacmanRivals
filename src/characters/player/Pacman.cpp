@@ -12,7 +12,7 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _map = std::move(map);
 }
 
-bool Pacman::turningBack() {
+bool Pacman::turningBack() const {
     if (_direction == RIGHT && _new_direction == LEFT) return true;
     if (_direction == LEFT && _new_direction == RIGHT) return true;
     if (_direction == UP && _new_direction == DOWN) return true;

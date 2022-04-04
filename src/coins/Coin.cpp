@@ -12,14 +12,14 @@ void Coin::Take() {
     _is_taken = true;
 }
 
-bool Coin::isTaken() {
+bool Coin::isTaken() const {
     return _is_taken;
 }
 
-sf::Sprite &Coin::getSprite() {
+const sf::Sprite &Coin::getSprite() const {
     return _sprite;
 }
 
-sf::FloatRect Coin::getPosition() {
+sf::FloatRect Coin::getPosition() const {
     return _sprite.getGlobalBounds();
 }

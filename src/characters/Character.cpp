@@ -13,7 +13,7 @@ sf::FloatRect Character::getPosition() const {
     return _sprite.getGlobalBounds();
 }
 
-sf::Sprite &Character::getSprite() {
+const sf::Sprite &Character::getSprite() const {
     return _sprite;
 }
 
