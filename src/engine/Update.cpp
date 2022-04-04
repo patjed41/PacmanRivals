@@ -6,12 +6,13 @@ void GameEngine::update(float dt_as_seconds) {
 
         _grid = _level_manager.getGrid();
         _pacmans = _level_manager.getPlayers();
+        _pacmans.resize(_players_num); // delete excess of Pacmans
         _ghosts = _level_manager.getGhosts();
 
-        for (int i = 0; i < MAP_HEIGHT; i++) {
-            for (int j = 0; j < MAP_WIDTH; j++) {
-                if (!_grid->getTiles()[i][j].isWall())
-                    _coins[i * MAP_WIDTH + j] = Coin(float(j) * TILE_SIZE, float(i) * TILE_SIZE);
+        for (int y = 0; y < MAP_HEIGHT; y++) {
+            for (int x = 0; x < MAP_WIDTH; x++) {
+                if (!_grid->getTiles()[y][x].isWall())
+                    _coins[y * MAP_WIDTH + x] = Coin(float(x) * TILE_SIZE, float(y) * TILE_SIZE);
             }
         }
 
@@ -26,6 +27,7 @@ void GameEngine::update(float dt_as_seconds) {
         ghost->update(dt_as_seconds);
     }
 
+    // collisions between Pacmans and Coins
     for (auto & pacman : _pacmans) {
         sf::Vector2i pacman_tile;
         pacman_tile.x = int(pacman->getPosition().left / TILE_SIZE);

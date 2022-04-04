@@ -30,6 +30,8 @@ private:
 
     bool _new_map_needed;
 
+    int _players_num;
+
     void input();
 
     void update(float dt_as_seconds);
