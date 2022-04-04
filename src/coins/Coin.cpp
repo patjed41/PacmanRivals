@@ -19,3 +19,7 @@ bool Coin::isTaken() {
 sf::Sprite &Coin::getSprite() {
     return _sprite;
 }
+
+sf::FloatRect Coin::getPosition() {
+    return _sprite.getGlobalBounds();
+}
