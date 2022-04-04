@@ -17,8 +17,8 @@ int main() {
     sf::Sprite expected_sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
     expected_sprite.setPosition(TILE_SIZE, TILE_SIZE);
 
-    err::checkEqual(expected_sprite.getGlobalBounds().left, character.getPosition().left);
-    err::checkEqual(expected_sprite.getGlobalBounds().top, character.getPosition().top);
+    err::checkEqualFloat(expected_sprite.getGlobalBounds().left, character.getPosition().left);
+    err::checkEqualFloat(expected_sprite.getGlobalBounds().top, character.getPosition().top);
 
     return 0;
 }

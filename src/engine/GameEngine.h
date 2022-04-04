@@ -20,6 +20,8 @@ private:
 
     LevelManager _level_manager;
 
+    std::vector<std::shared_ptr<Ghost>> _ghosts;
+
     std::vector<std::shared_ptr<Pacman>> _pacmans;
 
     std::unordered_map<int, Coin> _coins;

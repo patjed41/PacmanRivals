@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "../characters/ghosts/Ghost.h"
 
 void GameEngine::draw() {
     _window.clear(sf::Color::Black);
@@ -17,8 +18,11 @@ void GameEngine::draw() {
         }
     }
 
-    for (int i = 0; i < _pacmans.size(); i++) {
-        _window.draw(_pacmans[i].get()->getSprite());
+    for (auto & ghost : _ghosts) {
+        _window.draw(ghost->getSprite());
+    }
+    for (auto & pacman : _pacmans) {
+        _window.draw(pacman->getSprite());
     }
 
     _window.display();

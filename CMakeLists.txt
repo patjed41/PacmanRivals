@@ -15,17 +15,22 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 
 set(SOURCE_FILES
-        src/engine/GameEngine.cpp
-        src/engine/Input.cpp
-        src/engine/Update.cpp
-        src/engine/Draw.cpp
-        src/texture-holder/TextureHolder.cpp
-        src/map/Tile.cpp
-        src/map/Map.cpp
-        src/level-manager/LevelManager.cpp
-        src/characters/Character.cpp
-        src/characters/player/Pacman.cpp
-        src/coins/Coin.cpp)
+    src/engine/GameEngine.cpp
+    src/engine/Input.cpp
+    src/engine/Update.cpp
+    src/engine/Draw.cpp
+    src/texture-holder/TextureHolder.cpp
+    src/map/Tile.cpp
+    src/map/Map.cpp
+    src/level-manager/LevelManager.cpp
+    src/characters/Character.cpp
+    src/characters/player/Pacman.cpp
+    src/characters/ghosts/Ghost.cpp
+    src/characters/ghosts/LinearGhost.cpp
+    src/characters/ghosts/RandomGhost.cpp
+    src/characters/ghosts/CycleGhost.cpp
+    src/coins/Coin.cpp
+)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
@@ -64,36 +69,39 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
     # Groups of source files common for many tests:
     set(TEST_FILES
-            src/texture-holder/TextureHolder.cpp
-            )
+        src/texture-holder/TextureHolder.cpp
+    )
 
     set(CHARACTER_FILES
-            ${TEST_FILES}
-            src/characters/Character.cpp
-            src/map/Map.cpp
-            src/map/Tile.cpp
-            )
+        ${TEST_FILES}
+        src/characters/Character.cpp
+        src/map/Map.cpp
+        src/map/Tile.cpp
+    )
 
     set(GHOST_FILES
-            ${CHARACTER_FILES}
-            #todo
-            )
+        ${CHARACTER_FILES}
+        src/characters/ghosts/Ghost.cpp
+        src/characters/ghosts/LinearGhost.cpp
+        src/characters/ghosts/CycleGhost.cpp
+        src/characters/ghosts/RandomGhost.cpp
+    )
 
     set(PLAYER_FILES
-            ${CHARACTER_FILES}
-            src/characters/player/Pacman.cpp
-            )
+        ${CHARACTER_FILES}
+        src/characters/player/Pacman.cpp
+    )
 
     set(LEVEL_FILES
-            ${GHOST_FILES}
-            ${PLAYER_FILES}
-            src/level-manager/LevelManager.cpp
-            )
+        ${PLAYER_FILES}
+        ${GHOST_FILES}
+        src/level-manager/LevelManager.cpp
+    )
 
     set(COINS_FILES
-            ${TEST_FILES}
-            src/coins/Coin.cpp
-            )
+        ${TEST_FILES}
+        src/coins/Coin.cpp
+    )
 
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
@@ -112,6 +120,13 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_positionOfTileInNewDirection pacman ${PLAYER_FILES})
     make_new_test(check_positionOfNewTile pacman ${PLAYER_FILES})
     make_new_test(check_update pacman ${PLAYER_FILES})
+    make_new_test(check_moveForward ghost ${GHOST_FILES})
+    make_new_test(check_getUpTile ghost ${GHOST_FILES})
+    make_new_test(check_getDownTile ghost ${GHOST_FILES})
+    make_new_test(check_getLeftTile ghost ${GHOST_FILES})
+    make_new_test(check_getRightTile ghost ${GHOST_FILES})
+    make_new_test(check_getNextTile ghost ${GHOST_FILES})
+    make_new_test(check_getOppositeDirection ghost ${GHOST_FILES})
     make_new_test(check_coins coins ${COINS_FILES})
 
 endif()

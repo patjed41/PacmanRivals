@@ -14,8 +14,8 @@ int main() {
     pacman1.test_update(1.f);
     sf::Vector2f expected_position1 = {5 + 10 , 5};
 
-    err::checkEqual(expected_position1.x, pacman1.getPosition().left);
-    err::checkEqual(expected_position1.y, pacman1.getPosition().top);
+    err::checkEqualFloat(expected_position1.x, pacman1.getPosition().left);
+    err::checkEqualFloat(expected_position1.y, pacman1.getPosition().top);
 
 //  turing back
     TestPacman pacman2 = TestPacman(shared_map, 5, 5);
@@ -34,8 +34,8 @@ int main() {
     pacman3.update(1.f);
     sf::Vector2f expected_position3 = {50, 60};
 
-    err::checkEqual(expected_position3.x, pacman3.getPosition().left);
-    err::checkEqual(expected_position3.y, pacman3.getPosition().top);
+    err::checkEqualFloat(expected_position3.x, pacman3.getPosition().left);
+    err::checkEqualFloat(expected_position3.y, pacman3.getPosition().top);
 
 //    new tile reached, we want to move in the same direction
     TestPacman pacman4 = TestPacman(shared_map, 50, 90);
@@ -44,8 +44,8 @@ int main() {
     pacman4.update(1.f);
     sf::Vector2f expected_position4 = {50, 100};
 
-    err::checkEqual(expected_position4.x, pacman4.getPosition().left);
-    err::checkEqual(expected_position4.y, pacman4.getPosition().top);
+    err::checkEqualFloat(expected_position4.x, pacman4.getPosition().left);
+    err::checkEqualFloat(expected_position4.y, pacman4.getPosition().top);
 
     return 0;
 }

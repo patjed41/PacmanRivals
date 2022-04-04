@@ -142,4 +142,3 @@ void Character::correctDown() {
     position.top = std::floor(position.top / TILE_SIZE) * TILE_SIZE;
     _sprite.setPosition(position.left, position.top);
 }
-
