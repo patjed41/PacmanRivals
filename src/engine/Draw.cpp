@@ -22,7 +22,9 @@ void GameEngine::draw() {
     }
 
     for (auto & pacman : _pacmans) {
-        _window.draw(pacman->getSprite());
+        if (!pacman->isDead()) {
+            _window.draw(pacman->getSprite());
+        }
     }
 
     _window.display();

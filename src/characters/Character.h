@@ -28,9 +28,9 @@ protected:
 
     void move(float dt_as_seconds);
 
-    sf::Vector2i positionOfNewTile(sf::Vector2i tile);
+    sf::Vector2i positionOfNewTile(sf::Vector2i tile) const;
 
-    sf::Vector2i positionOfTileInNewDirection(sf::Vector2i new_tile, Direction _new_direction);
+    sf::Vector2i positionOfTileInNewDirection(sf::Vector2i new_tile, Direction _new_direction) const;
 
 public:
 
@@ -38,7 +38,7 @@ public:
 
     Character(sf::Sprite sprite, std::shared_ptr<Map> map);
 
-    sf::FloatRect getPosition();
+    sf::FloatRect getPosition() const;
 
     sf::Sprite &getSprite();
 
@@ -48,7 +48,7 @@ public:
 
 protected:
 
-    bool reachedNewTile(float dt_as_seconds);
+    bool reachedNewTile(float dt_as_seconds) const;
 
     void correct();
 

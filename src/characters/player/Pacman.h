@@ -7,6 +7,10 @@
 
 class Pacman : public Character {
 
+private:
+
+    bool _is_dead;
+
 protected:
 
     Direction _new_direction;
@@ -26,6 +30,10 @@ public:
     void turnUp();
 
     void turnDown();
+
+    void die();
+
+    bool isDead() const;
 
 };
 
