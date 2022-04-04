@@ -14,8 +14,8 @@ int main() {
 
     err::checkEqual(coin.isTaken(), true);
 
-    err::checkEqual(coin.getSprite().getPosition().x, 0.f + (TILE_SIZE - COIN_SIZE) / 2);
-    err::checkEqual(coin.getSprite().getPosition().y, 0.f + (TILE_SIZE - COIN_SIZE) / 2);
+    err::checkEqualFloat(coin.getSprite().getPosition().x, 0.f + (TILE_SIZE - COIN_SIZE) / 2);
+    err::checkEqualFloat(coin.getSprite().getPosition().y, 0.f + (TILE_SIZE - COIN_SIZE) / 2);
 
     return 0;
 }

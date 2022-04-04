@@ -12,7 +12,7 @@ int main() {
     pacman.dirR();
     pacman.test_move(1.f);
 
-    err::checkEqual(pacman.getPosition().left, 10.f);
+    err::checkEqualFloat(pacman.getPosition().left, 10.f);
 
     return 0;
 }
