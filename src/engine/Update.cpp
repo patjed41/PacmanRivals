@@ -62,7 +62,7 @@ void GameEngine::updateGame(float dt_as_seconds) {
 void GameEngine::update(float dt_as_seconds) {
     switch (_current_screen) {
         case MENU:
-            return;
+            _menu.update(dt_as_seconds);
         case GAME:
             updateGame(dt_as_seconds);
             return;
