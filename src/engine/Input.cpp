@@ -1,21 +1,5 @@
 #include "GameEngine.h"
 
-void GameEngine::inputMenu() {
-    sf::Event event;
-
-    while (_window.pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                _window.close();
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                _current_screen = GAME;
-            }
-        }
-    }
-}
-
 void GameEngine::inputGame() {
     sf::Event event;
 
@@ -46,7 +30,7 @@ void GameEngine::inputGame() {
 void GameEngine::input() {
     switch (_current_screen) {
         case MENU:
-            inputMenu();
+            _menu.input();
             return;
         case GAME:
             inputGame();

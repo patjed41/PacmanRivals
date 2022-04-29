@@ -7,6 +7,8 @@
 #include "../level-manager/LevelManager.h"
 #include "../characters/player/Pacman.h"
 #include "../coins/Coin.h"
+#include "../screens/Screen.h"
+#include "../screens/menu/Menu.h"
 
 class GameEngine {
 
@@ -19,19 +21,10 @@ private:
 
     TextureHolder _texture_holder;
 
-    enum Screen {
-        MENU,
-        LOBBY,
-        GAME,
-    };
-
     Screen _current_screen;
 
-    // Menu Screen
+    Menu _menu;
 
-    // Lobby Screen
-
-    // Game Screen
     LevelManager _level_manager;
 
     std::shared_ptr<Map> _grid;
@@ -47,14 +40,12 @@ private:
     int _players_num;
 
     void input();
-    void inputMenu();
     void inputGame();
 
     void update(float dt_as_seconds);
     void updateGame(float dt_as_seconds);
 
     void draw();
-    void drawMenu();
     void drawGame();
 
 public:

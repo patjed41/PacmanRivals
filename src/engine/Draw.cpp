@@ -1,9 +1,5 @@
 #include "GameEngine.h"
 
-void GameEngine::drawMenu() {
-
-}
-
 void GameEngine::drawGame() {
     _window.clear(sf::Color::Black);
     _window.setView(_main_view);
@@ -37,7 +33,7 @@ void GameEngine::drawGame() {
 void GameEngine::draw() {
     switch (_current_screen) {
         case MENU:
-            drawMenu();
+            _menu.draw();
             return;
         case GAME:
             drawGame();
