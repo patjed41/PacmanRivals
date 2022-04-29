@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 
-void GameEngine::update(float dt_as_seconds) {
+void GameEngine::updateGame(float dt_as_seconds) {
     if (_new_map_needed) {
         _level_manager.loadNewLevel();
 
@@ -29,6 +29,10 @@ void GameEngine::update(float dt_as_seconds) {
 
     // collisions between Pacmans and Coins
     for (auto & pacman : _pacmans) {
+        if (pacman->isDead()) {
+            continue;
+        }
+
         sf::Vector2i pacman_tile;
         pacman_tile.x = int(pacman->getPosition().left / TILE_SIZE);
         pacman_tile.y = int(pacman->getPosition().top / TILE_SIZE);
@@ -52,5 +56,17 @@ void GameEngine::update(float dt_as_seconds) {
                 pacman->die();
             }
         }
+    }
+}
+
+void GameEngine::update(float dt_as_seconds) {
+    switch (_current_screen) {
+        case MENU:
+            return;
+        case GAME:
+            updateGame(dt_as_seconds);
+            return;
+        default:
+            return;
     }
 }
