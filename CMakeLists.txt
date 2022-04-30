@@ -16,9 +16,6 @@ endif()
 
 set(SOURCE_FILES
     src/engine/GameEngine.cpp
-    src/engine/Input.cpp
-    src/engine/Update.cpp
-    src/engine/Draw.cpp
     src/texture-holder/TextureHolder.cpp
     src/map/Tile.cpp
     src/map/Map.cpp

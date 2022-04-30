@@ -13,6 +13,54 @@ GameEngine::GameEngine() {
     _game = GameScreen(&_window, &_current_screen);
 }
 
+void GameEngine::input() {
+    switch (_current_screen) {
+        case MENU:
+            _menu.input();
+            return;
+        case LOBBY:
+            _lobby.input();
+            return;
+        case GAME:
+            _game.input();
+            return;
+        default:
+            return;
+    }
+}
+
+void GameEngine::update(float dt_as_seconds) {
+    switch (_current_screen) {
+        case MENU:
+            _menu.update(dt_as_seconds);
+            return;
+        case LOBBY:
+            _lobby.update(dt_as_seconds);
+            return;
+        case GAME:
+            _game.update(dt_as_seconds);
+            return;
+        default:
+            return;
+    }
+}
+
+void GameEngine::draw() {
+    switch (_current_screen) {
+        case MENU:
+            _menu.draw();
+            return;
+        case LOBBY:
+            _lobby.draw();
+            return;
+        case GAME:
+            _game.draw();
+            return;
+        default:
+            return;
+    }
+}
+
 void GameEngine::run() {
     srand(time(nullptr));
     sf::Clock clock;
