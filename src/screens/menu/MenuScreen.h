@@ -4,15 +4,11 @@
 
 #include "../Screen.h"
 
-class Menu {
+class MenuScreen : Screen {
 
 private:
 
     sf::View _view;
-
-    sf::RenderWindow* _window;
-
-    Screen* _current_screen;
 
     static const unsigned int OPTIONS_NUM;
     static const float SPACE_BETWEEN; // vertical distance between 2 options
@@ -22,14 +18,14 @@ private:
 
 public:
 
-    Menu() = default;
+    MenuScreen() = default;
 
-    Menu(sf::RenderWindow* window, Screen* current_screen);
+    MenuScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void input();
+    void input() override;
 
-    void update(float dt_as_seconds);
+    void update(float dt_as_seconds) override;
 
-    void draw();
+    void draw() override;
 
 };
