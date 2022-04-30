@@ -29,7 +29,7 @@ void GameEngine::input() {
                 _menu.initialise();
             }
             else if (_current_screen == GAME) {
-                _game.initialise();
+                _game.initialise(_lobby.getPlayerInfos(), _lobby.getRounds());
             }
             return;
         case GAME:

@@ -30,6 +30,7 @@ set(SOURCE_FILES
     src/screens/menu/MenuScreen.cpp
     src/screens/lobby/LobbyScreen.cpp
     src/screens/game/GameScreen.cpp
+    src/screens/game/PlayerInfo.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

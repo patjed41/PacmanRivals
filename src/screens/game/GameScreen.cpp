@@ -6,16 +6,12 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _main_view.setCenter(MAP_WIDTH * TILE_SIZE / 2.f, MAP_HEIGHT * TILE_SIZE / 2.f);
 
     _level_manager = LevelManager();
-
-    _new_map_needed = true;
-
-    // should be deleted in the future
-    _players_num = 1;
 }
 
-void GameScreen::initialise() {
-    // TODO
-
+void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
+    _new_map_needed = true;
+    _players_num = player_infos.size();
+    _rounds_left = rounds;
 }
 
 void GameScreen::input() {

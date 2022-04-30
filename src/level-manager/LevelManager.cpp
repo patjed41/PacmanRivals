@@ -5,6 +5,10 @@
 #include "../characters/ghosts/RandomGhost.h"
 #include "../texture-holder/TextureHolder.h"
 
+LevelManager::LevelManager() {
+    _grid = std::make_shared<Map>();
+}
+
 std::shared_ptr<Map> LevelManager::getGrid() {
     return _grid;
 }
@@ -119,6 +123,6 @@ void LevelManager::loadNewLevel() {
     loadNewGhosts();
 }
 
-LevelManager::LevelManager() {
-    _grid = std::make_shared<Map>();
+void LevelManager::initialise() {
+    // TODO
 }
