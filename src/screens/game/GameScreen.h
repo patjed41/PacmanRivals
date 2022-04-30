@@ -6,6 +6,7 @@
 #include "../../level-manager/LevelManager.h"
 #include "../../characters/player/Pacman.h"
 #include "../../coins/Coin.h"
+#include "PlayerInfo.h"
 
 class GameScreen : Screen {
 
@@ -25,7 +26,9 @@ private:
 
     bool _new_map_needed;
 
-    int _players_num;
+    unsigned int _players_num;
+
+    unsigned int _rounds_left;
 
 public:
 
@@ -33,7 +36,7 @@ public:
 
     GameScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void initialise() override;
+    void initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds);
 
     void input() override;
 

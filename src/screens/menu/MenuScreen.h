@@ -23,7 +23,7 @@ public:
 
     MenuScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void initialise() override;
+    void initialise();
 
     void input() override;
 

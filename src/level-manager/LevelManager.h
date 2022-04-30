@@ -34,4 +34,6 @@ public:
 
     void loadNewLevel();
 
+    void initialise();
+
 };

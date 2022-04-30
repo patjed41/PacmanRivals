@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Screen.h"
+#include "../game/PlayerInfo.h"
 
 class LobbyScreen : Screen {
 
@@ -18,12 +19,16 @@ public:
 
     LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void initialise() override;
+    void initialise();
 
     void input() override;
 
     void update(float dt_as_seconds) override;
 
     void draw() override;
+
+    std::vector<PlayerInfo> getPlayerInfos();
+
+    unsigned int getRounds();
 
 };

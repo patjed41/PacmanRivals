@@ -58,3 +58,13 @@ void LobbyScreen::draw() {
 
     _window->display();
 }
+
+std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() {
+    // temporary
+    return std::vector<PlayerInfo>(1);
+}
+
+unsigned int LobbyScreen::getRounds() {
+    // temporary
+    return 10;
+}
