@@ -1,15 +1,13 @@
-#include "Menu.h"
+#include "MenuScreen.h"
 
 #include <iostream>
 
-const unsigned int Menu::OPTIONS_NUM = 2;
-const float Menu::SPACE_BETWEEN = 200.f;
+const unsigned int MenuScreen::OPTIONS_NUM = 2;
+const float MenuScreen::SPACE_BETWEEN = 200.f;
 
-Menu::Menu(sf::RenderWindow* window, Screen* current_screen) {
-    _window = window;
-    _view.reset(sf::FloatRect(0, 0, sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height));
-
-    _current_screen = current_screen;
+MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
+    _view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
+                                    (float)sf::VideoMode::getDesktopMode().height));
 
     if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
         std::cerr << "Failed to load _menu_font.\n";
@@ -32,7 +30,7 @@ Menu::Menu(sf::RenderWindow* window, Screen* current_screen) {
     }
 }
 
-void Menu::input() {
+void MenuScreen::input() {
     sf::Event event;
 
     while (_window->pollEvent(event)) {
@@ -42,7 +40,7 @@ void Menu::input() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                *_current_screen = GAME;
+                *_current_screen = LOBBY;
             }
         }
     }
@@ -50,11 +48,11 @@ void Menu::input() {
     // TODO
 }
 
-void Menu::update(float dt_as_seconds) {
+void MenuScreen::update(float dt_as_seconds) {
     // TODO
 }
 
-void Menu::draw() {
+void MenuScreen::draw() {
     _window->clear(sf::Color::Black);
     _window->setView(_view);
 

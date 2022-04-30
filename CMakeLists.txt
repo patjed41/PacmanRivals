@@ -30,7 +30,9 @@ set(SOURCE_FILES
     src/characters/ghosts/RandomGhost.cpp
     src/characters/ghosts/CycleGhost.cpp
     src/coins/Coin.cpp
-    src/screens/menu/Menu.cpp
+    src/screens/menu/MenuScreen.cpp
+    src/screens/lobby/LobbyScreen.cpp
+    src/screens/game/GameScreen.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
