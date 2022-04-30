@@ -13,6 +13,11 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _players_num = 1;
 }
 
+void GameScreen::initialise() {
+    // TODO
+
+}
+
 void GameScreen::input() {
     sf::Event event;
 

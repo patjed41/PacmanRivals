@@ -19,6 +19,8 @@ public:
     Screen(sf::RenderWindow* window, ScreenName* current_screen) :
         _window(window), _current_screen(current_screen) {}
 
+    virtual void initialise() = 0;
+
     virtual void input() = 0;
 
     virtual void update(float dt_as_seconds) = 0;

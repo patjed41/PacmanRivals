@@ -7,19 +7,30 @@ GameEngine::GameEngine() {
                                  sf::VideoMode::getDesktopMode().height),
                                  "Pacman Rivals", sf::Style::Fullscreen);
 
-    _current_screen = MENU;
     _menu = MenuScreen(&_window, &_current_screen);
     _lobby = LobbyScreen(&_window, &_current_screen);
     _game = GameScreen(&_window, &_current_screen);
+
+    _current_screen = MENU;
+    _menu.initialise();
 }
 
 void GameEngine::input() {
     switch (_current_screen) {
         case MENU:
             _menu.input();
+            if (_current_screen == LOBBY) {
+                _lobby.initialise();
+            }
             return;
         case LOBBY:
             _lobby.input();
+            if (_current_screen == MENU) {
+                _menu.initialise();
+            }
+            else if (_current_screen == GAME) {
+                _game.initialise();
+            }
             return;
         case GAME:
             _game.input();

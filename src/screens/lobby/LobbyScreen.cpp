@@ -14,6 +14,10 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
     // TODO
 }
 
+void LobbyScreen::initialise() {
+    // TODO
+}
+
 void LobbyScreen::input() {
     sf::Event event;
 
