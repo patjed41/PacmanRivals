@@ -13,6 +13,7 @@ private:
     static const unsigned int OPTIONS_NUM;
     static const float SPACE_BETWEEN; // vertical distance between 2 options
     std::vector<sf::Text> _options;
+    unsigned int _current_option;
 
     sf::Font _font;
 
@@ -21,6 +22,8 @@ public:
     MenuScreen() = default;
 
     MenuScreen(sf::RenderWindow* window, ScreenName* current_screen);
+
+    void initialise() override;
 
     void input() override;
 

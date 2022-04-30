@@ -30,6 +30,10 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     }
 }
 
+void MenuScreen::initialise() {
+    _current_option = 0;
+}
+
 void MenuScreen::input() {
     sf::Event event;
 
@@ -40,7 +44,9 @@ void MenuScreen::input() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                *_current_screen = LOBBY;
+                if (_current_option == 0) {
+                    *_current_screen = LOBBY;
+                }
             }
         }
     }
