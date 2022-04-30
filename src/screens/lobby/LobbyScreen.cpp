@@ -15,6 +15,13 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
 }
 
 void LobbyScreen::initialise() {
+    _current_options = 0;
+    _player_options.clear();
+    _game_options = GameOptions();
+    // 2 players are default
+    _player_options.push_back(PlayerOptions(1));
+    _player_options.push_back(PlayerOptions(2));
+
     // TODO
 }
 
@@ -35,10 +42,12 @@ void LobbyScreen::input() {
     }
 
     // TODO
+    // Arrows up-down change _current_options.
+    // input() on current option
 }
 
 void LobbyScreen::update(float dt_as_seconds) {
-    // TODO
+    // TODO OR NOT TODO
 }
 
 void LobbyScreen::draw() {
@@ -56,15 +65,18 @@ void LobbyScreen::draw() {
     example_text.setPosition(_view.getCenter().x, _view.getCenter().y);
     _window->draw(example_text);
 
+    // TODO
+    // draw() on all options
+
     _window->display();
 }
 
-std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() {
+std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
     // temporary
     return std::vector<PlayerInfo>(1);
 }
 
-unsigned int LobbyScreen::getRounds() {
+unsigned int LobbyScreen::getRounds() const {
     // temporary
     return 10;
 }

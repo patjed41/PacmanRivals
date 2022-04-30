@@ -29,6 +29,13 @@ set(SOURCE_FILES
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
     src/screens/lobby/LobbyScreen.cpp
+    src/screens/lobby/options/game/GameOptions.cpp
+    src/screens/lobby/options/game/PlayersSelector.cpp
+    src/screens/lobby/options/game/RoundsSelector.cpp
+    src/screens/lobby/options/player/PlayerOptions.cpp
+    src/screens/lobby/options/player/NickSelector.cpp
+    src/screens/lobby/options/player/ColorSelector.cpp
+    src/screens/lobby/options/player/ColorSelector.cpp
     src/screens/game/GameScreen.cpp
     src/screens/game/PlayerInfo.cpp
 )
