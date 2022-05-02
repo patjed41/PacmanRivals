@@ -12,6 +12,7 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     _new_map_needed = true;
     _players_num = player_infos.size();
     _rounds_left = rounds;
+    _level_manager.initialise();
 }
 
 void GameScreen::input() {
