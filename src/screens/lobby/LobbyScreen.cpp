@@ -10,8 +10,6 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
         std::cerr << "Failed to load _menu_font.\n";
         exit(1);
     }
-
-    // TODO
 }
 
 void LobbyScreen::initialise() {
@@ -19,10 +17,8 @@ void LobbyScreen::initialise() {
     _player_options.clear();
     _game_options = GameOptions();
     // 2 players are default
-    _player_options.push_back(PlayerOptions(1));
-    _player_options.push_back(PlayerOptions(2));
-
-    // TODO
+    _player_options.emplace_back(1);
+    _player_options.emplace_back(2);
 }
 
 void LobbyScreen::input() {
@@ -34,20 +30,20 @@ void LobbyScreen::input() {
                 *_current_screen = MENU;
             }
 
-            // temporary
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+                // TODO: check if everyhing is done and correct
                 *_current_screen = GAME;
             }
+
+            // TODO: Arrows up-down change _current_options cyclically.
         }
     }
 
-    // TODO
-    // Arrows up-down change _current_options.
-    // input() on current option
+    // TODO: input() on current option
 }
 
 void LobbyScreen::update(float dt_as_seconds) {
-    // TODO OR NOT TODO
+    // TODO: update() on all options
 }
 
 void LobbyScreen::draw() {
@@ -65,18 +61,18 @@ void LobbyScreen::draw() {
     example_text.setPosition(_view.getCenter().x, _view.getCenter().y);
     _window->draw(example_text);
 
-    // TODO
-    // draw() on all options
+    // TODO: draw() on all options
 
     _window->display();
 }
 
 std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
+    // TODO: build and return vector containing information about players
     // temporary
     return std::vector<PlayerInfo>(1);
 }
 
 unsigned int LobbyScreen::getRounds() const {
-    // temporary
+    // TODO: get information about number of rounds from _game_options and return
     return 10;
 }

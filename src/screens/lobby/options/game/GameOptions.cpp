@@ -1,22 +1,26 @@
 #include "GameOptions.h"
 
 GameOptions::GameOptions() {
-    // TODO
+    // TODO: construct selectors
 }
 
 void GameOptions::input() {
     // TODO
-    // Arrows left-right move between _layers_selector and _rounds_selector.
-    // Handle input of actually selected.
+    // Arrows left-right move between _players_selector and _rounds_selector.
+    // Handle input of selected one.
 }
+
+void GameOptions::update(float dt_as_seconds) {
+    // TODO
+    // Update _players_selector and _rounds_selector.
+}
+
 
 void GameOptions::draw(sf::RenderWindow& window) {
     // TODO
-    // Draw _layers_selector and _rounds_selector.
+    // Draw _players_selector and _rounds_selector.
 }
 
 bool GameOptions::allDone() const {
-    // TODO
     return true;
-    // Are _layers_selector and _rounds_selector done?
 }

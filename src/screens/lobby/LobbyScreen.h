@@ -18,7 +18,7 @@ private:
 
     sf::Font _font;
 
-    unsigned int _current_options;
+    unsigned int _current_options = 0; // currently chosen strip of options
     GameOptions _game_options;
     std::vector<PlayerOptions> _player_options;
 
