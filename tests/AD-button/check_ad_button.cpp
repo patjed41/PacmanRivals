@@ -7,10 +7,13 @@
 int main() {
     TextureHolder textureHolder;
 
-    sf::Vector2f position(200, 300);
 
-    ButtonAD buttonA(position, true);
-    ButtonAD buttonD(position, true);
+
+    sf::Vector2f positionA(100, 100);
+    sf::Vector2f positionD(100, 500);
+
+    ButtonAD buttonA(positionA, true);
+    ButtonAD buttonD(positionD, true);
 
     err::check(!buttonA.isClicked(), 1);
     err::check(!buttonD.isClicked(), 2);

@@ -17,7 +17,7 @@ void GameOptions::update(float dt_as_seconds) {
 }
 
 
-void GameOptions::draw(sf::RenderWindow& window) {
+void GameOptions::draw(sf::RenderWindow* window) {
     // TODO
     // Draw _players_selector and _rounds_selector.
 }

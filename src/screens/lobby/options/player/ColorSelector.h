@@ -16,7 +16,7 @@ public:
 
     void update(float dt_as_seconds) override;
 
-    void draw() override;
+    void draw(sf::RenderWindow* window) override;
 
     std::string getCurrentColor() const;
 

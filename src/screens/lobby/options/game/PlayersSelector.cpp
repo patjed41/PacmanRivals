@@ -9,7 +9,7 @@ void PlayersSelector::update(float dt_as_seconds) {
     // TODO: update A, D buttons
 }
 
-void PlayersSelector::draw() {
+void PlayersSelector::draw(sf::RenderWindow* window) {
     // TODO: draw this class (box with _current_players and A, D buttons)
 }
 
