@@ -7,7 +7,7 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
                                     (float)sf::VideoMode::getDesktopMode().height));
 
     if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
-        std::cerr << "Failed to load _menu_font.\n";
+        std::cerr << "Failed to load _font in LobbyScreen constructor.\n";
         exit(1);
     }
 }
