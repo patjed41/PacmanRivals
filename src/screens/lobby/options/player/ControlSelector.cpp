@@ -9,7 +9,7 @@ void ControlSelector::update(float dt_as_seconds) {
     // TODO: update A, D buttons
 }
 
-void ControlSelector::draw() {
+void ControlSelector::draw(sf::RenderWindow* window) {
     // TODO: draw this class (box with _current_control and A, D buttons)
 }
 

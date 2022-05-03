@@ -9,7 +9,7 @@ void ColorSelector::update(float dt_as_seconds) {
     // TODO: update A, D buttons
 }
 
-void ColorSelector::draw() {
+void ColorSelector::draw(sf::RenderWindow* window) {
     // TODO: draw this class (box with _current_color and A, D buttons)
 }
 

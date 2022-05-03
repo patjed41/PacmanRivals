@@ -24,7 +24,7 @@ public:
 
     void update(float dt_as_seconds) override;
 
-    void draw(sf::RenderWindow& window) override;
+    void draw(sf::RenderWindow* window) override;
 
     bool allDone() const override;
 

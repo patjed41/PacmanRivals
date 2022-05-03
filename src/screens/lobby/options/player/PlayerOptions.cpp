@@ -18,7 +18,7 @@ void PlayerOptions::update(float dt_as_seconds) {
 }
 
 
-void PlayerOptions::draw(sf::RenderWindow& window) {
+void PlayerOptions::draw(sf::RenderWindow* window) {
     // TODO
     // Draw _nick_selector and _color_selector, _control_selector.
 }

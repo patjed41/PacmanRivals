@@ -9,7 +9,7 @@ void RoundsSelector::update(float dt_as_seconds) {
     // TODO: update A, D buttons
 }
 
-void RoundsSelector::draw() {
+void RoundsSelector::draw(sf::RenderWindow* window) {
     // TODO: draw this class (box with _current_rounds and A, D buttons)
 }
 

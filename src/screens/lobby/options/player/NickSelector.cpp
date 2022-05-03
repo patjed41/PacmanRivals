@@ -9,7 +9,7 @@ void NickSelector::update(float dt_as_seconds) {
     // Probably nothing to do.
 }
 
-void NickSelector::draw() {
+void NickSelector::draw(sf::RenderWindow* window) {
     // TODO: draw this class (box with _current_nick)
 }
 

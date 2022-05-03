@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 class Selector {
 
 protected:
@@ -16,7 +18,7 @@ public:
 
     virtual void update(float dt_as_seconds) = 0;
 
-    virtual void draw() = 0;
+    virtual void draw(sf::RenderWindow* window) = 0;
 
     virtual ~Selector() = default;
 
