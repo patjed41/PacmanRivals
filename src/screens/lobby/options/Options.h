@@ -4,6 +4,10 @@
 
 class Options {
 
+protected:
+
+    static unsigned int _current_selector;
+
 public:
 
     virtual void input() = 0;

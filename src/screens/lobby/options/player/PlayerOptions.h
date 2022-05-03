@@ -6,6 +6,7 @@
 #include "NickSelector.h"
 #include "ColorSelector.h"
 #include "ControlSelector.h"
+#include "../../../game/PlayerInfo.h"
 
 class PlayerOptions : Options {
 
@@ -26,6 +27,8 @@ public:
     void draw(sf::RenderWindow& window) override;
 
     bool allDone() const override;
+
+    PlayerInfo getPlayerInfo();
 
 };
 
