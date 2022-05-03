@@ -26,4 +26,8 @@ public:
 
     bool allDone() const override;
 
+    unsigned int getNumberOfPlayers();
+
+    unsigned int getNumberOfRounds();
+
 };

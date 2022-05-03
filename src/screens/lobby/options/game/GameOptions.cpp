@@ -6,8 +6,9 @@ GameOptions::GameOptions() {
 
 void GameOptions::input() {
     // TODO
-    // Arrows left-right move between _players_selector and _rounds_selector.
-    // Handle input of selected one.
+    // Arrows left-right move between _players_selector and _rounds_selector
+    // (change _current_selector).
+    // Call input() on current selector.
 }
 
 void GameOptions::update(float dt_as_seconds) {
@@ -24,3 +25,13 @@ void GameOptions::draw(sf::RenderWindow& window) {
 bool GameOptions::allDone() const {
     return true;
 }
+
+unsigned int GameOptions::getNumberOfPlayers() {
+    return _players_selector.getCurrentPlayers();
+}
+
+unsigned int GameOptions::getNumberOfRounds() {
+    return _rounds_selector.getCurrentRounds();
+}
+
+
