@@ -38,6 +38,7 @@ set(SOURCE_FILES
     src/screens/lobby/options/player/NickSelector.cpp
     src/screens/lobby/options/player/ColorSelector.cpp
     src/screens/lobby/options/player/ControlSelector.cpp
+    src/screens/lobby/buttons/ButtonAD.cpp
     src/screens/game/GameScreen.cpp
     src/screens/game/PlayerInfo.cpp
 )
@@ -138,5 +139,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_getNextTile ghost ${GHOST_FILES})
     make_new_test(check_getOppositeDirection ghost ${GHOST_FILES})
     make_new_test(check_coins coins ${COINS_FILES})
+    make_new_test(check_ad_button AD-button ${TEST_FILES} src/screens/lobby/buttons/ButtonAD.cpp)
 
 endif()
