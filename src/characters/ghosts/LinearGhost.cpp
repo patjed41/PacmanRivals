@@ -5,7 +5,7 @@
 LinearGhost::LinearGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, int direction) {
     _map = std::move(map);
 
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghost-yellow.png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow.png"));
     _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
 
     _direction = static_cast<Direction>(direction);
