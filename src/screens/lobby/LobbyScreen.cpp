@@ -15,10 +15,10 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
 void LobbyScreen::initialise() {
     _current_options = 0;
     _player_options.clear();
-    _game_options = GameOptions();
+    _game_options = GameOptions(_window);
     // 2 players are default
-    _player_options.emplace_back(1);
-    _player_options.emplace_back(2);
+    _player_options.emplace_back(1, _window);
+    _player_options.emplace_back(2, _window);
 }
 
 void LobbyScreen::input() {

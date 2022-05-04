@@ -1,6 +1,6 @@
 #include "PlayerOptions.h"
 
-PlayerOptions::PlayerOptions(unsigned int player) {
+PlayerOptions::PlayerOptions(unsigned int player, sf::RenderWindow* window) : Options(window) {
     _player = player;
     // TODO: construct selectors
 }
@@ -18,7 +18,7 @@ void PlayerOptions::update(float dt_as_seconds) {
 }
 
 
-void PlayerOptions::draw(sf::RenderWindow* window) {
+void PlayerOptions::draw() {
     // TODO
     // Draw _nick_selector and _color_selector, _control_selector.
 }

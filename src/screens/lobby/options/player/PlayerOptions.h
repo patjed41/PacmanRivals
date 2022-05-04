@@ -18,13 +18,13 @@ class PlayerOptions : Options {
 
 public:
 
-    PlayerOptions(unsigned int player);
+    PlayerOptions(unsigned int player, sf::RenderWindow* window);
 
     void input() override;
 
     void update(float dt_as_seconds) override;
 
-    void draw(sf::RenderWindow* window) override;
+    void draw() override;
 
     bool allDone() const override;
 

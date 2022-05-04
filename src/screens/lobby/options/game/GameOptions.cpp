@@ -1,6 +1,6 @@
 #include "GameOptions.h"
 
-GameOptions::GameOptions() {
+GameOptions::GameOptions(sf::RenderWindow* window) : Options(window) {
     // TODO: construct selectors
 }
 
@@ -17,7 +17,7 @@ void GameOptions::update(float dt_as_seconds) {
 }
 
 
-void GameOptions::draw(sf::RenderWindow* window) {
+void GameOptions::draw() {
     // TODO
     // Draw _players_selector and _rounds_selector.
 }
