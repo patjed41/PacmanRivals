@@ -70,7 +70,9 @@ std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
     // TODO: build and return vector containing information about players
     // temporary
     return std::vector<PlayerInfo>(1) = {PlayerInfo("CoolNick1", "yellow", "WASD"),
-                                         PlayerInfo("CoolNick2", "yellow", "Arrows")};
+                                         PlayerInfo("CoolNick2", "yellow", "Arrows"),
+                                         PlayerInfo("CoolNick3", "yellow", "C1"),
+                                         PlayerInfo("CoolNick4", "yellow", "C2")};
 }
 
 unsigned int LobbyScreen::getRounds() const {

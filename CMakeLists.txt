@@ -41,6 +41,7 @@ set(SOURCE_FILES
     src/screens/lobby/buttons/ButtonAD.cpp
     src/screens/game/GameScreen.cpp
     src/screens/game/PlayerInfo.cpp
+    src/screens/game/PlayerInputHandler.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
