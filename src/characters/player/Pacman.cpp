@@ -1,15 +1,21 @@
 #include "Pacman.h"
 
 #include <utility>
+#include <iostream>
 #include "../../texture-holder/TextureHolder.h"
 
+// Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pac-man.png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
     _map = std::move(map);
+}
+
+void Pacman::changeColor(const std::string &color) {
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + color + ".png"));
 }
 
 bool Pacman::turningBack() const {
