@@ -20,6 +20,8 @@ private:
 
     std::vector<std::shared_ptr<Ghost>> _ghosts;
 
+    std::vector<PlayerInfo> _player_infos;
+
     std::vector<std::shared_ptr<Pacman>> _pacmans;
 
     std::unordered_map<int, Coin> _coins;

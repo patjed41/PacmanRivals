@@ -69,10 +69,11 @@ void LobbyScreen::draw() {
 std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
     // TODO: build and return vector containing information about players
     // temporary
-    return std::vector<PlayerInfo>(1);
+    return std::vector<PlayerInfo>(1) = {PlayerInfo("CoolNick1", "yellow", "WASD"),
+                                         PlayerInfo("CoolNick2", "yellow", "Arrows")};
 }
 
 unsigned int LobbyScreen::getRounds() const {
     // TODO: get information about number of rounds from _game_options and return
-    return 10;
+    return 5;
 }

@@ -1,5 +1,7 @@
 #include "GameScreen.h"
 
+#include <utility>
+
 GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
     _main_view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
                               (float)sf::VideoMode::getDesktopMode().height));
@@ -10,7 +12,8 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
 
 void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
     _new_map_needed = true;
-    _players_num = player_infos.size();
+    _player_infos = std::move(player_infos);
+    _players_num = _player_infos.size();
     _rounds_left = rounds;
     _level_manager.initialise();
 }
@@ -28,14 +31,35 @@ void GameScreen::input() {
                 // pause
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                _pacmans[0].get()->turnLeft();
-            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                _pacmans[0].get()->turnRight();
-            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                _pacmans[0].get()->turnUp();
-            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                _pacmans[0].get()->turnDown();
+            for (size_t i = 0; i < _players_num; i++) {
+                if (_player_infos[i].getControl()  == "Arrows") {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                        _pacmans[i].get()->turnLeft();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                        _pacmans[i].get()->turnRight();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                        _pacmans[i].get()->turnUp();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                        _pacmans[i].get()->turnDown();
+                    }
+                }
+                else if (_player_infos[i].getControl() == "WASD") {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                        _pacmans[i].get()->turnLeft();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                        _pacmans[i].get()->turnRight();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                        _pacmans[i].get()->turnUp();
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                        _pacmans[i].get()->turnDown();
+                    }
+                }
             }
         }
     }
