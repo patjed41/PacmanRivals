@@ -30,38 +30,11 @@ void GameScreen::input() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
                 // pause
             }
-
-            for (size_t i = 0; i < _players_num; i++) {
-                if (_player_infos[i].getControl()  == "Arrows") {
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                        _pacmans[i].get()->turnLeft();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                        _pacmans[i].get()->turnRight();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                        _pacmans[i].get()->turnUp();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                        _pacmans[i].get()->turnDown();
-                    }
-                }
-                else if (_player_infos[i].getControl() == "WASD") {
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                        _pacmans[i].get()->turnLeft();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                        _pacmans[i].get()->turnRight();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                        _pacmans[i].get()->turnUp();
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                        _pacmans[i].get()->turnDown();
-                    }
-                }
-            }
         }
+    }
+
+    for (size_t i = 0; i < _players_num; i++) {
+        _player_input_handlers[i].input();
     }
 }
 
@@ -71,7 +44,12 @@ void GameScreen::update(float dt_as_seconds) {
 
         _grid = _level_manager.getGrid();
         _pacmans = _level_manager.getPlayers();
-        _pacmans.resize(_players_num); // delete excess of Pacmans
+        // delete excess of Pacmans
+        _pacmans.resize(_players_num);
+        _player_input_handlers.clear();
+        for (size_t i = 0; i < _players_num; i++) {
+            _player_input_handlers.emplace_back(_pacmans[i], _player_infos[i].getControl());
+        }
         _ghosts = _level_manager.getGhosts();
 
         for (int y = 0; y < MAP_HEIGHT; y++) {

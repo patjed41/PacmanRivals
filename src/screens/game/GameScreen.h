@@ -7,6 +7,7 @@
 #include "../../characters/player/Pacman.h"
 #include "../../coins/Coin.h"
 #include "PlayerInfo.h"
+#include "PlayerInputHandler.h"
 
 class GameScreen : Screen {
 
@@ -23,6 +24,8 @@ private:
     std::vector<PlayerInfo> _player_infos;
 
     std::vector<std::shared_ptr<Pacman>> _pacmans;
+
+    std::vector<PlayerInputHandler> _player_input_handlers;
 
     std::unordered_map<int, Coin> _coins;
 
