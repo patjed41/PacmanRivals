@@ -10,7 +10,7 @@ int main() {
     std::vector<std::shared_ptr<Pacman>> players = manager.getPlayers();
 
     sf::Texture texturePacMan;
-    texturePacMan.loadFromFile("../assets/graphics/pac-man.png");
+    texturePacMan.loadFromFile("../assets/graphics/pac-man-yellow.png");
     std::vector<sf::Sprite> spritePacMan(players.size());
 
 

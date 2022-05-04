@@ -44,11 +44,11 @@ void GameScreen::update(float dt_as_seconds) {
 
         _grid = _level_manager.getGrid();
         _pacmans = _level_manager.getPlayers();
-        // delete excess of Pacmans
-        _pacmans.resize(_players_num);
+        _pacmans.resize(_players_num); // delete excess of Pacmans
         _player_input_handlers.clear();
         for (size_t i = 0; i < _players_num; i++) {
             _player_input_handlers.emplace_back(_pacmans[i], _player_infos[i].getControl());
+            _pacmans[i]->changeColor(_player_infos[i].getColor());
         }
         _ghosts = _level_manager.getGhosts();
 
