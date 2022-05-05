@@ -38,39 +38,28 @@ void GameScreen::input() {
     }
 }
 
-void GameScreen::update(float dt_as_seconds) {
-    if (_new_map_needed) {
-        _level_manager.loadNewLevel();
+void GameScreen::loadNewMap() {
+    _level_manager.loadNewLevel();
 
-        _grid = _level_manager.getGrid();
-        _pacmans = _level_manager.getPlayers();
-        _pacmans.resize(_players_num); // delete excess of Pacmans
-        _player_input_handlers.clear();
-        for (size_t i = 0; i < _players_num; i++) {
-            _player_input_handlers.emplace_back(_pacmans[i], _player_infos[i].getControl());
-            _pacmans[i]->changeColor(_player_infos[i].getColor());
+    _grid = _level_manager.getGrid();
+    _pacmans = _level_manager.getPlayers();
+    _pacmans.resize(_players_num); // delete excess of Pacmans
+    _player_input_handlers.clear();
+    for (size_t i = 0; i < _players_num; i++) {
+        _player_input_handlers.emplace_back(_pacmans[i], _player_infos[i].getControl());
+        _pacmans[i]->changeColor(_player_infos[i].getColor());
+    }
+    _ghosts = _level_manager.getGhosts();
+
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            if (!_grid->getTiles()[y][x].isWall())
+                _coins[y * MAP_WIDTH + x] = Coin(float(x) * TILE_SIZE, float(y) * TILE_SIZE);
         }
-        _ghosts = _level_manager.getGhosts();
-
-        for (int y = 0; y < MAP_HEIGHT; y++) {
-            for (int x = 0; x < MAP_WIDTH; x++) {
-                if (!_grid->getTiles()[y][x].isWall())
-                    _coins[y * MAP_WIDTH + x] = Coin(float(x) * TILE_SIZE, float(y) * TILE_SIZE);
-            }
-        }
-
-        _new_map_needed = false;
     }
+}
 
-    for (auto & pacman : _pacmans) {
-        pacman->update(dt_as_seconds);
-    }
-
-    for (auto & ghost : _ghosts) {
-        ghost->update(dt_as_seconds);
-    }
-
-    // collisions between Pacmans and Coins
+void GameScreen::handleCollisionsPC() {
     for (auto & pacman : _pacmans) {
         if (pacman->isDead()) {
             continue;
@@ -91,8 +80,9 @@ void GameScreen::update(float dt_as_seconds) {
             }
         }
     }
+}
 
-    // collisions between Pacmans and Ghosts
+void GameScreen::handleCollisionsPG() {
     for (auto & pacman : _pacmans) {
         for (auto & ghost : _ghosts) {
             if (!pacman->isDead() && pacman->getPosition().intersects(ghost->getPosition())) {
@@ -100,6 +90,24 @@ void GameScreen::update(float dt_as_seconds) {
             }
         }
     }
+}
+
+void GameScreen::update(float dt_as_seconds) {
+    if (_new_map_needed) {
+        loadNewMap();
+        _new_map_needed = false;
+    }
+
+    for (auto & pacman : _pacmans) {
+        pacman->update(dt_as_seconds);
+    }
+
+    for (auto & ghost : _ghosts) {
+        ghost->update(dt_as_seconds);
+    }
+
+    handleCollisionsPC();
+    handleCollisionsPG();
 }
 
 void GameScreen::draw() {
