@@ -35,6 +35,11 @@ private:
 
     unsigned int _rounds_left;
 
+    void loadNewMap();
+
+    void handleCollisionsPC();
+    void handleCollisionsPG();
+
 public:
 
     GameScreen() = default;
