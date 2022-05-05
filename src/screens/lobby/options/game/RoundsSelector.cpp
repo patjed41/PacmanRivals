@@ -17,7 +17,7 @@ RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
     _A = buttonA;
     _D = buttonD;
 
-    _border.setTexture(TextureHolder::GetTexture("../assets/graphics/AD-button-border.png"));
+    _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();
     _border.setOrigin(border_position.width / 2, border_position.height / 2);
     _border.setPosition(positionNumber.x + border_position.width / 2,
@@ -66,6 +66,9 @@ void RoundsSelector::draw() {
     // TODO: draw this class (box with _current_rounds and A, D buttons)
     _A.draw(_window);
 
+    if(_current_selector_id == _my_id) {
+        _window->draw(_border);
+    }
     _window->draw(_number);
 
     _D.draw(_window);
