@@ -40,7 +40,9 @@ private:
     void handleCollisionsPC();
     void handleCollisionsPG();
 
-    unsigned int alivePlayers();
+    unsigned int alivePlayers() const;
+
+    void rewardWinner();
 
 public:
 
