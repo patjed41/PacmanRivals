@@ -6,7 +6,7 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
     _view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
                                     (float)sf::VideoMode::getDesktopMode().height));
 
-    if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in LobbyScreen constructor.\n";
         exit(1);
     }

@@ -6,7 +6,7 @@
 float ButtonAD::_seconds_of_click_animation = 0.2f;
 
 ButtonAD::ButtonAD(sf::Vector2f position, bool isA) {
-    if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in ButtonAD constructor.\n";
         exit(1);
     }
@@ -22,9 +22,9 @@ ButtonAD::ButtonAD(sf::Vector2f position, bool isA) {
 
     _letter.setFont(_font);
     _letter.setString(isA ? "A" : "D");
-    _letter.setCharacterSize(60);
-    _letter.setPosition(position.x + border_position.width / 2.5,
-                        position.y + border_position.height / 6);
+    _letter.setCharacterSize(55);
+    _letter.setPosition(position.x + border_position.width / 3,
+                        position.y + border_position.height / 4.2);
 
     // Button is not clicked at the beginning.
     _seconds_since_last_click = 2 * _seconds_of_click_animation;

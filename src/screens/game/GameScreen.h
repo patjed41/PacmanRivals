@@ -29,11 +29,11 @@ private:
 
     std::unordered_map<int, Coin> _coins;
 
-    bool _new_map_needed;
+    bool _new_map_needed = false;
 
-    unsigned int _players_num;
+    unsigned int _players_num = 0;
 
-    unsigned int _rounds_left;
+    unsigned int _rounds_left = 0;
 
     void loadNewMap();
 
@@ -57,5 +57,7 @@ public:
     void update(float dt_as_seconds) override;
 
     void draw() override;
+
+    const std::vector<PlayerInfo> & getPlayerInfos();
 
 };

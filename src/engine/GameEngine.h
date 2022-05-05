@@ -8,6 +8,7 @@
 #include "../screens/menu/MenuScreen.h"
 #include "../screens/lobby/LobbyScreen.h"
 #include "../screens/game/GameScreen.h"
+#include "../screens/between-rounds/BetweenRoundsScreen.h"
 
 class GameEngine {
 
@@ -21,6 +22,7 @@ private:
     MenuScreen _menu;
     LobbyScreen _lobby;
     GameScreen _game;
+    BetweenRoundsScreen _between_rounds;
 
     void input();
 
