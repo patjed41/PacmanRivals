@@ -18,7 +18,23 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     _level_manager.initialise();
 }
 
+unsigned int GameScreen::alivePlayers() {
+    unsigned int result = 0;
+
+    for (auto & pacman : _pacmans) {
+        if (!pacman->isDead()) {
+             result++;
+        }
+    }
+
+    return result;
+}
+
 void GameScreen::input() {
+    if (_new_map_needed) {
+        return;
+    }
+
     sf::Event event;
 
     while (_window->pollEvent(event)) {
@@ -57,6 +73,8 @@ void GameScreen::loadNewMap() {
                 _coins[y * MAP_WIDTH + x] = Coin(float(x) * TILE_SIZE, float(y) * TILE_SIZE);
         }
     }
+
+    _rounds_left--;
 }
 
 void GameScreen::handleCollisionsPC() {
@@ -87,6 +105,9 @@ void GameScreen::handleCollisionsPG() {
         for (auto & ghost : _ghosts) {
             if (!pacman->isDead() && pacman->getPosition().intersects(ghost->getPosition())) {
                 pacman->die();
+                if (alivePlayers() == 1) {
+                    _new_map_needed = true;
+                }
             }
         }
     }
@@ -94,6 +115,9 @@ void GameScreen::handleCollisionsPG() {
 
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
+        if (_rounds_left == 0) {
+            *_current_screen = MENU;
+        }
         loadNewMap();
         _new_map_needed = false;
     }
@@ -108,9 +132,18 @@ void GameScreen::update(float dt_as_seconds) {
 
     handleCollisionsPC();
     handleCollisionsPG();
+
+    // This will be useful in the future.
+    if (_new_map_needed) {
+        return;
+    }
 }
 
 void GameScreen::draw() {
+    if (_new_map_needed) {
+        return;
+    }
+
     _window->clear(sf::Color::Black);
     _window->setView(_main_view);
 
