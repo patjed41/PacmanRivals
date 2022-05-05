@@ -77,5 +77,5 @@ std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
 
 unsigned int LobbyScreen::getRounds() const {
     // TODO: get information about number of rounds from _game_options and return
-    return 5;
+    return 3;
 }

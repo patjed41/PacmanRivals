@@ -40,6 +40,8 @@ private:
     void handleCollisionsPC();
     void handleCollisionsPG();
 
+    unsigned int alivePlayers();
+
 public:
 
     GameScreen() = default;

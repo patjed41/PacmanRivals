@@ -55,6 +55,7 @@ GhostEnum convert(const std::string& str) {
 }
 
 void LevelManager::loadNewGhosts() {
+    _ghosts.clear();
     std::ifstream myfile;
     myfile.open("../assets/maps/ghosts/ghosts1.txt");
 
@@ -97,6 +98,7 @@ void LevelManager::loadNewGhosts() {
 }
 
 void LevelManager::loadNewPlayers() {
+    _pacmans.clear();
     std::ifstream myfile;
     myfile.open("../assets/maps/players/players1.txt");
 
