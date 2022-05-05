@@ -43,6 +43,7 @@ void ButtonAD::update(float dt_as_seconds) {
 }
 
 void ButtonAD::draw(sf::RenderWindow *window) {
+    _letter.setFont(_font); // dodane bo seg fault
     window->draw(_border);
 
     if (isClicked()) {

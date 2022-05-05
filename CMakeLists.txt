@@ -41,9 +41,6 @@ set(SOURCE_FILES
     src/screens/lobby/buttons/ButtonAD.cpp
     src/screens/game/GameScreen.cpp
     src/screens/game/PlayerInfo.cpp
-    src/screens/game/PlayerInputHandler.cpp
-    src/screens/between-rounds/BetweenRoundsScreen.cpp
-    src/screens/between-rounds/ScorePrinter.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -117,18 +114,17 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/coins/Coin.cpp
     )
 
-    set(SCREEN_FILES
-        ${TEST_FILES}
-        src/screens/Screen.h
+    set(OPTIONS_FILE
+        src/screens/lobby/options/Options.cpp
+        src/screens/lobby/options/Selector.cpp
     )
 
-    set(GAME_SCREEN_FILES
-        ${SCREEN_FILES}
-        ${LEVEL_FILES}
-        ${COINS_FILES}
-        src/screens/game/GameScreen.cpp
-        src/screens/game/PlayerInputHandler.cpp
-        src/screens/game/PlayerInfo.cpp
+    set(GAME_OPTIONS_FILE
+        ${TEST_FILES}
+        ${OPTIONS_FILE}
+        src/screens/lobby/options/game/GameOptions.cpp
+        src/screens/lobby/options/game/PlayersSelector.cpp
+        src/screens/lobby/options/game/RoundsSelector.cpp
     )
 
     # Tests:
@@ -157,6 +153,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_getOppositeDirection ghost ${GHOST_FILES})
     make_new_test(check_coins coins ${COINS_FILES})
     make_new_test(check_ad_button AD-button ${TEST_FILES} src/screens/lobby/buttons/ButtonAD.cpp)
-    make_new_test(check_one_player_auto_win game-screen ${GAME_SCREEN_FILES})
+    make_new_test(check_players_selector game_selector ${GAME_OPTIONS_FILE} src/screens/lobby/buttons/ButtonAD.cpp)
+    make_new_test(check_rounds_selector game_selector ${GAME_OPTIONS_FILE} src/screens/lobby/buttons/ButtonAD.cpp)
 
 endif()
