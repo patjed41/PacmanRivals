@@ -9,7 +9,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
                                     (float)sf::VideoMode::getDesktopMode().height));
 
-    if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in MenuScreen constructor.\n";
         exit(1);
     }

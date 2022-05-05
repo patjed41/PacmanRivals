@@ -109,12 +109,18 @@ void GameScreen::handleCollisionsPC() {
 }
 
 void GameScreen::handleCollisionsPG() {
+    if (alivePlayers() == 1) {
+        _new_map_needed = true;
+        return;
+    }
+
     for (auto & pacman : _pacmans) {
         for (auto & ghost : _ghosts) {
             if (!pacman->isDead() && pacman->getPosition().intersects(ghost->getPosition())) {
                 pacman->die();
                 if (alivePlayers() == 1) {
                     _new_map_needed = true;
+                    return;
                 }
             }
         }
@@ -123,9 +129,6 @@ void GameScreen::handleCollisionsPG() {
 
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
-        if (_rounds_left == 0) {
-            *_current_screen = MENU;
-        }
         loadNewMap();
         _new_map_needed = false;
     }
@@ -143,7 +146,12 @@ void GameScreen::update(float dt_as_seconds) {
 
     if (_new_map_needed) {
         rewardWinner();
-        return;
+        if (_rounds_left == 0) {
+            *_current_screen = MENU;
+        }
+        else {
+            *_current_screen = BETWEEN_ROUNDS;
+        }
     }
 }
 
@@ -179,4 +187,8 @@ void GameScreen::draw() {
     }
 
     _window->display();
+}
+
+const std::vector<PlayerInfo> & GameScreen::getPlayerInfos() {
+    return _player_infos;
 }

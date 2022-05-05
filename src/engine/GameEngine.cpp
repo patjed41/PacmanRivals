@@ -10,6 +10,7 @@ GameEngine::GameEngine() {
     _menu = MenuScreen(&_window, &_current_screen);
     _lobby = LobbyScreen(&_window, &_current_screen);
     _game = GameScreen(&_window, &_current_screen);
+    _between_rounds = BetweenRoundsScreen(&_window, &_current_screen);
 
     _current_screen = MENU;
     _menu.initialise();
@@ -35,6 +36,12 @@ void GameEngine::input() {
         case GAME:
             _game.input();
             return;
+        case BETWEEN_ROUNDS:
+            _between_rounds.input();
+            if (_current_screen == MENU) {
+                _menu.initialise();
+            }
+            return;
         default:
             return;
     }
@@ -50,6 +57,12 @@ void GameEngine::update(float dt_as_seconds) {
             return;
         case GAME:
             _game.update(dt_as_seconds);
+            if (_current_screen == BETWEEN_ROUNDS) {
+                _between_rounds.initialise(_game.getPlayerInfos());
+            }
+            return;
+        case BETWEEN_ROUNDS:
+            _between_rounds.update(dt_as_seconds);
             return;
         default:
             return;
@@ -66,6 +79,9 @@ void GameEngine::draw() {
             return;
         case GAME:
             _game.draw();
+            return;
+        case BETWEEN_ROUNDS:
+            _between_rounds.draw();
             return;
         default:
             return;
