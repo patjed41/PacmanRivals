@@ -18,7 +18,7 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     _level_manager.initialise();
 }
 
-unsigned int GameScreen::alivePlayers() {
+unsigned int GameScreen::alivePlayers() const {
     unsigned int result = 0;
 
     for (auto & pacman : _pacmans) {
@@ -28,6 +28,14 @@ unsigned int GameScreen::alivePlayers() {
     }
 
     return result;
+}
+
+void GameScreen::rewardWinner() {
+    for (size_t i = 0; i < _players_num; i++) {
+        if (!_pacmans[i]->isDead()) {
+            _player_infos[i].newWin();
+        }
+    }
 }
 
 void GameScreen::input() {
@@ -133,8 +141,8 @@ void GameScreen::update(float dt_as_seconds) {
     handleCollisionsPC();
     handleCollisionsPG();
 
-    // This will be useful in the future.
     if (_new_map_needed) {
+        rewardWinner();
         return;
     }
 }
