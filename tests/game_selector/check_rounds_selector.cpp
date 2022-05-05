@@ -17,32 +17,35 @@ int main() {
 
     RoundsSelector roundsSelector(&window);
 
-    sf::Event event;
+//    sf::Event event;
+//
+//    while (true) {
+//        while (window.pollEvent(event)) {
+//            if (event.type == sf::Event::KeyPressed) {
+//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+//                    window.close();
+//                    exit(0);
+//                }
+//
+//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+//                    roundsSelector._A.click();
+//                }
+//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+//                    roundsSelector._D.click();
+//                }
+//            }
+//        }
+//
+//        float dt_as_seconds = clock.restart().asSeconds();
+//        roundsSelector.input();
+//        roundsSelector.update(dt_as_seconds);
+//
+//        window.clear(sf::Color::Black);
+//        roundsSelector.draw();
+//        window.display();
+//    }
 
-    while (true) {
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::KeyPressed) {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                    window.close();
-                    exit(0);
-                }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    roundsSelector._A.click();
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                    roundsSelector._D.click();
-                }
-            }
-        }
-
-        float dt_as_seconds = clock.restart().asSeconds();
-        roundsSelector.update(dt_as_seconds);
-
-        window.clear(sf::Color::Black);
-        roundsSelector.draw();
-        window.display();
-    }
 
 }
 
