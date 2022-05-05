@@ -114,6 +114,19 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/coins/Coin.cpp
     )
 
+    set(OPTIONS_FILE
+        src/screens/lobby/options/Options.cpp
+        src/screens/lobby/options/Selector.cpp
+    )
+
+    set(GAME_OPTIONS_FILE
+        ${TEST_FILES}
+        ${OPTIONS_FILE}
+        src/screens/lobby/options/game/GameOptions.cpp
+        src/screens/lobby/options/game/PlayersSelector.cpp
+        src/screens/lobby/options/game/RoundsSelector.cpp
+    )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -140,5 +153,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_getOppositeDirection ghost ${GHOST_FILES})
     make_new_test(check_coins coins ${COINS_FILES})
     make_new_test(check_ad_button AD-button ${TEST_FILES} src/screens/lobby/buttons/ButtonAD.cpp)
+    make_new_test(check_players_selector game_selector ${GAME_OPTIONS_FILE} src/screens/lobby/buttons/ButtonAD.cpp)
+    make_new_test(check_rounds_selector game_selector ${GAME_OPTIONS_FILE} src/screens/lobby/buttons/ButtonAD.cpp)
 
 endif()
