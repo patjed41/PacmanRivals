@@ -1,9 +1,8 @@
 #include "LobbyScreen.h"
 
 #include <iostream>
-
-const unsigned int LobbyScreen::OPTIONS_NUM = 3; //docelowo liczba graczy + 1
-const float LobbyScreen::SPACE_BETWEEN =100.f;
+unsigned int LobbyScreen::OPTIONS_NUM = 3; //docelowo liczba graczy + 1
+const float LobbyScreen::SPACE_BETWEEN =220.f;
 
 LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
     _view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
@@ -14,6 +13,24 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
         exit(1);
     }
     _current_options = 0;
+
+    // wersja tmp
+    _options = std::vector<sf::Text>(5);
+    _options[0].setString("G");
+    _options[1].setString("1");
+    _options[2].setString("2");
+    _options[3].setString("3");
+    _options[4].setString("4");
+
+    float option_offset = 130;
+    for (int i = 0; i < 5; i++) {
+        _options[i].setFont(_font);
+        _options[i].setCharacterSize(60);
+        _options[i].setFillColor(sf::Color::White);
+
+        _options[i].setPosition(20, option_offset);
+        option_offset += SPACE_BETWEEN;
+    }
 }
 
 void LobbyScreen::initialise() {
@@ -23,6 +40,8 @@ void LobbyScreen::initialise() {
     // 2 players are default
     _player_options.emplace_back(1, _window);
     _player_options.emplace_back(2, _window);
+    _player_options.emplace_back(3, _window);
+    _player_options.emplace_back(4, _window);
 }
 
 void LobbyScreen::input() {
@@ -30,13 +49,29 @@ void LobbyScreen::input() {
 
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
+            OPTIONS_NUM = _game_options.getNumberOfPlayers()+1;
+            for (int i = 0; i < OPTIONS_NUM; i++) {
+                _options[i].setFillColor(sf::Color::White);
+                _options[i].setFont(_font); // why is it needed? 100 points question
+                _window->draw(_options[i]);
+            }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 *_current_screen = MENU;
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
                 // TODO: check if everything is done and correct
+                bool allDone = false;
                 if (_game_options.allDone()) {
+                    allDone = true;
+                    for (auto & _player_option : _player_options){
+                        if (!_player_option.allDone()){
+                            allDone = false;
+                            break;
+                        }
+                    }
+                }
+                if (allDone){
                     *_current_screen = GAME;
                 }
                 else {
@@ -48,35 +83,32 @@ void LobbyScreen::input() {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 _current_options = (_current_options + OPTIONS_NUM + 1) % OPTIONS_NUM;
-                std::cerr << _current_options << std::endl;
+                std::cerr << "line: " << _current_options << std::endl;
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 _current_options = (_current_options + OPTIONS_NUM - 1) % OPTIONS_NUM;
-                std::cerr << _current_options << std::endl;
+                std::cerr << "line: " << _current_options << std::endl;
             }
         }
     }
     if (_current_options == 0){
-//        std::cerr << "_game_options" << std::endl;
         _game_options.input(event);
     }
     // 2 players are default
-    if (_current_options == 1){
-//        std::cerr << "_player_options[0]" << std::endl;
-        _player_options[0].input(event);
-    }
-    if (_current_options == 2){
-//        std::cerr << "_player_options[1]" << std::endl;
-        _player_options[1].input(event);
+    for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++){
+        if (_current_options == i){
+            _player_options[i-1].input(event);
+        }
     }
     // TODO: input() on current option
 }
 
 void LobbyScreen::update(float dt_as_seconds) {
     _game_options.update(dt_as_seconds);
-    for (auto & _player_option : _player_options){
-        _player_option.update(dt_as_seconds);
+
+    for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){
+            _player_options[i].update(dt_as_seconds);
     }
     // TODO: update() on all options
 }
@@ -85,10 +117,17 @@ void LobbyScreen::draw() {
     _window->clear(sf::Color::Black);
     _window->setView(_view);
 
+    _options[_current_options].setFillColor(sf::Color::Red);
+
+    for (int i = 0; i < _game_options.getNumberOfPlayers()+1; i++) {
+        _options[i].setFont(_font); // why is it needed? 100 points question
+        _window->draw(_options[i]);
+    }
+
     // TODO: draw() on all options
     _game_options.draw();
-    for (auto & _player_option : _player_options){
-        _player_option.draw();
+    for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){
+        _player_options[i].draw();
     }
     _window->display();
 }

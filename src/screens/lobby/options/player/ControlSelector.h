@@ -8,13 +8,15 @@ class ControlSelector : Selector {
 
 private:
 
+    unsigned int _player;
+
     std::string _current_control;
 
 public:
 
     ControlSelector() = default;
 
-    ControlSelector(sf::RenderWindow* window);
+    ControlSelector(sf::RenderWindow* window, unsigned int _player);
 
     void input(const sf::Event &event) override;
 

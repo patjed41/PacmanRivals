@@ -8,13 +8,15 @@ class NickSelector : Selector {
 
 private:
 
+    unsigned int _player;
+
     std::string _current_nick;
 
 public:
 
     NickSelector() = default;
 
-    NickSelector(sf::RenderWindow* window);
+    NickSelector(sf::RenderWindow* window, unsigned int _player);
 
     void input(const sf::Event &event) override;
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Selector.h"
+#include "../../buttons/ButtonAD.h"
 
 class RoundsSelector : Selector {
 
@@ -8,7 +9,17 @@ private:
 
     unsigned int _current_rounds = 5;
 
+    sf::Text _number;
+
+    sf::Font _font;
+
+    sf::Sprite _border;
+
 public:
+
+    ButtonAD _A;
+
+    ButtonAD _D;
 
     RoundsSelector() = default;
 

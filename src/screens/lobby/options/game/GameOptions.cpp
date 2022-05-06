@@ -10,25 +10,20 @@ GameOptions::GameOptions(sf::RenderWindow* window) : Options(window) {
 void GameOptions::input(const sf::Event &event) {
 
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-            _window->close();
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            _current_selector = (_current_selector + 2 + 1) % 2; // currently 2
-            std::cerr << "selected: " << _current_selector  << std::endl;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            _current_selector = (_current_selector + 2 + 1) % 2; // TODO : create a const, currently 2
+            std::cerr << "game line selected: " << _current_selector  << std::endl;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             _current_selector  = (_current_selector + 2 - 1) % 2;
-            std::cerr << "selected: " << _current_selector  << std::endl;
+            std::cerr << "game line selected: " << _current_selector  << std::endl;
         }
     }
 
     if (_current_selector == 0){
-//        std::cerr << "selected: _players_selector" << std::endl;
         _players_selector.input(event);
     }
     else {
-//        std::cerr << "selected: _rounds_selector" << std::endl;
         _rounds_selector.input(event);
     }
     // TODO
@@ -57,7 +52,8 @@ bool GameOptions::allDone() const {
 }
 
 unsigned int GameOptions::getNumberOfPlayers() {
-    return _players_selector.getCurrentPlayers();
+//    return _players_selector.getCurrentPlayers();
+    return 2;
 }
 
 unsigned int GameOptions::getNumberOfRounds() {

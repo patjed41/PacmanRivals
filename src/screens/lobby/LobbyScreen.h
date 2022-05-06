@@ -18,8 +18,9 @@ private:
 
     sf::Font _font;
 
-    static const unsigned int OPTIONS_NUM;
+    static unsigned int OPTIONS_NUM;
     static const float SPACE_BETWEEN; // vertical distance between 2 options
+    std::vector<sf::Text> _options;
 
     unsigned int _current_options = 0; // currently chosen strip of options
     GameOptions _game_options;
