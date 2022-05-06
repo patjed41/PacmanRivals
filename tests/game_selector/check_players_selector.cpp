@@ -20,21 +20,6 @@ int main() {
 //    sf::Event event;
 //
 //    while (true) {
-//        while (window.pollEvent(event)) {
-//            if (event.type == sf::Event::KeyPressed) {
-//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-//                    window.close();
-//                    exit(0);
-//                }
-//
-//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-//                    playerSelector._A.click();
-//                }
-//                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-//                    playerSelector._D.click();
-//                }
-//            }
-//        }
 //
 //        float dt_as_seconds = clock.restart().asSeconds();
 //        playerSelector.update(dt_as_seconds);

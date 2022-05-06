@@ -3,7 +3,7 @@
 #include "../../../../texture-holder/TextureHolder.h"
 
 PlayersSelector::PlayersSelector(sf::RenderWindow* window) : Selector(window) {
-    if (!_font.loadFromFile("../assets/fonts/capuche/Capuche Trial.otf")) {
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in ButtonAD constructor.\n";
         exit(1);
     }
@@ -37,20 +37,23 @@ void PlayersSelector::input() {
     // TODO: set _current_selector_id to _my_id
     sf::Event event;
 
-    while (_window->pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                if (_current_players >= 2) {
-                    _current_players -= 1;
-                    _number.setString(char('0' + _current_players));
-                }
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                if (_current_players <= 3) {
-                    _current_players += 1;
-                    _number.setString(char('0' + _current_players));
-                }
-            }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        _window->close();
+        exit(0);
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        _A.click();
+        if (_current_players >= 2) {
+            _current_players -= 1;
+            _number.setString(char('0' + _current_players));
+        }
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        _D.click();
+        if (_current_players <= 3) {
+            _current_players += 1;
+            _number.setString(char('0' + _current_players));
         }
     }
     _current_selector_id = _my_id;

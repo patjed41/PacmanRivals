@@ -3,7 +3,7 @@
 #include "../../../../texture-holder/TextureHolder.h"
 
 RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
-    if (!_font.loadFromFile("../assets/fonts/coolvetica/coolvetica condensed rg.otf")) {
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in ButtonAD constructor.\n";
         exit(1);
     }
@@ -37,22 +37,26 @@ void RoundsSelector::input() {
     // TODO: set _current_selector_id to _my_id
     sf::Event event;
 
-    while (_window->pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                if (_current_rounds >= 2) {
-                    _current_rounds -= 1;
-                    _number.setString(char('0' + _current_rounds));
-                }
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                if (_current_rounds <= 9) {
-                    _current_rounds += 1;
-                    _number.setString(char('0' + _current_rounds));
-                }
-            }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        _window->close();
+        exit(0);
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        _A.click();
+        if (_current_rounds >= 2) {
+            _current_rounds -= 1;
+            _number.setString(char('0' + _current_rounds));
         }
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        _D.click();
+        if (_current_rounds <= 9) {
+            _current_rounds += 1;
+            _number.setString(char('0' + _current_rounds));
+        }
+    }
+
     _current_selector_id = _my_id;
 }
 
