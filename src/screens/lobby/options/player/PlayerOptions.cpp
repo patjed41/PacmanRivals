@@ -5,7 +5,7 @@ PlayerOptions::PlayerOptions(unsigned int player, sf::RenderWindow* window) : Op
     // TODO: construct selectors
 }
 
-void PlayerOptions::input() {
+void PlayerOptions::input(const sf::Event &event) {
     // TODO
     // Arrows left-right move between _nick_selector and _color_selector, _control_selector
     // // (change _current_selector).

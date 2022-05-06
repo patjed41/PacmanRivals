@@ -4,7 +4,7 @@ GameOptions::GameOptions(sf::RenderWindow* window) : Options(window) {
     // TODO: construct selectors
 }
 
-void GameOptions::input() {
+void GameOptions::input(const sf::Event &event) {
     // TODO
     // Arrows left-right move between _players_selector and _rounds_selector
     // (change _current_selector).
