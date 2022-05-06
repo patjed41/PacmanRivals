@@ -4,7 +4,7 @@ RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
 
 }
 
-void RoundsSelector::input() {
+void RoundsSelector::input(const sf::Event &event) {
     // TODO: keys A-D change _current_players
     // TODO: set _current_selector_id to _my_id
 }

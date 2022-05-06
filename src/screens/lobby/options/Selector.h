@@ -18,7 +18,7 @@ public:
 
     Selector(sf::RenderWindow* window);
 
-    virtual void input() = 0;
+    virtual void input(const sf::Event &event) = 0;
 
     virtual void update(float dt_as_seconds) = 0;
 

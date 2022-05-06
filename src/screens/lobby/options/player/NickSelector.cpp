@@ -4,7 +4,7 @@ NickSelector::NickSelector(sf::RenderWindow* window) : Selector(window) {
 
 }
 
-void NickSelector::input() {
+void NickSelector::input(const sf::Event &event) {
     // TODO: letters and digits change _current_nickname
     // TODO: set _current_selector_id to _my_id
 }

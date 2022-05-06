@@ -7,23 +7,29 @@ GameOptions::GameOptions(sf::RenderWindow* window) : Options(window) {
     _rounds_selector = RoundsSelector(_window);
 }
 
-void GameOptions::input() {
+void GameOptions::input(const sf::Event &event) {
 
-//    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-//        _window->close();
-//    }
-//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-//        _current_selector = (_current_selector + 2 + 1) % 2; // currently 2
-//    }
-//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-//        _current_selector  = (_current_selector + 2 - 1) % 2;
-//
-//    }
+    if (event.type == sf::Event::KeyPressed) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            _window->close();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            _current_selector = (_current_selector + 2 + 1) % 2; // currently 2
+            std::cerr << "selected: " << _current_selector  << std::endl;
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            _current_selector  = (_current_selector + 2 - 1) % 2;
+            std::cerr << "selected: " << _current_selector  << std::endl;
+        }
+    }
+
     if (_current_selector == 0){
-        _players_selector.input();
+//        std::cerr << "selected: _players_selector" << std::endl;
+        _players_selector.input(event);
     }
     else {
-        _rounds_selector.input();
+//        std::cerr << "selected: _rounds_selector" << std::endl;
+        _rounds_selector.input(event);
     }
     // TODO
     // Arrows left-right move between _players_selector and _rounds_selector

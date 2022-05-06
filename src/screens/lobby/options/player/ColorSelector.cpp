@@ -4,7 +4,7 @@ ColorSelector::ColorSelector(sf::RenderWindow* window) : Selector(window) {
 
 }
 
-void ColorSelector::input() {
+void ColorSelector::input(const sf::Event &event) {
     // TODO: keys A-D change _current_color
     // TODO: set _current_selector_id to _my_id
 }

@@ -4,7 +4,7 @@ ControlSelector::ControlSelector(sf::RenderWindow* window) : Selector(window) {
 
 }
 
-void ControlSelector::input() {
+void ControlSelector::input(const sf::Event &event) {
     // TODO: keys A-D change _current_control
     // TODO: set _current_selector_id to _my_id
 }

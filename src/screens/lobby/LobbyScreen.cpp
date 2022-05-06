@@ -59,16 +59,16 @@ void LobbyScreen::input() {
     }
     if (_current_options == 0){
 //        std::cerr << "_game_options" << std::endl;
-        _game_options.input();
+        _game_options.input(event);
     }
     // 2 players are default
     if (_current_options == 1){
 //        std::cerr << "_player_options[0]" << std::endl;
-        _player_options[0].input();
+        _player_options[0].input(event);
     }
     if (_current_options == 2){
 //        std::cerr << "_player_options[1]" << std::endl;
-        _player_options[1].input();
+        _player_options[1].input(event);
     }
     // TODO: input() on current option
 }
