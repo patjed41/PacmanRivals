@@ -18,6 +18,9 @@ private:
 
     sf::Font _font;
 
+    static const unsigned int OPTIONS_NUM;
+    static const float SPACE_BETWEEN; // vertical distance between 2 options
+
     unsigned int _current_options = 0; // currently chosen strip of options
     GameOptions _game_options;
     std::vector<PlayerOptions> _player_options;
@@ -38,6 +41,6 @@ public:
 
     std::vector<PlayerInfo> getPlayerInfos() const;
 
-    unsigned int getRounds() const;
+    unsigned int getRounds();
 
 };
