@@ -40,7 +40,7 @@ public:
 
     void draw() override;
 
-    std::vector<PlayerInfo> getPlayerInfos() const;
+    std::vector<PlayerInfo> getPlayerInfos();
 
     unsigned int getRounds();
 

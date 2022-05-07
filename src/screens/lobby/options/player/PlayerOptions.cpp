@@ -68,5 +68,6 @@ PlayerInfo PlayerOptions::getPlayerInfo() {
 }
 
 void PlayerOptions::freeOptions() {
+    _color_selector.freeCurrentColor();
     _control_selector.freeCurrentControl();
 }
