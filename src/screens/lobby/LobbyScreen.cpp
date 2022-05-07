@@ -91,16 +91,17 @@ void LobbyScreen::input() {
                 std::cerr << "line: " << _current_options << std::endl;
             }
         }
-    }
-    if (_current_options == 0){
-        _game_options.input(event);
-    }
-    // 2 players are default
-    for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++){
-        if (_current_options == i){
-            _player_options[i-1].input(event);
+        if (_current_options == 0){
+            _game_options.input(event);
+        }
+        // 2 players are default
+        for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++){
+            if (_current_options == i){
+                _player_options[i-1].input(event);
+            }
         }
     }
+
     // TODO: input() on current option
 }
 

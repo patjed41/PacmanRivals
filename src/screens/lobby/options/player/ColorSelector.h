@@ -13,6 +13,10 @@ private:
 
     std::string _current_color = "lightblue"; // default
 
+    int _current_index = 0;
+
+    std::vector<std::string> _pac_man_options;
+
     sf::Sprite _color;
 
     sf::Font _font;
