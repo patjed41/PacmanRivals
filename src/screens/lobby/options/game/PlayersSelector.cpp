@@ -77,6 +77,7 @@ void PlayersSelector::draw() {
     _D.draw(_window);
 }
 
+
 unsigned int PlayersSelector::getCurrentPlayers() const {
     return _current_players;
 }
