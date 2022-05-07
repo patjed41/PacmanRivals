@@ -34,14 +34,14 @@ PlayersSelector::PlayersSelector(sf::RenderWindow* window) : Selector(window) {
 
 void PlayersSelector::input(const sf::Event &event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (event.key.code == sf::Keyboard::Key::A) {
             if (_current_players > MIN_PLAYERS) {
                 _current_players -= 1;
                 _number.setString(char('0' + _current_players));
             }
             _A.click();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (event.key.code == sf::Keyboard::Key::D) {
             if (_current_players < MAX_PLAYERS) {
                 _current_players += 1;
                 _number.setString(char('0' + _current_players));

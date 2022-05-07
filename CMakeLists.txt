@@ -131,6 +131,12 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInfo.cpp
     )
 
+    set(SELECTOR_FILES
+        ${TEST_FILES}
+        src/screens/lobby/options/Selector.cpp
+        src/screens/lobby/buttons/ButtonAD.cpp
+        )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -158,5 +164,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_coins coins ${COINS_FILES})
     make_new_test(check_ad_button AD-button ${TEST_FILES} src/screens/lobby/buttons/ButtonAD.cpp)
     make_new_test(check_one_player_auto_win game-screen ${GAME_SCREEN_FILES})
+    make_new_test(check_players_selector players-selector ${SELECTOR_FILES} src/screens/lobby/options/game/PlayersSelector.cpp)
 
 endif()

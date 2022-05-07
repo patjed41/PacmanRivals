@@ -37,14 +37,14 @@ void RoundsSelector::input(const sf::Event &event) {
     // TODO: set _current_selector_id to _my_id
 
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (event.key.code == sf::Keyboard::Key::A) {
             if (_current_rounds > MIN_ROUNDS) {
                 _current_rounds -= 1;
                 _number.setString(char('0' + _current_rounds));
             }
             _A.click();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (event.key.code == sf::Keyboard::Key::D) {
             if (_current_rounds < MAX_ROUNDS) {
                 _current_rounds += 1;
                 _number.setString(char('0' + _current_rounds));

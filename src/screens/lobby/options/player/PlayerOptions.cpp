@@ -15,10 +15,10 @@ void PlayerOptions::input(const sf::Event &event) {
 
     if (event.type == sf::Event::KeyPressed) {
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        if (event.key.code == sf::Keyboard::Key::Right) {
             _current_selector = (_current_selector + 3 + 1) % 3; // TODO : create a const, currently 3
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        else if (event.key.code == sf::Keyboard::Key::Left) {
             _current_selector  = (_current_selector + 3 - 1) % 3;
         }
     }
