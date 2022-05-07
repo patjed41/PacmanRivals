@@ -1,7 +1,8 @@
 #include "NickSelector.h"
 
-NickSelector::NickSelector(sf::RenderWindow* window) : Selector(window) {
+NickSelector::NickSelector(sf::RenderWindow* window, unsigned int player) : Selector(window) {
 
+    _player = player;
 }
 
 void NickSelector::input(const sf::Event &event) {

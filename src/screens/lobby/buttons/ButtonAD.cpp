@@ -51,5 +51,6 @@ void ButtonAD::draw(sf::RenderWindow *window) {
     else {
         _letter.setFillColor(sf::Color::White);
     }
+    _letter.setFont(_font);
     window->draw(_letter);
 }

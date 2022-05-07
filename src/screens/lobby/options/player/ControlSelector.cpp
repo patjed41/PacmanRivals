@@ -1,7 +1,7 @@
 #include "ControlSelector.h"
 
-ControlSelector::ControlSelector(sf::RenderWindow* window) : Selector(window) {
-
+ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) : Selector(window) {
+    _player = player;
 }
 
 void ControlSelector::input(const sf::Event &event) {

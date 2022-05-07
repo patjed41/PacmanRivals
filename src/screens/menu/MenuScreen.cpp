@@ -36,10 +36,13 @@ void MenuScreen::initialise() {
 }
 
 void MenuScreen::input() {
-    sf::Event event;
+    sf::Event event{};
 
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
+            for (int i = 0; i < OPTIONS_NUM; i++) {
+                _options[i].setFillColor(sf::Color::White);
+            }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 _window->close();
             }
@@ -48,14 +51,22 @@ void MenuScreen::input() {
                 if (_current_option == 0) {
                     *_current_screen = LOBBY;
                 }
+                if (_current_option == 1) {
+                    *_current_screen = MENU;
+                }
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                _current_option = (_current_option + OPTIONS_NUM + 1) % OPTIONS_NUM; // currently 2
+                _options[_current_option].setFillColor(sf::Color::Red);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                _current_option = (_current_option + OPTIONS_NUM - 1) % OPTIONS_NUM;
+                _options[_current_option].setFillColor(sf::Color::Red);
             }
         }
     }
-
-    // TODO
-    // Arrows up-down should change options cyclically (pressing down arrow when
-    // _current_option == OPTIONS_NUM - 1 should change _current_option to 0).
 }
+
 
 void MenuScreen::update(float dt_as_seconds) {
     // TODO
@@ -72,6 +83,7 @@ void MenuScreen::draw() {
     _window->clear(sf::Color::Black);
     _window->setView(_view);
 
+    _options[_current_option].setFillColor(sf::Color::Red);
     // TODO
     // _current_option must be marked, for example color can be changed to red.
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 #include "../Screen.h"
 #include "../../level-manager/LevelManager.h"
