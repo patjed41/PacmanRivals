@@ -34,6 +34,7 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
 }
 
 void LobbyScreen::initialise() {
+    ControlSelector::clearState();
     _current_options = 0;
     _player_options.clear();
     _game_options = GameOptions(_window);

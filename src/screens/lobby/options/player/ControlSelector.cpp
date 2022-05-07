@@ -2,6 +2,12 @@
 #include "ControlSelector.h"
 #include "../../../../texture-holder/TextureHolder.h"
 
+std::vector<bool> ControlSelector::_available_controls = std::vector<bool>(6, true);
+
+void ControlSelector::clearState() {
+    _available_controls = std::vector<bool>(6, true);
+}
+
 ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) : Selector(window) {
     if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in ControlSelector constructor.\n";
@@ -26,10 +32,10 @@ ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) 
     _A = buttonA;
     _D = buttonD;
 
-    while (!available_controls[_current_index]) {
+    while (!_available_controls[_current_index]) {
         _current_index = (_current_index + 1) % _control_options.size();
     }
-    available_controls[_current_index] = false;
+    _available_controls[_current_index] = false;
     _current_control = _control_options[_current_index];
 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
@@ -47,22 +53,24 @@ ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) 
 
 void ControlSelector::input(const sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
-        available_controls[_current_index] = true;
+        _available_controls[_current_index] = true;
         do {
             _current_index = (_current_index + _control_options.size() - 1) % _control_options.size();
-        } while (!available_controls[_current_index]);
-        available_controls[_current_index] = false;
+        } while (!_available_controls[_current_index]);
+        _available_controls[_current_index] = false;
         _current_control = _control_options[_current_index];
         _control.setString(_current_control);
+        _A.click();
     }
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
-        available_controls[_current_index] = true;
+        _available_controls[_current_index] = true;
         do {
             _current_index = (_current_index + 1) % _control_options.size();
-        } while (!available_controls[_current_index]);
-        available_controls[_current_index] = false;
+        } while (!_available_controls[_current_index]);
+        _available_controls[_current_index] = false;
         _current_control = _control_options[_current_index];
         _control.setString(_current_control);
+        _D.click();
     }
 
     _current_selector_id = _my_id;
@@ -86,5 +94,11 @@ void ControlSelector::draw() {
 }
 
 std::string ControlSelector::getCurrentControl() const {
+    if (_current_control == "K1") {
+        return "Arrows";
+    }
+    if (_current_control == "K2") {
+        return "WASD";
+    }
     return _current_control;
 }
