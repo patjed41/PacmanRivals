@@ -46,14 +46,6 @@ void PlayerOptions::draw() {
     _control_selector.draw();
 }
 
-bool PlayerOptions::allDone() const {
-    if (_color_selector.getCurrentColor() == "none" || _control_selector.getCurrentControl() == "none"
-    || _nick_selector.getCurrentNick().empty())
-        return false;
-
-    return true;
-}
-
 PlayerInfo PlayerOptions::getPlayerInfo() {
     return PlayerInfo(_nick_selector.getCurrentNick(),
                       _color_selector.getCurrentColor(),

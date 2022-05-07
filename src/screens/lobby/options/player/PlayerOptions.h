@@ -26,8 +26,6 @@ public:
 
     void draw() override;
 
-    bool allDone() const override;
-
     void freeOptions();
 
     PlayerInfo getPlayerInfo();

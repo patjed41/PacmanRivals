@@ -36,13 +36,6 @@ void GameOptions::draw() {
     _rounds_selector.draw();
 }
 
-bool GameOptions::allDone() const {
-    if (_players_selector.getCurrentPlayers() > 1 && _players_selector.getCurrentPlayers() <= 4
-    && _rounds_selector.getCurrentRounds() > 1  && _rounds_selector.getCurrentRounds() < 9){
-        return true;
-    }
-    return false;
-}
 
 unsigned int GameOptions::getNumberOfPlayers() {
     return _players_selector.getCurrentPlayers();

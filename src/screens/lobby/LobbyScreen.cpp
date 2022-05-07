@@ -60,24 +60,7 @@ void LobbyScreen::input() {
             }
 
             if (event.key.code == sf::Keyboard::Key::Return) {
-                bool allDone = false;
-                if (_game_options.allDone()) {
-                    allDone = true;
-                    for (auto & _player_option : _player_options){
-                        if (!_player_option.allDone()){
-                            allDone = false;
-                            break;
-                        }
-                    }
-                }
-                if (allDone){
-                    *_current_screen = GAME;
-                }
-                else {
-                    _window->close();
-                    // TODO: currently closes the window in case of an error,
-                    // maybe we should go back to the MENU window or reset the LOBBY
-                }
+                *_current_screen = GAME;
             }
 
             if (event.key.code == sf::Keyboard::Key::Down) {

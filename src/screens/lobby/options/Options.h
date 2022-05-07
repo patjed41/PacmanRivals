@@ -22,8 +22,6 @@ public:
 
     virtual void draw() = 0;
 
-    virtual bool allDone() const = 0;
-
     virtual ~Options() = default;
 
 };
