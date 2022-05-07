@@ -83,18 +83,15 @@ void LobbyScreen::input() {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 _current_options = (_current_options + OPTIONS_NUM + 1) % OPTIONS_NUM;
-                std::cerr << "line: " << _current_options << std::endl;
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 _current_options = (_current_options + OPTIONS_NUM - 1) % OPTIONS_NUM;
-                std::cerr << "line: " << _current_options << std::endl;
             }
         }
         if (_current_options == 0){
             _game_options.input(event);
         }
-        // 2 players are default
         for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++){
             if (_current_options == i){
                 _player_options[i-1].input(event);

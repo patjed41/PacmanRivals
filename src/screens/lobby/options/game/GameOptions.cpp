@@ -12,11 +12,9 @@ void GameOptions::input(const sf::Event &event) {
     if (event.type == sf::Event::KeyPressed) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             _current_selector = (_current_selector + 2 + 1) % 2; // TODO : create a const, currently 2
-            std::cerr << "game line selected: " << _current_selector  << std::endl;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             _current_selector  = (_current_selector + 2 - 1) % 2;
-            std::cerr << "game line selected: " << _current_selector  << std::endl;
         }
     }
 

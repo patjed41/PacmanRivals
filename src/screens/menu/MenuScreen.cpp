@@ -58,13 +58,10 @@ void MenuScreen::input() {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 _current_option = (_current_option + OPTIONS_NUM + 1) % OPTIONS_NUM; // currently 2
                 _options[_current_option].setFillColor(sf::Color::Red);
-                std::cerr << _current_option << std::endl;
-//                _options[_current_option].setCharacterSize(81);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 _current_option = (_current_option + OPTIONS_NUM - 1) % OPTIONS_NUM;
                 _options[_current_option].setFillColor(sf::Color::Red);
-                std::cerr << _current_option << std::endl;
             }
         }
     }

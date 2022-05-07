@@ -17,11 +17,9 @@ void PlayerOptions::input(const sf::Event &event) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             _current_selector = (_current_selector + 3 + 1) % 3; // TODO : create a const, currently 3
-            std::cerr << "player" << _player << " selected: " << _current_selector  << std::endl;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             _current_selector  = (_current_selector + 3 - 1) % 3;
-            std::cerr << "player" << _player << " selected: " << _current_selector  << std::endl;
         }
     }
 
