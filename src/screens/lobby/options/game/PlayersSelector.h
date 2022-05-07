@@ -26,7 +26,7 @@ public:
 
     PlayersSelector(sf::RenderWindow* window);
 
-    void input() override;
+    void input(const sf::Event &event) override;
 
     void update(float dt_as_seconds) override;
 

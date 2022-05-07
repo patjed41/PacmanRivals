@@ -4,7 +4,7 @@
 
 RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
     if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
-        std::cerr << "Failed to load _font in ButtonAD constructor.\n";
+        std::cerr << "Failed to load _font in RoundsSelector constructor.\n";
         exit(1);
     }
 
@@ -32,28 +32,22 @@ RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
 
 }
 
-void RoundsSelector::input() {
+void RoundsSelector::input(const sf::Event &event) {
     // TODO: keys A-D change _current_rounds
     // TODO: set _current_selector_id to _my_id
-    sf::Event event;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        _window->close();
-        exit(0);
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        _A.click();
-        if (_current_rounds >= 2) {
-            _current_rounds -= 1;
-            _number.setString(char('0' + _current_rounds));
+    if (event.type == sf::Event::KeyPressed) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            if (_current_rounds >= 2) {
+                _current_rounds -= 1;
+                _number.setString(char('0' + _current_rounds));
+            }
         }
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        _D.click();
-        if (_current_rounds <= 9) {
-            _current_rounds += 1;
-            _number.setString(char('0' + _current_rounds));
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            if (_current_rounds <= 9) {
+                _current_rounds += 1;
+                _number.setString(char('0' + _current_rounds));
+            }
         }
     }
 
@@ -73,6 +67,7 @@ void RoundsSelector::draw() {
     if(_current_selector_id == _my_id) {
         _window->draw(_border);
     }
+    _number.setFont(_font);
     _window->draw(_number);
 
     _D.draw(_window);

@@ -6,3 +6,4 @@
 #define COIN_SIZE 20
 #define MIN_PLAYERS 2
 #define MAX_PLAYERS 4
+#define NICKLEN_MAX 8
