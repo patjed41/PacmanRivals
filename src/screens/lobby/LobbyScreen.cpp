@@ -54,11 +54,11 @@ void LobbyScreen::input() {
                 _options[i].setFont(_font); // why is it needed? 100 points question
                 _window->draw(_options[i]);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            if (event.key.code == sf::Keyboard::Key::Escape) {
                 *_current_screen = MENU;
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+            if (event.key.code == sf::Keyboard::Key::Return) {
                 bool allDone = false;
                 if (_game_options.allDone()) {
                     allDone = true;
@@ -79,11 +79,11 @@ void LobbyScreen::input() {
                 }
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            if (event.key.code == sf::Keyboard::Key::Down) {
                 _current_options = (_current_options + OPTIONS_NUM + 1) % OPTIONS_NUM;
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            if (event.key.code == sf::Keyboard::Key::Up) {
                 _current_options = (_current_options + OPTIONS_NUM - 1) % OPTIONS_NUM;
             }
         }

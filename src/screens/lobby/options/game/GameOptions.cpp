@@ -9,10 +9,10 @@ GameOptions::GameOptions(sf::RenderWindow* window) : Options(window) {
 void GameOptions::input(const sf::Event &event) {
 
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        if (event.key.code == sf::Keyboard::Key::Right) {
             _current_selector = (_current_selector + 2 + 1) % 2; // TODO : create a const, currently 2
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        else if (event.key.code == sf::Keyboard::Key::Left) {
             _current_selector  = (_current_selector + 2 - 1) % 2;
         }
     }

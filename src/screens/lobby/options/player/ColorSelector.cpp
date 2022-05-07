@@ -45,12 +45,12 @@ void ColorSelector::input(const sf::Event &event) {
     // TODO: set _current_selector_id to _my_id
 
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (event.key.code == sf::Keyboard::Key::A) {
             _current_index = (_current_index + _pac_man_options.size() - 1) % _pac_man_options.size(); //todo change size na const
             _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
             _color.setScale(1.5, 1.5);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        else if (event.key.code == sf::Keyboard::Key::D) {
             _current_index = (_current_index + _pac_man_options.size() + 1) % _pac_man_options.size();
             _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
             _color.setScale(1.5, 1.5);
