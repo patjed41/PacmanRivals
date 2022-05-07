@@ -28,6 +28,8 @@ public:
 
     bool allDone() const override;
 
+    void freeOptions();
+
     PlayerInfo getPlayerInfo();
 
 };

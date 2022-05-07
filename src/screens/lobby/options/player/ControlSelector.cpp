@@ -84,7 +84,7 @@ void ControlSelector::update(float dt_as_seconds) {
 void ControlSelector::draw() {
     _A.draw(_window);
 
-    if(_current_selector_id == _my_id) {
+    if (_current_selector_id == _my_id) {
         _window->draw(_border);
     }
     _control.setFont(_font);
@@ -102,3 +102,8 @@ std::string ControlSelector::getCurrentControl() const {
     }
     return _current_control;
 }
+
+void ControlSelector::freeCurrentControl() {
+    _available_controls[_current_index] = true;
+}
+

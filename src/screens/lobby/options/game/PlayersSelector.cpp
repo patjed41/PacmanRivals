@@ -33,21 +33,20 @@ PlayersSelector::PlayersSelector(sf::RenderWindow* window) : Selector(window) {
 }
 
 void PlayersSelector::input(const sf::Event &event) {
-    // TODO: keys A-D change _current_players
-    // TODO: set _current_selector_id to _my_id
-
     if (event.type == sf::Event::KeyPressed) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            if (_current_players >= 2) {
+            if (_current_players > MIN_PLAYERS) {
                 _current_players -= 1;
                 _number.setString(char('0' + _current_players));
             }
+            _A.click();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            if (_current_players <= 3) {
+            if (_current_players < MAX_PLAYERS) {
                 _current_players += 1;
                 _number.setString(char('0' + _current_players));
             }
+            _D.click();
         }
     }
 
@@ -55,16 +54,14 @@ void PlayersSelector::input(const sf::Event &event) {
 }
 
 void PlayersSelector::update(float dt_as_seconds) {
-    // TODO: update A, D buttons
     _A.update(dt_as_seconds);
     _D.update(dt_as_seconds);
 }
 
 void PlayersSelector::draw() {
-    // TODO: draw this class (box with _current_players and A, D buttons)
     _A.draw(_window);
 
-    if(_current_selector_id == _my_id) {
+    if (_current_selector_id == _my_id) {
         _window->draw(_border);
     }
     _number.setFont(_font);

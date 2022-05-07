@@ -45,4 +45,6 @@ public:
 
     static void clearState();
 
+    void freeCurrentControl();
+
 };

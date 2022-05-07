@@ -41,8 +41,6 @@ void LobbyScreen::initialise() {
     // 2 players are default
     _player_options.emplace_back(1, _window);
     _player_options.emplace_back(2, _window);
-    _player_options.emplace_back(3, _window);
-    _player_options.emplace_back(4, _window);
 }
 
 void LobbyScreen::input() {
@@ -50,7 +48,7 @@ void LobbyScreen::input() {
 
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
-            OPTIONS_NUM = _game_options.getNumberOfPlayers()+1;
+            OPTIONS_NUM = _game_options.getNumberOfPlayers() + 1;
             for (int i = 0; i < OPTIONS_NUM; i++) {
                 _options[i].setFillColor(sf::Color::White);
                 _options[i].setFont(_font); // why is it needed? 100 points question
@@ -61,7 +59,6 @@ void LobbyScreen::input() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                // TODO: check if everything is done and correct
                 bool allDone = false;
                 if (_game_options.allDone()) {
                     allDone = true;
@@ -90,26 +87,31 @@ void LobbyScreen::input() {
                 _current_options = (_current_options + OPTIONS_NUM - 1) % OPTIONS_NUM;
             }
         }
-        if (_current_options == 0){
+        if (_current_options == 0) {
             _game_options.input(event);
+
+            if (_game_options.getNumberOfPlayers() > _player_options.size()) {
+                _player_options.emplace_back(_game_options.getNumberOfPlayers(), _window);
+            }
+            else if (_game_options.getNumberOfPlayers() < _player_options.size()) {
+                _player_options.back().freeOptions();
+                _player_options.pop_back();
+            }
         }
-        for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++){
-            if (_current_options == i){
-                _player_options[i-1].input(event);
+        for (int i = 1; i <= _game_options.getNumberOfPlayers(); i++) {
+            if (_current_options == i) {
+                _player_options[i - 1].input(event);
             }
         }
     }
-
-    // TODO: input() on current option
 }
 
 void LobbyScreen::update(float dt_as_seconds) {
     _game_options.update(dt_as_seconds);
 
     for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){
-            _player_options[i].update(dt_as_seconds);
+        _player_options[i].update(dt_as_seconds);
     }
-    // TODO: update() on all options
 }
 
 void LobbyScreen::draw() {
@@ -118,12 +120,11 @@ void LobbyScreen::draw() {
 
     _options[_current_options].setFillColor(sf::Color::Red);
 
-    for (int i = 0; i < _game_options.getNumberOfPlayers()+1; i++) {
-        _options[i].setFont(_font); // why is it needed? 100 points question
+    for (int i = 0; i < _game_options.getNumberOfPlayers() + 1; i++) {
+        _options[i].setFont(_font);
         _window->draw(_options[i]);
     }
 
-    // TODO: draw() on all options
     _game_options.draw();
     for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){
         _player_options[i].draw();
@@ -134,14 +135,12 @@ void LobbyScreen::draw() {
 std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
     // TODO: build and return vector containing information about players
     // temporary
-    return std::vector<PlayerInfo>(1) = {PlayerInfo("CoolNick1", "lightblue", "WASD"),
+    return std::vector<PlayerInfo>(4) = {PlayerInfo("CoolNick1", "lightblue", "WASD"),
                                          PlayerInfo("CoolNick2", "black", "Arrows"),
                                          PlayerInfo("CoolNick3", "pink", "C1"),
                                          PlayerInfo("CoolNick4", "purple", "C2")};
 }
 
 unsigned int LobbyScreen::getRounds() {
-    // TODO: get information about number of rounds from _game_options and return
-//    return _game_options.getNumberOfRounds();
-    return 3;
+    return _game_options.getNumberOfRounds();
 }

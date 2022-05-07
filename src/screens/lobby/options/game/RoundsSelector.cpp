@@ -38,16 +38,18 @@ void RoundsSelector::input(const sf::Event &event) {
 
     if (event.type == sf::Event::KeyPressed) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            if (_current_rounds >= 2) {
+            if (_current_rounds > MIN_ROUNDS) {
                 _current_rounds -= 1;
                 _number.setString(char('0' + _current_rounds));
             }
+            _A.click();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            if (_current_rounds <= 9) {
+            if (_current_rounds < MAX_ROUNDS) {
                 _current_rounds += 1;
                 _number.setString(char('0' + _current_rounds));
             }
+            _D.click();
         }
     }
 
