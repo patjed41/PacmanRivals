@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../Selector.h"
+#include "../../buttons/ButtonAD.h"
 
 class NickSelector : Selector {
 
@@ -12,11 +13,17 @@ private:
 
     std::string _current_nick;
 
+    sf::Text _nickname;
+
+    sf::Font _font;
+
+    sf::Sprite _border;
+
 public:
 
     NickSelector() = default;
 
-    NickSelector(sf::RenderWindow* window, unsigned int _player);
+    NickSelector(sf::RenderWindow* window, unsigned int player);
 
     void input(const sf::Event &event) override;
 
