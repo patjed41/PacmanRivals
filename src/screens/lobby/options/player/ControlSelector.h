@@ -11,7 +11,7 @@ private:
 
     unsigned int _player;
 
-    std::string _current_control;
+    std::string _current_control = "none";
 
     unsigned int _current_index = 0;
 

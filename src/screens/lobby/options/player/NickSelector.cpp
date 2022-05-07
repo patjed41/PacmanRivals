@@ -193,5 +193,5 @@ void NickSelector::draw() {
 }
 
 std::string NickSelector::getCurrentNick() const {
-    return _current_nick;
+    return _current_nick.empty() ? ("player" + std::to_string(_player)) : _current_nick;;
 }

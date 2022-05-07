@@ -36,9 +36,6 @@ void GameOptions::draw() {
     _rounds_selector.draw();
 }
 
-bool GameOptions::allDone() const {
-    return true;
-}
 
 unsigned int GameOptions::getNumberOfPlayers() {
     return _players_selector.getCurrentPlayers();

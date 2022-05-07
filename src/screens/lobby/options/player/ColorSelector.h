@@ -11,9 +11,11 @@ private:
 
     unsigned int _player;
 
-    std::string _current_color = "lightblue"; // default
+    std::string _current_color = "none";
 
-    int _current_index = 0;
+    unsigned int _current_index = 0;
+
+    static std::vector<bool> _available_colors;
 
     std::vector<std::string> _pac_man_options;
 
@@ -40,5 +42,9 @@ public:
     void draw() override;
 
     std::string getCurrentColor() const;
+
+    static void clearState();
+
+    void freeCurrentColor() const;
 
 };

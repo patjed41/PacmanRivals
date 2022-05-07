@@ -35,6 +35,7 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
 
 void LobbyScreen::initialise() {
     ControlSelector::clearState();
+    ColorSelector::clearState();
     _current_options = 0;
     _player_options.clear();
     _game_options = GameOptions(_window);
@@ -59,24 +60,7 @@ void LobbyScreen::input() {
             }
 
             if (event.key.code == sf::Keyboard::Key::Return) {
-                bool allDone = false;
-                if (_game_options.allDone()) {
-                    allDone = true;
-                    for (auto & _player_option : _player_options){
-                        if (!_player_option.allDone()){
-                            allDone = false;
-                            break;
-                        }
-                    }
-                }
-                if (allDone){
-                    *_current_screen = GAME;
-                }
-                else {
-                    _window->close();
-                    // TODO: currently closes the window in case of an error,
-                    // maybe we should go back to the MENU window or reset the LOBBY
-                }
+                *_current_screen = GAME;
             }
 
             if (event.key.code == sf::Keyboard::Key::Down) {
@@ -132,13 +116,14 @@ void LobbyScreen::draw() {
     _window->display();
 }
 
-std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() const {
-    // TODO: build and return vector containing information about players
-    // temporary
-    return std::vector<PlayerInfo>(4) = {PlayerInfo("CoolNick1", "lightblue", "WASD"),
-                                         PlayerInfo("CoolNick2", "black", "Arrows"),
-                                         PlayerInfo("CoolNick3", "pink", "C1"),
-                                         PlayerInfo("CoolNick4", "purple", "C2")};
+std::vector<PlayerInfo> LobbyScreen::getPlayerInfos() {
+    std::vector<PlayerInfo> PlayersInfo = std::vector<PlayerInfo>(_game_options.getNumberOfPlayers());
+
+    for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){
+        PlayersInfo[i] = _player_options[i].getPlayerInfo();
+    }
+
+    return PlayersInfo;
 }
 
 unsigned int LobbyScreen::getRounds() {

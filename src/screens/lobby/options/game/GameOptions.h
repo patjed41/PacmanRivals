@@ -26,8 +26,6 @@ public:
 
     void draw() override;
 
-    bool allDone() const override;
-
     unsigned int getNumberOfPlayers();
 
     unsigned int getNumberOfRounds();
