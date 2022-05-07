@@ -165,5 +165,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_ad_button AD-button ${TEST_FILES} src/screens/lobby/buttons/ButtonAD.cpp)
     make_new_test(check_one_player_auto_win game-screen ${GAME_SCREEN_FILES})
     make_new_test(check_players_selector players-selector ${SELECTOR_FILES} src/screens/lobby/options/game/PlayersSelector.cpp)
+    make_new_test(check_rounds_selector rounds-selector ${SELECTOR_FILES} src/screens/lobby/options/game/RoundsSelector.cpp)
+    make_new_test(check_nick_selector nick-selector ${SELECTOR_FILES} src/screens/lobby/options/player/NickSelector.cpp)
+    make_new_test(check_control_selector control-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ControlSelector.cpp)
 
 endif()
