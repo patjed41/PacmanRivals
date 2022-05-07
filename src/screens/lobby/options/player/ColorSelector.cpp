@@ -60,7 +60,7 @@ ColorSelector::ColorSelector(sf::RenderWindow* window,  unsigned int player) : S
 void ColorSelector::input(const sf::Event &event) {
 
     if (event.type == sf::Event::KeyPressed) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (event.key.code == sf::Keyboard::Key::A) {
             _available_colors[_current_index] = true;
 
             do {
@@ -72,7 +72,7 @@ void ColorSelector::input(const sf::Event &event) {
             _color.setScale(1.5, 1.5);
             _A.click();
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        else if (event.key.code == sf::Keyboard::Key::D) {
 
             _available_colors[_current_index] = true;
 
@@ -83,7 +83,6 @@ void ColorSelector::input(const sf::Event &event) {
             _available_colors[_current_index] = false;
             _current_color = _pac_man_options[_current_index];
 
-//            _current_index = (_current_index + _pac_man_options.size() + 1) % _pac_man_options.size();
             _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
             _color.setScale(1.5, 1.5);
             _D.click();
