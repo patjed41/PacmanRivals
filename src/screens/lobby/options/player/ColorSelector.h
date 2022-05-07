@@ -11,7 +11,7 @@ private:
 
     unsigned int _player;
 
-    std::string _current_color;
+    std::string _current_color = "none";
 
     unsigned int _current_index = 0;
 
