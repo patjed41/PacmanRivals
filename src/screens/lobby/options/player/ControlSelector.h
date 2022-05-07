@@ -5,8 +5,6 @@
 #include "../Selector.h"
 #include "../../buttons/ButtonAD.h"
 
-static std::vector<bool> available_controls(6, true);
-
 class ControlSelector : Selector {
 
 private:
@@ -18,6 +16,8 @@ private:
     unsigned int _current_index = 0;
 
     std::vector<std::string> _control_options;
+
+    static std::vector<bool> _available_controls;
 
     sf::Text _control;
 
@@ -42,5 +42,7 @@ public:
     void draw() override;
 
     std::string getCurrentControl() const;
+
+    static void clearState();
 
 };
