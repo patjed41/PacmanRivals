@@ -1,8 +1,8 @@
 #include "LobbyScreen.h"
 
 #include <iostream>
-unsigned int LobbyScreen::OPTIONS_NUM = 3; //docelowo liczba graczy + 1
-const float LobbyScreen::SPACE_BETWEEN =220.f;
+unsigned int LobbyScreen::OPTIONS_NUM = 3; // number of players + 1
+const float LobbyScreen::SPACE_BETWEEN = 180.f;
 
 LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
     _view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
@@ -12,23 +12,40 @@ LobbyScreen::LobbyScreen(sf::RenderWindow* window, ScreenName* current_screen) :
         std::cerr << "Failed to load _font in LobbyScreen constructor.\n";
         exit(1);
     }
+
+    _nicknames_info.setFont(_font);
+    _nicknames_info.setString("nicknames");
+    _nicknames_info.setFillColor(sf::Color::Yellow);
+    _nicknames_info.setCharacterSize(50);
+    _nicknames_info.setPosition(205, 290);
+
+    _colors_info.setFont(_font);
+    _colors_info.setString("colors");
+    _colors_info.setFillColor(sf::Color::Yellow);
+    _colors_info.setCharacterSize(50);
+    _colors_info.setPosition(875, 290);
+
+    _controls_info.setFont(_font);
+    _controls_info.setString("controls");
+    _controls_info.setFillColor(sf::Color::Yellow);
+    _controls_info.setCharacterSize(50);
+    _controls_info.setPosition(1425, 290);
+
     _current_options = 0;
 
-    // wersja tmp
-    _options = std::vector<sf::Text>(5);
-    _options[0].setString("G");
-    _options[1].setString("1");
-    _options[2].setString("2");
-    _options[3].setString("3");
-    _options[4].setString("4");
+    _player_numbers = std::vector<sf::Text>(4);
+    _player_numbers[0].setString("P1");
+    _player_numbers[1].setString("P2");
+    _player_numbers[2].setString("P3");
+    _player_numbers[3].setString("P4");
 
-    float option_offset = 130;
-    for (int i = 0; i < 5; i++) {
-        _options[i].setFont(_font);
-        _options[i].setCharacterSize(60);
-        _options[i].setFillColor(sf::Color::White);
+    float option_offset = 230 + SPACE_BETWEEN;
+    for (int i = 0; i < 4; i++) {
+        _player_numbers[i].setFont(_font);
+        _player_numbers[i].setCharacterSize(40);
+        _player_numbers[i].setFillColor(sf::Color::Yellow);
 
-        _options[i].setPosition(20, option_offset);
+        _player_numbers[i].setPosition(20, option_offset);
         option_offset += SPACE_BETWEEN;
     }
 }
@@ -50,10 +67,10 @@ void LobbyScreen::input() {
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
             OPTIONS_NUM = _game_options.getNumberOfPlayers() + 1;
-            for (int i = 0; i < OPTIONS_NUM; i++) {
-                _options[i].setFillColor(sf::Color::White);
-                _options[i].setFont(_font); // why is it needed? 100 points question
-                _window->draw(_options[i]);
+            for (int i = 0; i < OPTIONS_NUM - 1; i++) {
+                _player_numbers[i].setFillColor(sf::Color::Yellow);
+                _player_numbers[i].setFont(_font);
+                _window->draw(_player_numbers[i]);
             }
             if (event.key.code == sf::Keyboard::Key::Escape) {
                 *_current_screen = MENU;
@@ -102,12 +119,21 @@ void LobbyScreen::draw() {
     _window->clear(sf::Color::Black);
     _window->setView(_view);
 
-    _options[_current_options].setFillColor(sf::Color::Red);
-
-    for (int i = 0; i < _game_options.getNumberOfPlayers() + 1; i++) {
-        _options[i].setFont(_font);
-        _window->draw(_options[i]);
+    if (_current_options > 0) {
+        _player_numbers[_current_options - 1].setFillColor(sf::Color::Red);
     }
+
+    for (int i = 0; i < _game_options.getNumberOfPlayers(); i++) {
+        _player_numbers[i].setFont(_font);
+        _window->draw(_player_numbers[i]);
+    }
+
+    _nicknames_info.setFont(_font);
+    _window->draw(_nicknames_info);
+    _colors_info.setFont(_font);
+    _window->draw(_colors_info);
+    _controls_info.setFont(_font);
+    _window->draw(_controls_info);
 
     _game_options.draw();
     for (int i = 0; i < _game_options.getNumberOfPlayers(); i++){

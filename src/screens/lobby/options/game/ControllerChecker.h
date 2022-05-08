@@ -10,6 +10,8 @@ private:
 
     sf::Font _font;
 
+    sf::Text _info;
+
     std::vector<std::string> _controller_name;
     std::vector<sf::Text> _controller_info;
     static const unsigned int CONTROLLERS_NUM;

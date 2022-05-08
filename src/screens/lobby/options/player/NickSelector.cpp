@@ -11,7 +11,7 @@ NickSelector::NickSelector(sf::RenderWindow* window, unsigned int player) : Sele
 
     _player = player;
 
-    sf::Vector2f positionNick(100, player * 220 + 100);
+    sf::Vector2f positionNick(125, player * 180 + 200);
 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();

@@ -8,14 +8,21 @@ PlayersSelector::PlayersSelector(sf::RenderWindow* window) : Selector(window) {
         exit(1);
     }
 
-    sf::Vector2f positionA(100, 100);
-    sf::Vector2f positionNumber(300, 100);
-    sf::Vector2f positionD(500, 100);
+    float position_y = 130;
+    sf::Vector2f positionA(150, position_y);
+    sf::Vector2f positionNumber(350, position_y);
+    sf::Vector2f positionD(550, position_y);
 
     ButtonAD buttonA(positionA, true);
     ButtonAD buttonD(positionD, false);
     _A = buttonA;
     _D = buttonD;
+
+    _info.setFont(_font);
+    _info.setString("players");
+    _info.setFillColor(sf::Color::Yellow);
+    _info.setCharacterSize(50);
+    _info.setPosition(250, 40);
 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();
@@ -60,6 +67,9 @@ void PlayersSelector::update(float dt_as_seconds) {
 
 void PlayersSelector::draw() {
     _A.draw(_window);
+
+    _info.setFont(_font);
+    _window->draw(_info);
 
     if (_current_selector_id == _my_id) {
         _window->draw(_border);

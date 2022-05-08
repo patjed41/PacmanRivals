@@ -8,14 +8,21 @@ RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
         exit(1);
     }
 
-    sf::Vector2f positionA(700, 100);
-    sf::Vector2f positionNumber(900, 100);
-    sf::Vector2f positionD(1100, 100);
+    float position_y = 130;
+    sf::Vector2f positionA(750, position_y);
+    sf::Vector2f positionNumber(950, position_y);
+    sf::Vector2f positionD(1150, position_y);
 
     ButtonAD buttonA(positionA, true);
     ButtonAD buttonD(positionD, false);
     _A = buttonA;
     _D = buttonD;
+
+    _info.setFont(_font);
+    _info.setString("rounds");
+    _info.setFillColor(sf::Color::Yellow);
+    _info.setCharacterSize(50);
+    _info.setPosition(880, 40);
 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();
@@ -66,7 +73,10 @@ void RoundsSelector::draw() {
     // TODO: draw this class (box with _current_rounds and A, D buttons)
     _A.draw(_window);
 
-    if(_current_selector_id == _my_id) {
+    _info.setFont(_font);
+    _window->draw(_info);
+
+    if (_current_selector_id == _my_id) {
         _window->draw(_border);
     }
     _number.setFont(_font);

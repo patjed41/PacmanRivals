@@ -27,9 +27,9 @@ ColorSelector::ColorSelector(sf::RenderWindow* window,  unsigned int player) : S
     _pac_man_options.emplace_back("yellow");
     _pac_man_options.emplace_back("black");
 
-    sf::Vector2f positionA(700, player * 220 + 100);
-    sf::Vector2f positionPacman(900, player * 220 + 100);
-    sf::Vector2f positionD(1100, player * 220 + 100);
+    sf::Vector2f positionA(750, player * 180 + 200);
+    sf::Vector2f positionPacman(950, player * 180 + 200);
+    sf::Vector2f positionD(1150, player * 180 + 200);
 
     ButtonAD buttonA(positionA, true);
     ButtonAD buttonD(positionD, false);
