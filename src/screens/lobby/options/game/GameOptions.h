@@ -5,6 +5,7 @@
 #include "../Options.h"
 #include "PlayersSelector.h"
 #include "RoundsSelector.h"
+#include "ControllerChecker.h"
 
 class GameOptions : Options {
 
@@ -13,6 +14,8 @@ private:
     PlayersSelector _players_selector;
 
     RoundsSelector _rounds_selector;
+
+    ControllerChecker _controller_checker;
 
 public:
 
