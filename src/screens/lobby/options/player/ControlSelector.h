@@ -25,11 +25,11 @@ private:
 
     sf::Sprite _border;
 
-public:
-
     ButtonAD _A;
 
     ButtonAD _D;
+
+public:
 
     ControlSelector() = default;
 
@@ -45,6 +45,6 @@ public:
 
     static void clearState();
 
-    void freeCurrentControl();
+    void freeCurrentControl() const;
 
 };

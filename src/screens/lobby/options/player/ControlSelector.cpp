@@ -103,7 +103,7 @@ std::string ControlSelector::getCurrentControl() const {
     return _current_control;
 }
 
-void ControlSelector::freeCurrentControl() {
+void ControlSelector::freeCurrentControl() const {
     _available_controls[_current_index] = true;
 }
 

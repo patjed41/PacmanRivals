@@ -1,9 +1,6 @@
-#include <iostream>
 #include "PlayerOptions.h"
 
 PlayerOptions::PlayerOptions(unsigned int player, sf::RenderWindow* window) : Options(window) {
-    _player = player;
-
     _nick_selector = NickSelector(_window, player);
     _color_selector = ColorSelector(_window, player);
     _control_selector = ControlSelector(_window, player);

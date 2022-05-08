@@ -23,7 +23,6 @@ public:
 
     void click();
 
-    // This method is probably required only for testing.
     bool isClicked();
 
     void update(float dt_as_seconds);

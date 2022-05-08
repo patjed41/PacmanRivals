@@ -25,11 +25,11 @@ private:
 
     sf::Sprite _border;
 
-public:
-
     ButtonAD _A;
 
     ButtonAD _D;
+
+public:
 
     ColorSelector() = default;
 

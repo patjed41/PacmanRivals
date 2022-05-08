@@ -40,9 +40,6 @@ RoundsSelector::RoundsSelector(sf::RenderWindow* window) : Selector(window) {
 }
 
 void RoundsSelector::input(const sf::Event &event) {
-    // TODO: keys A-D change _current_rounds
-    // TODO: set _current_selector_id to _my_id
-
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Key::A) {
             if (_current_rounds > MIN_ROUNDS) {
@@ -64,13 +61,11 @@ void RoundsSelector::input(const sf::Event &event) {
 }
 
 void RoundsSelector::update(float dt_as_seconds) {
-    // TODO: update A, D buttons
     _A.update(dt_as_seconds);
     _D.update(dt_as_seconds);
 }
 
 void RoundsSelector::draw() {
-    // TODO: draw this class (box with _current_rounds and A, D buttons)
     _A.draw(_window);
 
     _info.setFont(_font);

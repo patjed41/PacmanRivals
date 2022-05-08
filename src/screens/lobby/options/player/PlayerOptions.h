@@ -9,8 +9,6 @@
 #include "../../../game/PlayerInfo.h"
 
 class PlayerOptions : Options {
-
-    unsigned int _player;
     
     NickSelector _nick_selector;
     ColorSelector _color_selector;

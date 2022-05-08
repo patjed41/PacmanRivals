@@ -180,9 +180,7 @@ void NickSelector::input(const sf::Event &event) {
     _current_selector_id = _my_id;
 }
 
-void NickSelector::update(float dt_as_seconds) {
-    // Probably nothing to do.
-}
+void NickSelector::update(float dt_as_seconds) {}
 
 void NickSelector::draw() {
     if (_current_selector_id == _my_id) {
