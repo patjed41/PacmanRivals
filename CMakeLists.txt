@@ -169,5 +169,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_rounds_selector rounds-selector ${SELECTOR_FILES} src/screens/lobby/options/game/RoundsSelector.cpp)
     make_new_test(check_nick_selector nick-selector ${SELECTOR_FILES} src/screens/lobby/options/player/NickSelector.cpp)
     make_new_test(check_control_selector control-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ControlSelector.cpp)
+    make_new_test(check_color_selector color-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ColorSelector.cpp)
 
 endif()

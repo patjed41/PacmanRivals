@@ -36,7 +36,7 @@ int main() {
     ControlSelector control_selector(&window, 0);
     std::vector<std::string> option(6);
     for (int i = 0; i < 6 * 3; i++) {
-        if (option[i % 6] == "") {
+        if (option[i % 6].empty()) {
             option[i % 6] = control_selector.getCurrentControl();
         }
         else {
