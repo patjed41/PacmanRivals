@@ -84,11 +84,9 @@ void MenuScreen::draw() {
     _window->setView(_view);
 
     _options[_current_option].setFillColor(sf::Color::Red);
-    // TODO
-    // _current_option must be marked, for example color can be changed to red.
 
     for (int i = 0; i < OPTIONS_NUM; i++) {
-        _options[i].setFont(_font); // why is it needed? 100 points question
+        _options[i].setFont(_font);
         _window->draw(_options[i]);
     }
 
