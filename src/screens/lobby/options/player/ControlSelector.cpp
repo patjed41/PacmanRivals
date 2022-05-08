@@ -23,9 +23,9 @@ ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) 
     _control_options.emplace_back("C3");
     _control_options.emplace_back("C4");
 
-    sf::Vector2f positionA(1300, player * 220 + 100);
-    sf::Vector2f positionControl(1450, player * 220 + 100);
-    sf::Vector2f positionD(1700, player * 220 + 100);
+    sf::Vector2f positionA(1350, player * 180 + 200);
+    sf::Vector2f positionControl(1500, player * 180 + 200);
+    sf::Vector2f positionD(1750, player * 180 + 200);
 
     ButtonAD buttonA(positionA, true);
     ButtonAD buttonD(positionD, false);

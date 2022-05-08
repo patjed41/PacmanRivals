@@ -12,6 +12,8 @@ private:
 
     sf::Text _number;
 
+    sf::Text _info;
+
     sf::Font _font;
 
     sf::Sprite _border;

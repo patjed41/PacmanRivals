@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "../../../include/game_constants.h"
+
 const float ScorePrinter::FIRST_PLACE_POSITION_Y = 200.0f;
 const float ScorePrinter::ONE_POSITION_OFFSET = 200.0f;
 
@@ -18,7 +20,11 @@ ScorePrinter::ScorePrinter(const PlayerInfo & player_info, unsigned int place, c
 
     _text.setFont(_font);
     std::stringstream ss;
-    ss << player_info.getNickname() << " - " << player_info.getRoundsWon()
+    ss << player_info.getNickname();
+    for (size_t i = 0; i < NICKLEN_MAX - player_info.getNickname().size(); i++) {
+        ss << " ";
+    }
+    ss << " - " << player_info.getRoundsWon()
        << (player_info.getRoundsWon() == 1 ? " win " : " wins");
     _text.setString(ss.str());
     _text.setFillColor(sf::Color::White);

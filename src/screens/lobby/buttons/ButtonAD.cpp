@@ -49,7 +49,7 @@ void ButtonAD::draw(sf::RenderWindow *window) {
         _letter.setFillColor(sf::Color::Red);
     }
     else {
-        _letter.setFillColor(sf::Color::White);
+        _letter.setFillColor(sf::Color::Yellow);
     }
     _letter.setFont(_font);
     window->draw(_letter);

@@ -16,10 +16,10 @@ int main() {
         "Pacman Rivals", sf::Style::Fullscreen
     );
 
-    NickSelector nick_selector(&window, 0);
+    NickSelector nick_selector(&window, 1);
 
     // Check default value.
-    err::checkEqual(std::string(""), nick_selector.getCurrentNick(), 1);
+    err::checkEqual(std::string("player1"), nick_selector.getCurrentNick(), 1);
 
     // Check max length.
     std::string max_length_str;
@@ -32,13 +32,13 @@ int main() {
     }
 
     // Check Backspace.
-    nick_selector = NickSelector(&window, 0);
+    nick_selector = NickSelector(&window, 1);
     nick_selector.input(simulateKeypress(sf::Keyboard::Key::A));
     err::checkEqual(std::string("A"), nick_selector.getCurrentNick(), "Backspace1");
     nick_selector.input(simulateKeypress(sf::Keyboard::Key::BackSpace));
-    err::checkEqual(std::string(""), nick_selector.getCurrentNick(), "Backspace2");
+    err::checkEqual(std::string("player1"), nick_selector.getCurrentNick(), "Backspace2");
     nick_selector.input(simulateKeypress(sf::Keyboard::Key::BackSpace));
-    err::checkEqual(std::string(""), nick_selector.getCurrentNick(), "Backspace3");
+    err::checkEqual(std::string("player1"), nick_selector.getCurrentNick(), "Backspace3");
 
     // Check every letter and digit.
     nick_selector.input(simulateKeypress(sf::Keyboard::Key::BackSpace));

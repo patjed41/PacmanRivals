@@ -11,16 +11,22 @@ ControllerChecker::ControllerChecker(sf::RenderWindow* window) : _window(window)
         exit(1);
     }
 
+    _info.setFont(_font);
+    _info.setString("controllers");
+    _info.setFillColor(sf::Color::Yellow);
+    _info.setCharacterSize(48);
+    _info.setPosition(1360, 41);
+
     _controller_name = {"C1", "C2", "C3", "C4"};
 
-    const float horizontal_offset = 140;
+    const float horizontal_offset = 135;
     _controller_info.resize(CONTROLLERS_NUM);
     _seconds_since_last_click.resize(CONTROLLERS_NUM);
     for (int controller = 0; controller < CONTROLLERS_NUM; controller++) {
         _controller_info[controller].setFont(_font);
         _controller_info[controller].setCharacterSize(60);
         _controller_info[controller].setString(_controller_name[controller]);
-        _controller_info[controller].setPosition(1300 + controller * horizontal_offset, 120);
+        _controller_info[controller].setPosition(1360 + controller * horizontal_offset, 155);
         // Controller's buttons are not clicked at the beginning.
         _seconds_since_last_click[controller] = 2 * _SECONDS_OF_CLICK_ANIMATION;
     }
@@ -50,6 +56,9 @@ void ControllerChecker::update(float dt_as_seconds) {
 }
 
 void ControllerChecker::draw() {
+    _info.setFont(_font);
+    _window->draw(_info);
+
     for (int controller = 0; controller < CONTROLLERS_NUM; controller++) {
         if (!sf::Joystick::isConnected(controller)) {
             _controller_info[controller].setFillColor(sf::Color(166, 166, 166, 100));
