@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class BetweenRoundsScreen {
+    -sf::View _view;
+    -std::vector<ScorePrinter> _score_printers
+
+    +BetweenRoundsScreen()
+    +BetweenRoundsScreen(sf::RenderWindow* window, ScreenName* current_screen)
+    +void initialise(const std::vector<PlayerInfo> & player_infos)
+    +void input()
+    +void update(float dt_as_seconds)
+    +void draw()
+}
+
+BetweenRoundsScreen "1" *-- "2..4" ScorePrinter : owns
+
+class ScorePrinter {
+    -sf::Font _font
+    -sf::Text _text
+    -sf::Sprite _pacman
+    {static} const float FIRST_PLACE_POSITION_Y
+    {static} const float ONE_POSITION_OFFSET
+
+    ScorePrinter()
+    ScorePrinter(const PlayerInfo & player_info, unsigned int place, const sf::View* view)
+    void draw(sf::RenderWindow* window)
+}
+
+ScorePrinter "1" --> "1" PlayerInfo : uses
+
+class PlayerInfo {
+    -std::string _nickname
+    -std::string _color
+    -std::string _control
+    -unsigned int _rounds_won
+
+    +PlayerInfo()
+    +PlayerInfo(std::string nickname, std::string color, std::string control)
+    +std::string getNickname() const
+    +std::string getColor() const
+    +std::string getControl() const
+    +void newWin()
+    +unsigned int getRoundsWon() const
+}
+
+@enduml
