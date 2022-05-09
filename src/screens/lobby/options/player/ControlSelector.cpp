@@ -41,14 +41,14 @@ ControlSelector::ControlSelector(sf::RenderWindow* window, unsigned int player) 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();
     _border.setOrigin(border_position.width / 2, border_position.height / 2);
-    _border.setPosition(positionControl.x + border_position.width / 2,
+    _border.setPosition(positionControl.x + border_position.width / 2 + 50,
                         positionControl.y + border_position.height / 2);
 
     _control.setFont(_font);
     _control.setCharacterSize(60);
     _control.setString(_current_control);
-    _control.setPosition(positionControl.x + border_position.width / 2.5,
-                         positionControl.y + border_position.height / 6);
+    _control.setPosition(positionControl.x + border_position.width / 2.4,
+                         positionControl.y + border_position.height / 5);
 }
 
 void ControlSelector::input(const sf::Event &event) {

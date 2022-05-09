@@ -13,16 +13,16 @@ NickSelector::NickSelector(sf::RenderWindow* window, unsigned int player) : Sele
 
     sf::Vector2f positionNick(125, player * 180 + 200);
 
-    _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
+    _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border-long.png"));
     sf::FloatRect border_position = _border.getGlobalBounds();
     _border.setOrigin(border_position.width / 2, border_position.height / 2);
-    _border.setPosition(positionNick.x + border_position.width / 2,
+    _border.setPosition(positionNick.x + border_position.width / 2 - 20,
                         positionNick.y + border_position.height / 2);
 
     _nickname.setFont(_font);
     _nickname.setCharacterSize(60);
-    _nickname.setPosition(positionNick.x + border_position.width / 2.5,
-                          positionNick.y + border_position.height / 6);
+    _nickname.setPosition(positionNick.x + border_position.width / 10.5,
+                          positionNick.y + border_position.height / 5);
 }
 
 void NickSelector::input(const sf::Event &event) {

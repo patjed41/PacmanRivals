@@ -51,9 +51,8 @@ ColorSelector::ColorSelector(sf::RenderWindow* window,  unsigned int player) : S
     _border.setPosition(positionPacman.x + border_position.width / 2,
                         positionPacman.y + border_position.height / 2);
 
-    _color.setPosition(positionPacman.x + border_position.width / 2.5,
-                       positionPacman.y + border_position.height / 6);
-
+    _color.setPosition(positionPacman.x + border_position.width / 3.8,
+                       positionPacman.y + border_position.height / 5);
 
 }
 

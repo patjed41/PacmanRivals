@@ -33,8 +33,8 @@ PlayersSelector::PlayersSelector(sf::RenderWindow* window) : Selector(window) {
     _number.setFont(_font);
     _number.setString(char('0' + _current_players));
     _number.setCharacterSize(60);
-    _number.setPosition(positionNumber.x + border_position.width / 2.5,
-                        positionNumber.y + border_position.height / 6);
+    _number.setPosition(positionNumber.x + border_position.width / 3.5,
+                        positionNumber.y + border_position.height / 5);
 
 
 }
