@@ -132,11 +132,47 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInfo.cpp
     )
 
+    set(BETWEEN_ROUNDS_SCREEN_FILES
+        ${SCREEN_FILES}
+        src/screens/between-rounds/BetweenRoundsScreen.cpp
+        src/screens/between-rounds/ScorePrinter.cpp
+        src/screens/game/PlayerInfo.cpp
+    )
+
     set(SELECTOR_FILES
         ${TEST_FILES}
         src/screens/lobby/options/Selector.cpp
         src/screens/lobby/buttons/ButtonAD.cpp
         )
+
+    set(OPTIONS_FILES
+        ${SELECTOR_FILES}
+        src/screens/lobby/options/Options.cpp
+    )
+
+    set(GAME_OPTIONS_FILES
+        ${OPTIONS_FILES}
+        src/screens/lobby/options/game/GameOptions.cpp
+        src/screens/lobby/options/game/PlayersSelector.cpp
+        src/screens/lobby/options/game/RoundsSelector.cpp
+        src/screens/lobby/options/game/ControllerChecker.cpp
+    )
+
+    set(PLAYER_OPTIONS_FILES
+        ${OPTIONS_FILES}
+        src/screens/lobby/options/player/PlayerOptions.cpp
+        src/screens/lobby/options/player/NickSelector.cpp
+        src/screens/lobby/options/player/ColorSelector.cpp
+        src/screens/lobby/options/player/ControlSelector.cpp
+        src/screens/game/PlayerInfo.cpp
+    )
+
+    set(LOBBY_SCREEN_FILES
+        ${GAME_OPTIONS_FILES}
+        ${PLAYER_OPTIONS_FILES}
+        src/screens/lobby/LobbyScreen.cpp
+        src/screens/game/PlayerInfo.cpp
+    )
 
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
@@ -170,5 +206,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_nick_selector nick-selector ${SELECTOR_FILES} src/screens/lobby/options/player/NickSelector.cpp)
     make_new_test(check_control_selector control-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ControlSelector.cpp)
     make_new_test(check_color_selector color-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ColorSelector.cpp)
+    make_new_test(check_game_options game-options ${GAME_OPTIONS_FILES})
+    make_new_test(check_player_options player-options ${PLAYER_OPTIONS_FILES})
+    make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
+    make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
+    make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
 
 endif()
