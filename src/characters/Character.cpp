@@ -13,6 +13,12 @@ sf::FloatRect Character::getPosition() const {
     return _sprite.getGlobalBounds();
 }
 
+sf::Vector2f Character::getCenter() const {
+    sf::FloatRect position = getPosition();
+    return sf::Vector2f(position.left + position.width / 2,
+                        position.top + position.height / 2);
+}
+
 const sf::Sprite &Character::getSprite() const {
     return _sprite;
 }

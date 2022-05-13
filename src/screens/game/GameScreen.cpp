@@ -1,6 +1,7 @@
 #include "GameScreen.h"
 
 #include <utility>
+#include <cmath>
 
 GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
     _main_view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
@@ -108,6 +109,10 @@ void GameScreen::handleCollisionsPC() {
     }
 }
 
+static float manhattanDistance(sf::Vector2f p1, sf::Vector2f p2) {
+    return std::abs(p1.x - p2.x) + std::abs(p1.y - p2.y);
+}
+
 void GameScreen::handleCollisionsPG() {
     if (alivePlayers() == 1) {
         _new_map_needed = true;
@@ -116,7 +121,7 @@ void GameScreen::handleCollisionsPG() {
 
     for (auto & pacman : _pacmans) {
         for (auto & ghost : _ghosts) {
-            if (!pacman->isDead() && pacman->getPosition().intersects(ghost->getPosition())) {
+            if (!pacman->isDead() && manhattanDistance(pacman->getCenter(), ghost->getCenter()) < TILE_SIZE) {
                 pacman->die();
                 if (alivePlayers() == 1) {
                     _new_map_needed = true;
