@@ -45,6 +45,7 @@ set(SOURCE_FILES
     src/screens/game/PlayerInputHandler.cpp
     src/screens/between-rounds/BetweenRoundsScreen.cpp
     src/screens/between-rounds/ScorePrinter.cpp
+    src/power-ups/PowerUp.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
