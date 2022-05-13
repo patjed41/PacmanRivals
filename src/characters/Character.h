@@ -40,6 +40,8 @@ public:
 
     sf::FloatRect getPosition() const;
 
+    sf::Vector2f getCenter() const;
+
     const sf::Sprite &getSprite() const;
 
     virtual void update(float dt_as_seconds) = 0;
