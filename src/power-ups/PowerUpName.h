@@ -9,5 +9,6 @@ enum PowerUpName {
     WALL_PASSING,
     SPIKES_PLACEMENT,
     BOMB_PLACEMENT,
-    FIRING_BULLET
+    FIRING_BULLET,
+    NONE
 };

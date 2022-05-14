@@ -3,6 +3,8 @@
 #include <string>
 #include <utility>
 
+#include "../../power-ups/PowerUpName.h"
+
 class PlayerInfo {
 
 private:
@@ -12,6 +14,9 @@ private:
     std::string _control; // 'WASD', 'Arrows', 'C1', 'C2, 'C3', 'C4'
 
     unsigned int _rounds_won;
+
+    PowerUpName _power_up;
+    float _power_up_time_left;
 
 public:
 
@@ -28,5 +33,13 @@ public:
     void newWin();
 
     unsigned int getRoundsWon() const;
+
+    void setPowerUpTimeLeft(float power_up_time_left);
+
+    float getPowerUpTimeLeft() const;
+
+    void setPowerUp(PowerUpName power_up);
+
+    PowerUpName getPowerUp() const;
 
 };

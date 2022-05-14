@@ -24,3 +24,19 @@ void PlayerInfo::newWin() {
 unsigned int PlayerInfo::getRoundsWon() const {
     return _rounds_won;
 }
+
+void PlayerInfo::setPowerUpTimeLeft(float power_up_time_left) {
+    _power_up_time_left = power_up_time_left;
+}
+
+float PlayerInfo::getPowerUpTimeLeft() const {
+    return _power_up_time_left;
+}
+
+void PlayerInfo::setPowerUp(PowerUpName power_up) {
+    _power_up = power_up;
+}
+
+PowerUpName PlayerInfo::getPowerUp() const {
+    return _power_up;
+}

@@ -4,6 +4,8 @@
 #include <iostream>
 #include "../../texture-holder/TextureHolder.h"
 
+const float Pacman::_POWER_UP_DURATION = 10.0f;
+
 // Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
@@ -26,8 +28,7 @@ bool Pacman::turningBack() const {
     return false;
 }
 
-void Pacman::update(float dt_as_seconds) {
-
+void Pacman::handleMovement(float dt_as_seconds) {
     sf::FloatRect position = getPosition();
 
     sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
@@ -35,14 +36,14 @@ void Pacman::update(float dt_as_seconds) {
     sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
     if (_direction == STOP) {
-        if(!_map.get()->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+        if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
             _direction = _new_direction;
             move(dt_as_seconds);
         }
         return;
     }
 
-    if(turningBack()) {
+    if (turningBack()) {
         _direction = _new_direction;
         return;
     }
@@ -51,7 +52,8 @@ void Pacman::update(float dt_as_seconds) {
         current_tile = {(int)(position.left + position.width) / TILE_SIZE, (int)position.top / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
-    } else if (_direction == DOWN) {
+    }
+    else if (_direction == DOWN) {
         current_tile = {(int)position.left / TILE_SIZE, (int)(position.top + position.height) / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
@@ -59,24 +61,78 @@ void Pacman::update(float dt_as_seconds) {
 
     if (!reachedNewTile(dt_as_seconds)) {
         move(dt_as_seconds);
-    } else {
+    }
+    else {
         move(dt_as_seconds);
         if (_direction == _new_direction) {
-            if(_map.get()->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
                 correct();
                 _direction = _new_direction = STOP;
             }
-        } else {
-            if (!_map.get()->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+        }
+        else {
+            if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
                 correct();
                 _direction = _new_direction;
                 move(dt_as_seconds);
-            } else if (_map.get()->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            }
+            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
                 correct();
                 _direction = STOP;
             }
         }
     }
+}
+
+void Pacman::handlePowerUpExpiry() {
+    switch (_current_power_up) {
+        case COIN_MULTIPLIER:
+            // TODO
+            break;
+        case SPEED_UP:
+            // TODO
+            break;
+        case GLUTTONY:
+            // TODO
+            break;
+        case SHIELD:
+            // TODO
+            break;
+        case WALL_PASSING:
+            // TODO
+            break;
+        case SPIKES_PLACEMENT:
+            // TODO
+            break;
+        case BOMB_PLACEMENT:
+            // TODO
+            break;
+        case FIRING_BULLET:
+            // TODO
+            break;
+        default:
+            break;
+    }
+
+    _current_power_up = NONE;
+}
+
+void Pacman::update(float dt_as_seconds) {
+    handleMovement(dt_as_seconds);
+
+    // Handle power-up expiry apart from SLOW_DOWN.
+    if (_power_up_seconds_left >= 0 && _power_up_seconds_left - dt_as_seconds < 0) {
+        handlePowerUpExpiry();
+    }
+    _power_up_seconds_left -= dt_as_seconds;
+
+    // Handle SLOW_DOWN.
+    if (_slow_down_seconds_left >= 0 && _slow_down_seconds_left - dt_as_seconds < 0) {
+        if (_current_power_up != SPEED_UP) {
+            _speed = _NORMAL_SPEED;
+        }
+    }
+    _slow_down_seconds_left -= dt_as_seconds;
 }
 
 void Pacman::turnLeft() {
@@ -95,10 +151,25 @@ void Pacman::turnDown() {
     _new_direction = DOWN;
 }
 
-void Pacman::die() {
+void Pacman::takeDamage() {
+    // TODO: shield and immunity
+    _current_power_up = NONE;
     _is_dead = true;
 }
 
 bool Pacman::isDead() const {
     return _is_dead;
+}
+
+float Pacman::getPartOfPowerUpTimeLeft() const {
+    if (isDead() || _power_up_seconds_left < 0) {
+        return 0;
+    }
+    else {
+        return _power_up_seconds_left / _POWER_UP_DURATION;
+    }
+}
+
+PowerUpName Pacman::getCurrentPowerUp() const {
+    return _current_power_up;
 }

@@ -3,6 +3,8 @@
 #include <utility>
 #include <cmath>
 
+const float Character::_NORMAL_SPEED = 100;
+
 Character::Character(sf::Sprite sprite, std::shared_ptr<Map> map) {
     _direction = STOP;
     _sprite = std::move(sprite);

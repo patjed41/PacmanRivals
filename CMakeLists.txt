@@ -126,15 +126,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/Screen.h
     )
 
-    set(GAME_SCREEN_FILES
-        ${SCREEN_FILES}
-        ${LEVEL_FILES}
-        ${COINS_FILES}
-        src/screens/game/GameScreen.cpp
-        src/screens/game/PlayerInputHandler.cpp
-        src/screens/game/PlayerInfo.cpp
-    )
-
     set(BETWEEN_ROUNDS_SCREEN_FILES
         ${SCREEN_FILES}
         src/screens/between-rounds/BetweenRoundsScreen.cpp
@@ -184,8 +175,17 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/firing-bullet/FiringBullet.cpp
     )
 
+    set(GAME_SCREEN_FILES
+        ${SCREEN_FILES}
+        ${LEVEL_FILES}
+        ${COINS_FILES}
+        ${POWER_UP_SPAWNER_FILES}
+        src/screens/game/GameScreen.cpp
+        src/screens/game/PlayerInputHandler.cpp
+        src/screens/game/PlayerInfo.cpp
+        )
+
     # Tests:
-    #[[
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
     make_new_test(check_correctLeft character ${CHARACTER_FILES})
@@ -222,7 +222,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
-    ]]
     make_new_test(check_power_up_spawner power-up-spawner ${POWER_UP_SPAWNER_FILES})
 
 endif()
