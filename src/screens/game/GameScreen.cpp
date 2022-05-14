@@ -133,6 +133,19 @@ void GameScreen::handleCollisionsPG() {
     }
 }
 
+void GameScreen::handleCollisionsPPU() {
+    for (auto it = _power_ups.begin(); it != _power_ups.end(); it++) {
+        for (unsigned int i = 0; i < _pacmans.size(); i++) {
+            if (!_pacmans[i]->isDead() && _pacmans[i]->getPosition().intersects((*it)->getPosition())) {
+                (*it)->use(_pacmans, i);
+                _power_ups.erase(*it);
+                handleCollisionsPPU();
+                return;
+            }
+        }
+    }
+}
+
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
         loadNewMap();
@@ -157,6 +170,7 @@ void GameScreen::update(float dt_as_seconds) {
 
     handleCollisionsPC();
     handleCollisionsPG();
+    handleCollisionsPPU();
 
     if (_new_map_needed) {
         rewardWinner();
@@ -177,7 +191,7 @@ void GameScreen::draw() {
     _window->clear(sf::Color::Black);
     _window->setView(_main_view);
 
-    std::vector<std::vector<Tile>> map = _level_manager.getGrid()->getTiles();
+    std::vector<std::vector<Tile>> map = _grid->getTiles();
 
     for (int i = 0; i < MAP_HEIGHT; i++) {
         for (int j = 0; j < MAP_WIDTH; j++) {
@@ -198,6 +212,10 @@ void GameScreen::draw() {
         if (!pacman->isDead()) {
             _window->draw(pacman->getSprite());
         }
+    }
+
+    for (auto & power_up : _power_ups) {
+        _window->draw(power_up->getSprite());
     }
 
     _window->display();

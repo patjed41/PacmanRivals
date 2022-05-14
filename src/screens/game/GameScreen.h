@@ -45,6 +45,7 @@ private:
 
     void handleCollisionsPC();
     void handleCollisionsPG();
+    void handleCollisionsPPU();
 
     unsigned int alivePlayers() const;
 
