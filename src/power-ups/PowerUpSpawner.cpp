@@ -103,5 +103,5 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
             return nullptr;
     }
     */
-    return nullptr;
+    return std::static_pointer_cast<PowerUp>(std::make_shared<FiringBullet>(spawn_tile));
 }
