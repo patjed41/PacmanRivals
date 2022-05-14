@@ -7,7 +7,7 @@
 
 class PowerUp {
 
-private:
+protected:
 
     sf::Sprite _sprite;
 

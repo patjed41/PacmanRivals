@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "../Screen.h"
 #include "../../level-manager/LevelManager.h"
@@ -9,6 +10,7 @@
 #include "../../coins/Coin.h"
 #include "PlayerInfo.h"
 #include "PlayerInputHandler.h"
+#include "../../power-ups/PowerUpSpawner.h"
 
 class GameScreen : Screen {
 
@@ -29,6 +31,9 @@ private:
     std::vector<PlayerInputHandler> _player_input_handlers;
 
     std::unordered_map<int, Coin> _coins;
+
+    PowerUpSpawner _power_up_spawner;
+    std::unordered_set<std::shared_ptr<PowerUp>> _power_ups;
 
     bool _new_map_needed = false;
 
