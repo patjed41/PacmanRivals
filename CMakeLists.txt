@@ -177,7 +177,15 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInfo.cpp
     )
 
+    set(POWER_UP_SPAWNER_FILES
+        ${PLAYER_FILES}
+        src/power-ups/PowerUpSpawner.cpp
+        src/power-ups/PowerUp.cpp
+        src/power-ups/types/firing-bullet/FiringBullet.cpp
+    )
+
     # Tests:
+    #[[
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
     make_new_test(check_correctLeft character ${CHARACTER_FILES})
@@ -214,5 +222,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
+    ]]
+    make_new_test(check_power_up_spawner power-up-spawner ${POWER_UP_SPAWNER_FILES})
 
 endif()
