@@ -10,6 +10,8 @@ class Character {
 
 protected:
 
+    static const float _NORMAL_SPEED;
+
     float _speed = 100;
 
     sf::Sprite _sprite{};

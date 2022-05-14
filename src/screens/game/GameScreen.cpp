@@ -123,7 +123,7 @@ void GameScreen::handleCollisionsPG() {
     for (auto & pacman : _pacmans) {
         for (auto & ghost : _ghosts) {
             if (!pacman->isDead() && manhattanDistance(pacman->getCenter(), ghost->getCenter()) < TILE_SIZE) {
-                pacman->die();
+                pacman->takeDamage();
                 if (alivePlayers() == 1) {
                     _new_map_needed = true;
                     return;
@@ -171,6 +171,11 @@ void GameScreen::update(float dt_as_seconds) {
     handleCollisionsPC();
     handleCollisionsPG();
     handleCollisionsPPU();
+
+    for (int i = 0; i < _players_num; i++) {
+        _player_infos[i].setPowerUpTimeLeft(_pacmans[i]->getPartOfPowerUpTimeLeft());
+        _player_infos[i].setPowerUp(_pacmans[i]->getCurrentPowerUp());
+    }
 
     if (_new_map_needed) {
         rewardWinner();
