@@ -1,23 +1,39 @@
 #pragma once
 
 #include <memory>
+#include <unordered_set>
 
 #include "PowerUp.h"
+#include "PowerUpName.h"
 #include "../map/Map.h"
 
 class PowerUpSpawner {
 
 private:
 
-    std::shared_ptr<Map> _map;
+    std::shared_ptr<Map> _grid;
+
+    std::vector<PowerUpName> _power_ups;
+
+    static const float _SECONDS_BETWEEN_SPAWNS;
+    float _seconds_to_next_spawn;
+
+    std::vector<sf::Vector2i> findAvailableTiles(
+        const std::vector<std::shared_ptr<Pacman>> &pacmans,
+        const std::unordered_set<std::shared_ptr<PowerUp>> &power_ups
+    );
 
 public:
 
-    void initialise(std::shared_ptr<Map> map);
+    PowerUpSpawner();
+
+    void initialise(std::shared_ptr<Map> grid);
+
+    void update(float dt_as_seconds);
 
     bool timeToSpawn();
 
-    std::shared_ptr<PowerUp> spawn(std::vector<std::shared_ptr<Pacman>> pacmans,
-                                   std::vector<PowerUp> power_ups);
+    std::shared_ptr<PowerUp> spawn(const std::vector<std::shared_ptr<Pacman>> &pacmans,
+                                   const std::unordered_set<std::shared_ptr<PowerUp>> &power_ups);
 
 };

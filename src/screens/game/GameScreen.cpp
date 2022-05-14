@@ -1,4 +1,5 @@
 #include "GameScreen.h"
+#include "../../../include/math.h"
 
 #include <utility>
 #include <cmath>
@@ -9,6 +10,7 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _main_view.setCenter(MAP_WIDTH * TILE_SIZE / 2.f, MAP_HEIGHT * TILE_SIZE / 2.f);
 
     _level_manager = LevelManager();
+    _power_up_spawner = PowerUpSpawner();
 }
 
 void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
@@ -76,6 +78,9 @@ void GameScreen::loadNewMap() {
     }
     _ghosts = _level_manager.getGhosts();
 
+    _power_up_spawner.initialise(_grid);
+    _power_ups.clear();
+
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
             if (!_grid->getTiles()[y][x].isWall())
@@ -109,10 +114,6 @@ void GameScreen::handleCollisionsPC() {
     }
 }
 
-static float manhattanDistance(sf::Vector2f p1, sf::Vector2f p2) {
-    return std::abs(p1.x - p2.x) + std::abs(p1.y - p2.y);
-}
-
 void GameScreen::handleCollisionsPG() {
     if (alivePlayers() == 1) {
         _new_map_needed = true;
@@ -144,6 +145,14 @@ void GameScreen::update(float dt_as_seconds) {
 
     for (auto & ghost : _ghosts) {
         ghost->update(dt_as_seconds);
+    }
+
+    _power_up_spawner.update(dt_as_seconds);
+    if (_power_up_spawner.timeToSpawn()) {
+        std::shared_ptr<PowerUp> new_power_up = _power_up_spawner.spawn(_pacmans, _power_ups);
+        if (new_power_up != nullptr) {
+            _power_ups.insert(new_power_up);
+        }
     }
 
     handleCollisionsPC();

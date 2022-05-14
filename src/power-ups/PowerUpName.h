@@ -1,0 +1,13 @@
+#pragma once
+
+enum PowerUpName {
+    COIN_MULTIPLIER,
+    SPEED_UP,
+    SLOW_DOWN,
+    GLUTTONY,
+    SHIELD,
+    WALL_PASSING,
+    SPIKES_PLACEMENT,
+    BOMB_PLACEMENT,
+    FIRING_BULLET
+};
