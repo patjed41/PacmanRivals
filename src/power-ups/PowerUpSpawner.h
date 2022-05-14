@@ -6,6 +6,7 @@
 #include "PowerUp.h"
 #include "PowerUpName.h"
 #include "../map/Map.h"
+#include "types/firing-bullet/FiringBullet.h"
 
 class PowerUpSpawner {
 

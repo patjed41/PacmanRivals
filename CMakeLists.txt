@@ -47,7 +47,7 @@ set(SOURCE_FILES
     src/screens/between-rounds/ScorePrinter.cpp
     src/power-ups/PowerUp.cpp
     src/power-ups/PowerUpSpawner.cpp
-    src/power-ups/types/FiringBullet.cpp
+    src/power-ups/types/firing-bullet/FiringBullet.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
