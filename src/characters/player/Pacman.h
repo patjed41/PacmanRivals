@@ -15,13 +15,13 @@ private:
     static const float _POWER_UP_DURATION; // in seconds
     float _power_up_seconds_left = -1.f;
     float _slow_down_seconds_left = -1.f;
-    PowerUpName _current_power_up = NONE;
-
     void handleMovement(float dt_as_seconds);
 
     void handlePowerUpExpiry();
 
 protected:
+
+    PowerUpName _current_power_up = NONE;
 
     Direction _new_direction;
 
@@ -47,12 +47,9 @@ public:
 
     bool isDead() const;
 
-
     float getPartOfPowerUpTimeLeft() const;
 
     PowerUpName getCurrentPowerUp() const;
-
-    void setNormalSpeed();
 
     void setSpeed(float speed);
 

@@ -90,7 +90,7 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case SPEED_UP:
-            setNormalSpeed();
+            _speed = _NORMAL_SPEED;
             break;
         case GLUTTONY:
             // TODO
@@ -172,10 +172,6 @@ float Pacman::getPartOfPowerUpTimeLeft() const {
 
 PowerUpName Pacman::getCurrentPowerUp() const {
     return _current_power_up;
-}
-
-void Pacman::setNormalSpeed() {
-    _speed = _NORMAL_SPEED;
 }
 
 void Pacman::setSpeed(float speed) {
