@@ -7,6 +7,8 @@
 
 class SpeedUp : public PowerUp {
 
+public:
+
     SpeedUp() = default;
 
     SpeedUp(const sf::Vector2i &position);
