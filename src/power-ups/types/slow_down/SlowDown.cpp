@@ -9,6 +9,6 @@ SlowDown::SlowDown(const sf::Vector2i &position) {
 void SlowDown::use(std::vector<std::shared_ptr<Pacman>> pacmans, unsigned int user) {
     for (int i = 0; i < pacmans.size(); ++i) {
         if (i == user) continue;
-        pacmans[i].get()->setSpeed(50);
+        pacmans[i]->slowDown();
     }
 }

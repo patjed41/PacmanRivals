@@ -11,7 +11,7 @@ public:
     void testUse(std::vector<std::shared_ptr<TestPacman>> pacmans, unsigned int user) {
         for (int i = 0; i < pacmans.size(); ++i) {
             if (i == user) continue;
-            pacmans[i].get()->setSpeed(50);
+            pacmans[i]->slowDown();
         }
     }
 };

@@ -15,6 +15,10 @@ private:
     static const float _POWER_UP_DURATION; // in seconds
     float _power_up_seconds_left = -1.f;
     float _slow_down_seconds_left = -1.f;
+
+    static const float _SLOW_SPEED;
+    static const float _FAST_SPEED;
+
     void handleMovement(float dt_as_seconds);
 
     void handlePowerUpExpiry();
@@ -51,7 +55,9 @@ public:
 
     PowerUpName getCurrentPowerUp() const;
 
-    void setSpeed(float speed);
+    void speedUp();
+
+    void slowDown();
 
 };
 

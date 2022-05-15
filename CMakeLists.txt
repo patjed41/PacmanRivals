@@ -174,6 +174,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         ${PLAYER_FILES}
         src/power-ups/PowerUpSpawner.cpp
         src/power-ups/PowerUp.cpp
+        src/power-ups/types/speed_up/SpeedUp.cpp
+        src/power-ups/types/slow_down/SlowDown.cpp
         src/power-ups/types/firing-bullet/FiringBullet.cpp
     )
 

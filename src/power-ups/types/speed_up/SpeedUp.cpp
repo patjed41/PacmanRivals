@@ -7,5 +7,5 @@ SpeedUp::SpeedUp(const sf::Vector2i &position) {
 }
 
 void SpeedUp::use(std::vector<std::shared_ptr<Pacman>> pacmans, unsigned int user) {
-    pacmans[user].get()->setSpeed(200.f);
+    pacmans[user]->speedUp();
 }
