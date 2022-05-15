@@ -114,6 +114,7 @@ void Pacman::handlePowerUpExpiry() {
             break;
     }
 
+    _power_up_seconds_left = -1.0f;
     _current_power_up = NONE;
 }
 
@@ -172,4 +173,26 @@ float Pacman::getPartOfPowerUpTimeLeft() const {
 
 PowerUpName Pacman::getCurrentPowerUp() const {
     return _current_power_up;
+}
+
+bool Pacman::hasUsablePowerUp() const {
+    return _current_power_up == BOMB_PLACEMENT ||
+          (_current_power_up == FIRING_BULLET && _direction != STOP);
+}
+
+void Pacman::pickUpBullet() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = FIRING_BULLET;
+}
+
+std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
+    if (_current_power_up != FIRING_BULLET || _power_up_seconds_left < 0 || _direction == STOP) {
+        std::cerr << "fireBullet() call when it is impossible";
+        exit(1);
+    }
+
+    handlePowerUpExpiry();
+    // TODO: play firing sound
+    return std::make_shared<Bullet>(getCenter(), _map, shooter, _direction);
 }

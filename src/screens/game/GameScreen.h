@@ -11,6 +11,7 @@
 #include "PlayerInfo.h"
 #include "PlayerInputHandler.h"
 #include "../../power-ups/PowerUpSpawner.h"
+#include "../../power-ups/types/firing-bullet/Bullet.h"
 
 class GameScreen : Screen {
 
@@ -35,6 +36,8 @@ private:
     PowerUpSpawner _power_up_spawner;
     std::unordered_set<std::shared_ptr<PowerUp>> _power_ups;
 
+    std::unordered_set<std::shared_ptr<Bullet>> _bullets;
+
     bool _new_map_needed = false;
 
     unsigned int _players_num = 0;
@@ -46,6 +49,7 @@ private:
     void handleCollisionsPC();
     void handleCollisionsPG();
     void handleCollisionsPPU();
+    void handleCollisionsBullets();
 
     unsigned int alivePlayers() const;
 

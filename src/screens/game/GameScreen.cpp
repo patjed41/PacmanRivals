@@ -62,6 +62,9 @@ void GameScreen::input() {
 
     for (size_t i = 0; i < _players_num; i++) {
         _player_input_handlers[i].input();
+        if (_player_input_handlers[i].getPowerUpToUse() == FIRING_BULLET) {
+            _bullets.insert(_pacmans[i]->fireBullet(i));
+        }
     }
 }
 
@@ -80,6 +83,7 @@ void GameScreen::loadNewMap() {
 
     _power_up_spawner.initialise(_grid);
     _power_ups.clear();
+    _bullets.clear();
 
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
@@ -146,6 +150,45 @@ void GameScreen::handleCollisionsPPU() {
     }
 }
 
+void GameScreen::handleCollisionsBullets() {
+    // Bullet hits pacman.
+    for (auto & pacman : _pacmans) {
+        for (auto & bullet : _bullets) {
+            if (!pacman->isDead() && !bullet->disappeared()
+                && pacman->getPosition().intersects(bullet->getPosition())) {
+                pacman->takeDamage();
+                bullet->disappear();
+                // TODO: shooter should get points
+            }
+        }
+    }
+
+    // Bullet hits ghost.
+    for (size_t i = 0; i < _ghosts.size(); i++) {
+        for (auto & bullet : _bullets) {
+            if (!bullet->disappeared() && _ghosts[i]->getPosition().intersects(bullet->getPosition())) {
+                // delete ghost
+                std::swap(_ghosts[i], _ghosts.back());
+                _ghosts.pop_back();
+                bullet->disappear();
+                // TODO: shooter should get points
+                break;
+            }
+        }
+    }
+
+    // Bullet hits another bullet.
+    for (auto it1 = _bullets.begin(); it1 != _bullets.end(); it1++) {
+        for (auto it2 = _bullets.begin(); it2 != _bullets.end(); it2++) {
+            if (it1 != it2 && !(*it1)->disappeared() && !(*it2)->disappeared()
+                && (*it1)->getPosition().intersects((*it2)->getPosition())) {
+                (*it1)->disappear();
+                (*it2)->disappear();
+            }
+        }
+    }
+}
+
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
         loadNewMap();
@@ -160,6 +203,10 @@ void GameScreen::update(float dt_as_seconds) {
         ghost->update(dt_as_seconds);
     }
 
+    for (auto & bullet : _bullets) {
+        bullet->update(dt_as_seconds);
+    }
+
     _power_up_spawner.update(dt_as_seconds);
     if (_power_up_spawner.timeToSpawn()) {
         std::shared_ptr<PowerUp> new_power_up = _power_up_spawner.spawn(_pacmans, _power_ups);
@@ -171,6 +218,7 @@ void GameScreen::update(float dt_as_seconds) {
     handleCollisionsPC();
     handleCollisionsPG();
     handleCollisionsPPU();
+    handleCollisionsBullets();
 
     for (int i = 0; i < _players_num; i++) {
         _player_infos[i].setPowerUpTimeLeft(_pacmans[i]->getPartOfPowerUpTimeLeft());
@@ -221,6 +269,12 @@ void GameScreen::draw() {
 
     for (auto & power_up : _power_ups) {
         _window->draw(power_up->getSprite());
+    }
+
+    for (auto & bullet : _bullets) {
+        if (!bullet->disappeared()) {
+            _window->draw(bullet->getSprite());
+        }
     }
 
     _window->display();

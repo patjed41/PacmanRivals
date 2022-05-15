@@ -20,31 +20,41 @@ PlayerInputHandler::PlayerInputHandler(std::shared_ptr<Pacman> pacman, std::stri
 
 void PlayerInputHandler::handleArrows() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        _pacman.get()->turnLeft();
+        _pacman->turnLeft();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        _pacman.get()->turnRight();
+        _pacman->turnRight();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        _pacman.get()->turnUp();
+        _pacman->turnUp();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        _pacman.get()->turnDown();
+        _pacman->turnDown();
+    }
+
+    _power_up_to_use = NONE;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && _pacman->hasUsablePowerUp()) {
+        _power_up_to_use = _pacman->getCurrentPowerUp();
     }
 }
 
 void PlayerInputHandler::handleWASD() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        _pacman.get()->turnLeft();
+        _pacman->turnLeft();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        _pacman.get()->turnRight();
+        _pacman->turnRight();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        _pacman.get()->turnUp();
+        _pacman->turnUp();
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        _pacman.get()->turnDown();
+        _pacman->turnDown();
+    }
+
+    _power_up_to_use = NONE;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && _pacman->hasUsablePowerUp()) {
+        _power_up_to_use = _pacman->getCurrentPowerUp();
     }
 }
 
@@ -59,16 +69,21 @@ void PlayerInputHandler::handleController() {
         }
 
         if (x < 0 && fabs(y) <= -x) {
-            _pacman.get()->turnLeft();
+            _pacman->turnLeft();
         }
         else if (x > 0 && fabs(y) <= x) {
-            _pacman.get()->turnRight();
+            _pacman->turnRight();
         }
         else if (y < 0 && fabs(x) <= -y) {
-            _pacman.get()->turnUp();
+            _pacman->turnUp();
         }
         else {
-            _pacman.get()->turnDown();
+            _pacman->turnDown();
+        }
+
+        _power_up_to_use = NONE;
+        if (sf::Joystick::isButtonPressed(_controller, 0) && _pacman->hasUsablePowerUp()) {
+            _power_up_to_use = _pacman->getCurrentPowerUp();
         }
     }
 }
@@ -83,4 +98,8 @@ void PlayerInputHandler::input() {
     else {
         handleController();
     }
+}
+
+PowerUpName PlayerInputHandler::getPowerUpToUse() const {
+    return _power_up_to_use;
 }

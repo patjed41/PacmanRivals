@@ -7,5 +7,5 @@ FiringBullet::FiringBullet(const sf::Vector2i &position) {
 }
 
 void FiringBullet::use(std::vector<std::shared_ptr<Pacman>> pacmans, unsigned int user) {
-
+    pacmans[user]->pickUpBullet();
 }
