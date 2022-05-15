@@ -16,7 +16,7 @@ int main() {
     TestSpeedUp speed;
     speed.testUse(pacmans, 0);
 
-    err::checkEqualFloat(pacman.getSpeed(), 200.f);
+    err::checkEqualFloat(pacmans[0].get()->getSpeed(), 200.f);
 
     return 0;
 }
