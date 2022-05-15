@@ -5,6 +5,8 @@
 #include "../../texture-holder/TextureHolder.h"
 
 const float Pacman::_POWER_UP_DURATION = 10.0f;
+const float Pacman::_SLOW_SPEED = 50.0f;
+const float Pacman::_FAST_SPEED = 200.0f;
 
 // Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
@@ -174,6 +176,19 @@ PowerUpName Pacman::getCurrentPowerUp() const {
     return _current_power_up;
 }
 
-void Pacman::setSpeed(float speed) {
-    _speed = speed;
+void Pacman::speedUp() {
+    handlePowerUpExpiry();
+    _current_power_up = SPEED_UP;
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _slow_down_seconds_left = -1.0f;
+    _speed = _FAST_SPEED;
+}
+
+void Pacman::slowDown() {
+    if (_current_power_up == SPEED_UP) {
+        _current_power_up = NONE;
+        _power_up_seconds_left = -1.0f;
+    }
+    _slow_down_seconds_left = _POWER_UP_DURATION;
+    _speed = _SLOW_SPEED;
 }
