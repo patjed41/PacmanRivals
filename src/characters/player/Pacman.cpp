@@ -5,6 +5,8 @@
 #include "../../texture-holder/TextureHolder.h"
 
 const float Pacman::_POWER_UP_DURATION = 10.0f;
+const float Pacman::_SLOW_SPEED = 50.0f;
+const float Pacman::_FAST_SPEED = 200.0f;
 
 // Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
@@ -90,7 +92,7 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case SPEED_UP:
-            // TODO
+            _speed = _NORMAL_SPEED;
             break;
         case GLUTTONY:
             // TODO
@@ -180,6 +182,23 @@ bool Pacman::hasUsablePowerUp() const {
           (_current_power_up == FIRING_BULLET && _direction != STOP);
 }
 
+void Pacman::speedUp() {
+    handlePowerUpExpiry();
+    _current_power_up = SPEED_UP;
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _slow_down_seconds_left = -1.0f;
+    _speed = _FAST_SPEED;
+}
+
+void Pacman::slowDown() {
+    if (_current_power_up == SPEED_UP) {
+        _current_power_up = NONE;
+        _power_up_seconds_left = -1.0f;
+    }
+    _slow_down_seconds_left = _POWER_UP_DURATION;
+    _speed = _SLOW_SPEED;
+}
+
 void Pacman::pickUpBullet() {
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
@@ -187,7 +206,8 @@ void Pacman::pickUpBullet() {
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
-    if (_current_power_up != FIRING_BULLET || _power_up_seconds_left < 0 || _direction == STOP) {
+    if (_current_power_up != FIRING_BULLET || _power_up_seconds_left < 0 ||
+        _direction == STOP) {
         std::cerr << "fireBullet() call when it is impossible";
         exit(1);
     }

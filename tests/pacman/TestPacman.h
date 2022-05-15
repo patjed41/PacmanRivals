@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../src/characters/player/Pacman.h"
+#include "../../src/power-ups/PowerUp.h"
 
 class TestPacman : public Pacman {
 
@@ -66,6 +67,10 @@ public:
 
     void dirD() {
         _direction = DOWN;
+    }
+
+    float getSpeed() {
+        return _speed;
     }
 
 };
