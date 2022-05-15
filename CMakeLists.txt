@@ -48,6 +48,8 @@ set(SOURCE_FILES
     src/power-ups/PowerUp.cpp
     src/power-ups/PowerUpSpawner.cpp
     src/power-ups/types/firing-bullet/FiringBullet.cpp
+    src/power-ups/types/slow_down/SlowDown.cpp
+    src/power-ups/types/speed_up/SpeedUp.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

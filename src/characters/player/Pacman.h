@@ -52,5 +52,9 @@ public:
 
     PowerUpName getCurrentPowerUp() const;
 
+    void setNormalSpeed();
+
+    void setSpeed(float speed);
+
 };
 
