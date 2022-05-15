@@ -51,6 +51,7 @@ set(SOURCE_FILES
     src/power-ups/types/speed_up/SpeedUp.cpp
     src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/firing-bullet/Bullet.cpp
+    src/power-ups/types/shield/Shield.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -179,6 +180,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/speed_up/SpeedUp.cpp
         src/power-ups/types/slow_down/SlowDown.cpp
         src/power-ups/types/firing-bullet/FiringBullet.cpp
+        src/power-ups/types/shield/Shield.cpp
     )
 
     set(GAME_SCREEN_FILES

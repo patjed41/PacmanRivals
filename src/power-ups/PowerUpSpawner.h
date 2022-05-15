@@ -9,6 +9,7 @@
 #include "types/firing-bullet/FiringBullet.h"
 #include "types/slow_down/SlowDown.h"
 #include "types/speed_up/SpeedUp.h"
+#include "types/shield/Shield.h"
 
 class PowerUpSpawner {
 

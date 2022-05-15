@@ -12,14 +12,17 @@ const float Pacman::_FAST_SPEED = 200.0f;
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
+    _color = "yellow";
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
+    _is_shielded = false;
     _map = std::move(map);
 }
 
 void Pacman::changeColor(const std::string &color) {
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + color + ".png"));
+    _color = color;
 }
 
 bool Pacman::turningBack() const {
@@ -98,7 +101,8 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case SHIELD:
-            // TODO
+            _is_shielded = false;
+            this->changeColor(_color);
             break;
         case WALL_PASSING:
             // TODO
@@ -156,6 +160,10 @@ void Pacman::turnDown() {
 
 void Pacman::takeDamage() {
     // TODO: shield and immunity
+//    if (_is_shielded){
+//        _is_shielded = false;
+//        return;
+//    }
     _current_power_up = NONE;
     _is_dead = true;
 }
@@ -203,6 +211,16 @@ void Pacman::pickUpBullet() {
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = FIRING_BULLET;
+}
+
+void Pacman::setShield() {
+    handlePowerUpExpiry();
+    _current_power_up = SHIELD;
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _is_shielded = true;
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
+    //todo pac-man-shield
+
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {

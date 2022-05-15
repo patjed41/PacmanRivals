@@ -12,6 +12,7 @@ class Pacman : public Character {
 private:
 
     bool _is_dead;
+    bool _is_shielded;
 
     static const float _POWER_UP_DURATION; // in seconds
     float _power_up_seconds_left = -1.f;
@@ -19,6 +20,8 @@ private:
 
     static const float _SLOW_SPEED;
     static const float _FAST_SPEED;
+
+    std::string _color;
 
     void handleMovement(float dt_as_seconds);
 
@@ -63,6 +66,8 @@ public:
     void slowDown();
 
     void pickUpBullet();
+
+    void setShield();
 
     std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
 
