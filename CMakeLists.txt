@@ -47,9 +47,10 @@ set(SOURCE_FILES
     src/screens/between-rounds/ScorePrinter.cpp
     src/power-ups/PowerUp.cpp
     src/power-ups/PowerUpSpawner.cpp
-    src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/slow_down/SlowDown.cpp
     src/power-ups/types/speed_up/SpeedUp.cpp
+    src/power-ups/types/firing-bullet/FiringBullet.cpp
+    src/power-ups/types/firing-bullet/Bullet.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -110,6 +111,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(PLAYER_FILES
         ${CHARACTER_FILES}
         src/characters/player/Pacman.cpp
+        src/power-ups/types/firing-bullet/Bullet.cpp
     )
 
     set(LEVEL_FILES
@@ -189,6 +191,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInfo.cpp
         )
 
+    set(FIRING_BULLET_FILES
+        ${PLAYER_FILES}
+        src/power-ups/types/firing-bullet/FiringBullet.cpp
+    )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -227,7 +234,9 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
     make_new_test(check_power_up_spawner power-up-spawner ${POWER_UP_SPAWNER_FILES})
-    make_new_test(check_slow_down power-ups ${PLAYER_FILES} src/power-ups/types/slow_down/SlowDown.cpp)
-    make_new_test(check_speed_up power-ups ${PLAYER_FILES} src/power-ups/types/speed_up/SpeedUp.cpp)
+    make_new_test(check_slow_down speed-up-down ${PLAYER_FILES} src/power-ups/types/slow_down/SlowDown.cpp)
+    make_new_test(check_speed_up speed-up-down ${PLAYER_FILES} src/power-ups/types/speed_up/SpeedUp.cpp)
+    make_new_test(check_firing_bullet firing-bullet ${FIRING_BULLET_FILES})
+    make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
 
 endif()

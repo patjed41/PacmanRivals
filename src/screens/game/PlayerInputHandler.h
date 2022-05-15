@@ -17,6 +17,8 @@ private:
     bool _uses_WASD;
     int _controller = -1;
 
+    PowerUpName _power_up_to_use;
+
     void handleArrows();
     void handleWASD();
     void handleController();
@@ -28,5 +30,7 @@ public:
     PlayerInputHandler(std::shared_ptr<Pacman> pacman, std::string control);
 
     void input();
+
+    PowerUpName getPowerUpToUse() const;
 
 };

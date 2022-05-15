@@ -5,6 +5,7 @@
 #include "../../../include/game_constants.h"
 #include "../Character.h"
 #include "../../power-ups/PowerUpName.h"
+#include "../../power-ups/types/firing-bullet/Bullet.h"
 
 class Pacman : public Character {
 
@@ -55,9 +56,15 @@ public:
 
     PowerUpName getCurrentPowerUp() const;
 
+    bool hasUsablePowerUp() const;
+
     void speedUp();
 
     void slowDown();
+
+    void pickUpBullet();
+
+    std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
 
 };
 

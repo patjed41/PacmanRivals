@@ -40,9 +40,9 @@ std::vector<sf::Vector2i> PowerUpSpawner::findAvailableTiles(
             sf::Vector2f tile_center(x * TILE_SIZE + TILE_SIZE / 2,
                                      y * TILE_SIZE + TILE_SIZE / 2);
 
-            // Power-up cannot spawn too close to pacman.
+            // Power-up cannot spawn too close to pacmans.
             for (const auto & pacman : pacmans) {
-                if (manhattanDistance(tile_center, pacman->getCenter()) < 3 * TILE_SIZE) {
+                if (!pacman->isDead() && manhattanDistance(tile_center, pacman->getCenter()) < 3 * TILE_SIZE) {
                     available = false;
                 }
             }
@@ -103,11 +103,14 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
             return nullptr;
     }
     */
-    if (random(0, 1) == 0) {
+    int r = random(0, 2);
+    if (r == 0) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<SlowDown>(spawn_tile));
     }
-    else {
+    else if (r == 2) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<SpeedUp>(spawn_tile));
     }
-    return std::static_pointer_cast<PowerUp>(std::make_shared<FiringBullet>(spawn_tile));
+    else {
+        return std::static_pointer_cast<PowerUp>(std::make_shared<FiringBullet>(spawn_tile));
+    }
 }

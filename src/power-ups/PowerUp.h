@@ -19,4 +19,6 @@ public:
 
     virtual void use(std::vector<std::shared_ptr<Pacman>> pacmans, unsigned int user) = 0;
 
+    virtual ~PowerUp() = default;
+
 };

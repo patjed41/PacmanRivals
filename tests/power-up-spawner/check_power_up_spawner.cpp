@@ -38,20 +38,20 @@ int main() {
     err::checkEqual(true, spawner.timeToSpawn(), "Full of players 1");
     err::check(nullptr == spawner.spawn(pacmans, no_power_ups), "Full of players 2");
 
-    // Check spawn() when map is full of power-ups.
+    // Check spawn() when map is full of speed-up-down.
     spawner.initialise(map);
     std::unordered_set<std::shared_ptr<PowerUp>> power_ups;
     while (true) {
         spawner.update(100.f);
-        err::checkEqual(true, spawner.timeToSpawn(), "Full of power-ups 1");
+        err::checkEqual(true, spawner.timeToSpawn(), "Full of speed-up-down 1");
         std::shared_ptr<PowerUp> new_power_up = spawner.spawn(no_pacmans, power_ups);
         if (new_power_up == nullptr) {
             break;
         }
         power_ups.insert(new_power_up);
     }
-    err::check(power_ups.size() > MAP_WIDTH * MAP_HEIGHT / (6 * 6), "Full of power-ups 2");
-    err::check(power_ups.size() < MAP_WIDTH * MAP_HEIGHT / (2 * 2), "Full of power-ups 3");
+    err::check(power_ups.size() > MAP_WIDTH * MAP_HEIGHT / (6 * 6), "Full of speed-up-down 2");
+    err::check(power_ups.size() < MAP_WIDTH * MAP_HEIGHT / (2 * 2), "Full of speed-up-down 3");
 
     // Check distance between players.
     spawner.initialise(map);
