@@ -68,5 +68,13 @@ public:
         _direction = DOWN;
     }
 
+    void testPowerUp(PowerUpName name) {
+        _current_power_up = name;
+    }
+
+    float getSpeed() {
+        return _speed;
+    }
+
 };
 
