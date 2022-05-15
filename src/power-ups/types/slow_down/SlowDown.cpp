@@ -2,7 +2,7 @@
 #include "../../../texture-holder/TextureHolder.h"
 
 SlowDown::SlowDown(const sf::Vector2i &position) {
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/place-holder.png"));
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/slow-down.png"));
     _sprite.setPosition(position.x * TILE_SIZE, position.y * TILE_SIZE);
 }
 
