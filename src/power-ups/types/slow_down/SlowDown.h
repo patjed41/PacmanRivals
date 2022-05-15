@@ -7,6 +7,8 @@
 
 class SlowDown : public PowerUp {
 
+public:
+
     SlowDown() = default;
 
     SlowDown(const sf::Vector2i &position);
