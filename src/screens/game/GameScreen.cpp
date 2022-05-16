@@ -19,6 +19,10 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     _players_num = _player_infos.size();
     _rounds_left = rounds;
     _level_manager.initialise();
+    _player_stats.clear();
+    for (int i = 0; i < _players_num; i++) {
+        _player_stats.emplace_back(_player_infos[i], i, &_main_view);
+    }
 }
 
 unsigned int GameScreen::alivePlayers() const {
@@ -225,6 +229,10 @@ void GameScreen::update(float dt_as_seconds) {
         _player_infos[i].setPowerUp(_pacmans[i]->getCurrentPowerUp());
     }
 
+    for (int i = 0; i < _players_num; i++) {
+        _player_stats[i].update(_player_infos[i]);
+    }
+
     if (_new_map_needed) {
         rewardWinner();
         if (_rounds_left == 0) {
@@ -255,6 +263,15 @@ void GameScreen::draw() {
                 if (!_coins[position].isTaken())
                     _window->draw(_coins[position].getSprite());
             }
+        }
+    }
+
+    for (int i = 0; i < _players_num; i++) {
+        if (_pacmans[i]->isDead()) {
+            _player_stats[i].drawDead(_window);
+        }
+        else {
+            _player_stats[i].drawAlive(_window);
         }
     }
 

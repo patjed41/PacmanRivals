@@ -43,6 +43,7 @@ set(SOURCE_FILES
     src/screens/game/GameScreen.cpp
     src/screens/game/PlayerInfo.cpp
     src/screens/game/PlayerInputHandler.cpp
+    src/screens/game/PlayerStats.cpp
     src/screens/between-rounds/BetweenRoundsScreen.cpp
     src/screens/between-rounds/ScorePrinter.cpp
     src/power-ups/PowerUp.cpp
@@ -193,6 +194,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/GameScreen.cpp
         src/screens/game/PlayerInputHandler.cpp
         src/screens/game/PlayerInfo.cpp
+        src/screens/game/PlayerStats.cpp
         )
 
     set(FIRING_BULLET_FILES

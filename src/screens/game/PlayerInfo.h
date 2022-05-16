@@ -14,6 +14,7 @@ private:
     std::string _control; // 'WASD', 'Arrows', 'C1', 'C2, 'C3', 'C4'
 
     unsigned int _rounds_won;
+    unsigned int _round_points;
 
     PowerUpName _power_up;
     float _power_up_time_left;
@@ -33,6 +34,8 @@ public:
     void newWin();
 
     unsigned int getRoundsWon() const;
+
+    unsigned int getRoundPoints() const;
 
     void setPowerUpTimeLeft(float power_up_time_left);
 
