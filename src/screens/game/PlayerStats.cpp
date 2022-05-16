@@ -41,7 +41,6 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
     _pacman.setScale(0.8, 0.8);
 
     _power_up_time.setSize(sf::Vector2f(TIME_BAR_WIDTH, TIME_BAR_HEIGHT));
-    _power_up_time.setFillColor(sf::Color::Blue);
 
     _nickname.setFont(_font);
     _points.setFont(_font);
@@ -89,43 +88,51 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
 void PlayerStats::update() {
     switch (_player_info->getPowerUp()) {
         case COIN_MULTIPLIER:
-            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/place-holder.png")); // todo graphic is missing
+            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/coin-multiplier.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::Yellow);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SPEED_UP:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/speed-up.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::Green);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case GLUTTONY:
-            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/place-holder.png")); // todo graphic is missing
+            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/pac-man-eater.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::Red);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SHIELD:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/blocking-shield.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::Blue);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case WALL_PASSING:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/wall-breaker.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::White);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SPIKES_PLACEMENT:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/thorns.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color(128, 128, 128));
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case BOMB_PLACEMENT:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/bomb-setter.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color::Black);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case FIRING_BULLET:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/firing-bullet.png"));
             _power_up.setScale(0.8, 0.8);
+            _power_up_time.setFillColor(sf::Color(255, 100, 0));
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         default:
@@ -157,7 +164,7 @@ void PlayerStats::drawDead(sf::RenderWindow *window) {
     _points.setFont(_font);
     _status_dead.setFont(_font);
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-black.png")); // todo pac-man-gray
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/dead-pac-man.png"));
 
     window->draw(_pacman);
     window->draw(_nickname);
