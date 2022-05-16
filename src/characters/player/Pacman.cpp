@@ -160,12 +160,10 @@ void Pacman::turnDown() {
 
 void Pacman::takeDamage() {
     // TODO: shield and immunity
-//    if (_is_shielded){
-//        _is_shielded = false;
-//        return;
-//    }
-    _current_power_up = NONE;
-    _is_dead = true;
+    if (!_is_shielded) {
+        _current_power_up = NONE;
+        _is_dead = true;
+    }
 }
 
 bool Pacman::isDead() const {
@@ -219,8 +217,6 @@ void Pacman::setShield() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _is_shielded = true;
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
-    //todo pac-man-shield
-
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
