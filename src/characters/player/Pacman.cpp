@@ -266,8 +266,3 @@ void Pacman::setPosition(float tile_x, float tile_y) {
     _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
 }
 
-bool Pacman::inWall() {
-    sf::FloatRect position = getPosition();
-    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
-    return _map->getTiles()[current_tile.y][current_tile.x].isWall();
-}
