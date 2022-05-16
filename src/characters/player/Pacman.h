@@ -71,5 +71,6 @@ public:
 
     void setPosition(float tile_x, float tile_y);
 
+    bool inWall();
 };
 
