@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "../../../include/game_constants.h"
+
 const float PlayerStats::POSITION_OFFSET = 50.0f;
 const float PlayerStats::TIME_BAR_WIDTH = 150.0f;
 const float PlayerStats::TIME_BAR_HEIGHT = 35.0f;
@@ -48,6 +50,9 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
 
     std::stringstream ss;
     ss << _player_info->getNickname();
+    for (int i = 0; i < NICKLEN_MAX - _player_info->getNickname().size(); i++) {
+        ss << " ";
+    }
     _nickname.setString(ss.str());
     _nickname.setFillColor(sf::Color::White);
     _nickname.setCharacterSize(20);
