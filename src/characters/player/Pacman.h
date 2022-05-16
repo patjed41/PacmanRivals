@@ -12,7 +12,6 @@ class Pacman : public Character {
 private:
 
     bool _is_dead;
-    bool _is_shielded;
 
     static const float _POWER_UP_DURATION; // in seconds
     float _power_up_seconds_left = -1.f;
@@ -35,6 +34,7 @@ protected:
 
     bool turningBack() const;
 
+    bool _is_shielded;
 public:
 
     Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);

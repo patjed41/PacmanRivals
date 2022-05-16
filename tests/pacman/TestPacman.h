@@ -73,5 +73,9 @@ public:
         return _speed;
     }
 
+    bool getShield() {
+        return _is_shielded;
+    }
+
 };
 
