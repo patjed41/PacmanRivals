@@ -12,20 +12,20 @@ class Pacman : public Character {
 private:
 
     bool _is_dead;
-    bool _pass_wall;
-
     static const float _POWER_UP_DURATION; // in seconds
+
     float _power_up_seconds_left = -1.f;
     float _slow_down_seconds_left = -1.f;
-
     static const float _SLOW_SPEED;
-    static const float _FAST_SPEED;
 
+    static const float _FAST_SPEED;
     void handleMovement(float dt_as_seconds);
 
     void handlePowerUpExpiry();
 
 protected:
+
+    bool _pass_wall;
 
     PowerUpName _current_power_up = NONE;
 
@@ -68,6 +68,8 @@ public:
     std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
 
     void passWalls();
+
+    void setPosition(float tile_x, float tile_y);
 
 };
 

@@ -104,7 +104,42 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case WALL_PASSING:
-            _pass_wall = false;
+            {
+                _pass_wall = false;
+                sf::FloatRect position = getPosition();
+                sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+                if(_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
+                    bool done = false;
+                    for (int i = 0; i < MAP_HEIGHT; ++i) {
+                        for (int j = 0; j < MAP_WIDTH; ++j) {
+                            if (current_tile.y > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                                setPosition(current_tile.x - j, current_tile.y - i);
+                                done = true;
+                                break;
+                            }
+                            else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                                setPosition(current_tile.x + j, current_tile.y + i);
+                                done = true;
+                                break;
+                            }
+                            else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                                setPosition(current_tile.x - j, current_tile.y - i);
+                                done = true;
+                                break;
+                            }
+                            else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                                setPosition(current_tile.x + j, current_tile.y + i);
+                                done = true;
+                                break;
+                            }
+                        }
+                        if (done)
+                            break;
+                    }
+
+                }
+
+            }
             break;
         case SPIKES_PLACEMENT:
             // TODO
@@ -225,4 +260,8 @@ void Pacman::passWalls() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = WALL_PASSING;
     _pass_wall = true;
+}
+
+void Pacman::setPosition(float tile_x, float tile_y) {
+    _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
 }
