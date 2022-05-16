@@ -8,11 +8,13 @@ const float PlayerStats::POSITION_OFFSET = 50.0f;
 const float PlayerStats::TIME_BAR_WIDTH = 150.0f;
 const float PlayerStats::TIME_BAR_HEIGHT = 35.0f;
 
-PlayerStats::PlayerStats(const PlayerInfo &player_info, unsigned int player_no, const sf::View* view) {
+PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const sf::View* view) {
     if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in PlayerStats constructor.\n";
         exit(1);
     }
+
+    _player_info = player_info;
 
     switch (player_no) {
         case 0:
@@ -33,7 +35,7 @@ PlayerStats::PlayerStats(const PlayerInfo &player_info, unsigned int player_no, 
             break;
     }
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + player_info.getColor() + ".png"));
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _player_info->getColor() + ".png"));
     _pacman.setScale(0.8, 0.8);
 
     _power_up_time.setSize(sf::Vector2f(TIME_BAR_WIDTH, TIME_BAR_HEIGHT));
@@ -45,7 +47,7 @@ PlayerStats::PlayerStats(const PlayerInfo &player_info, unsigned int player_no, 
     _status_dead.setFont(_font);
 
     std::stringstream ss;
-    ss << player_info.getNickname();
+    ss << _player_info->getNickname();
     _nickname.setString(ss.str());
     _nickname.setFillColor(sf::Color::White);
     _nickname.setCharacterSize(20);
@@ -79,47 +81,47 @@ PlayerStats::PlayerStats(const PlayerInfo &player_info, unsigned int player_no, 
                                _power_up.getGlobalBounds().top);
 }
 
-void PlayerStats::update(const PlayerInfo & player_info) {
-    switch (player_info.getPowerUp()) {
+void PlayerStats::update() {
+    switch (_player_info->getPowerUp()) {
         case COIN_MULTIPLIER:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/place-holder.png")); // todo graphic is missing
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SPEED_UP:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/speed-up.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case GLUTTONY:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/place-holder.png")); // todo graphic is missing
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SHIELD:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/blocking-shield.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case WALL_PASSING:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/wall-breaker.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SPIKES_PLACEMENT:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/thorns.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case BOMB_PLACEMENT:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/bomb-setter.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case FIRING_BULLET:
             _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/firing-bullet.png"));
             _power_up.setScale(0.8, 0.8);
-            _power_up_time.setSize(sf::Vector2f(player_info.getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
+            _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         default:
             _power_up.setScale(0, 0);
@@ -128,7 +130,7 @@ void PlayerStats::update(const PlayerInfo & player_info) {
     }
 
     std::stringstream ss_points;
-    ss_points << "Points: " << std::to_string(player_info.getRoundPoints());
+    ss_points << "Points: " << std::to_string(_player_info->getRoundPoints());
     _points.setString(ss_points.str());
 }
 

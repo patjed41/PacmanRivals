@@ -21,7 +21,7 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     _level_manager.initialise();
     _player_stats.clear();
     for (int i = 0; i < _players_num; i++) {
-        _player_stats.emplace_back(_player_infos[i], i, &_main_view);
+        _player_stats.emplace_back(&_player_infos[i], i, &_main_view);
     }
 }
 
@@ -229,8 +229,8 @@ void GameScreen::update(float dt_as_seconds) {
         _player_infos[i].setPowerUp(_pacmans[i]->getCurrentPowerUp());
     }
 
-    for (int i = 0; i < _players_num; i++) {
-        _player_stats[i].update(_player_infos[i]);
+    for (auto & stat : _player_stats) {
+        stat.update();
     }
 
     if (_new_map_needed) {

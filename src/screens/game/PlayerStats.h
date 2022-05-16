@@ -8,6 +8,8 @@ class PlayerStats {
 
 private:
 
+    PlayerInfo* _player_info;
+
     sf::Font _font;
 
     sf::Text _nickname;
@@ -32,9 +34,9 @@ public:
 
     PlayerStats() = default;
 
-    PlayerStats(const PlayerInfo & player_info, unsigned int player_no, const sf::View* view);
+    PlayerStats(PlayerInfo* player_info, unsigned int player_no, const sf::View* view);
 
-    void update(const PlayerInfo & player_info);
+    void update();
 
     void drawAlive(sf::RenderWindow* window);
 
