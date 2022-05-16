@@ -10,6 +10,7 @@
 #include "../../coins/Coin.h"
 #include "PlayerInfo.h"
 #include "PlayerInputHandler.h"
+#include "PlayerStats.h"
 #include "../../power-ups/PowerUpSpawner.h"
 #include "../../power-ups/types/firing-bullet/Bullet.h"
 
@@ -26,6 +27,8 @@ private:
     std::vector<std::shared_ptr<Ghost>> _ghosts;
 
     std::vector<PlayerInfo> _player_infos;
+
+    std::vector<PlayerStats> _player_stats;
 
     std::vector<std::shared_ptr<Pacman>> _pacmans;
 

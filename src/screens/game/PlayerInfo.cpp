@@ -3,6 +3,7 @@
 PlayerInfo::PlayerInfo(std::string nickname, std::string color, std::string control) :
     _nickname(std::move(nickname)), _color(std::move(color)), _control(std::move(control)) {
     _rounds_won = 0;
+    _round_points = 0;
 }
 
 std::string PlayerInfo::getNickname() const {
@@ -23,6 +24,10 @@ void PlayerInfo::newWin() {
 
 unsigned int PlayerInfo::getRoundsWon() const {
     return _rounds_won;
+}
+
+unsigned int PlayerInfo::getRoundPoints() const {
+    return _round_points;
 }
 
 void PlayerInfo::setPowerUpTimeLeft(float power_up_time_left) {
