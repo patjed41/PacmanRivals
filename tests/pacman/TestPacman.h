@@ -73,5 +73,9 @@ public:
         return _speed;
     }
 
+    bool getPassWall() {
+        return _pass_wall;
+    }
+
 };
 
