@@ -15,6 +15,7 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
+    _pass_wall = false;
     _map = std::move(map);
 }
 
@@ -38,7 +39,8 @@ void Pacman::handleMovement(float dt_as_seconds) {
     sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
     if (_direction == STOP) {
-        if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+        if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
+            || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
             _direction = _new_direction;
             move(dt_as_seconds);
         }
@@ -67,18 +69,19 @@ void Pacman::handleMovement(float dt_as_seconds) {
     else {
         move(dt_as_seconds);
         if (_direction == _new_direction) {
-            if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = _new_direction = STOP;
             }
         }
         else {
-            if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+            if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
+                || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
                 correct();
                 _direction = _new_direction;
                 move(dt_as_seconds);
             }
-            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = STOP;
             }
@@ -101,7 +104,7 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case WALL_PASSING:
-            // TODO
+            _pass_wall = false;
             break;
         case SPIKES_PLACEMENT:
             // TODO
@@ -215,4 +218,11 @@ std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
     handlePowerUpExpiry();
     // TODO: play firing sound
     return std::make_shared<Bullet>(getCenter(), _map, shooter, _direction);
+}
+
+void Pacman::passWalls() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = WALL_PASSING;
+    _pass_wall = true;
 }
