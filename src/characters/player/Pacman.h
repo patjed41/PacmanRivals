@@ -6,6 +6,7 @@
 #include "../Character.h"
 #include "../../power-ups/PowerUpName.h"
 #include "../../power-ups/types/firing-bullet/Bullet.h"
+#include "../../power-ups/types/spikes-placement/Spike.h"
 
 class Pacman : public Character {
 
@@ -65,6 +66,10 @@ public:
     void pickUpBullet();
 
     std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
+
+    void pickUpSpikes();
+
+    std::shared_ptr<Spike> placeSpike(unsigned int user);
 
 };
 
