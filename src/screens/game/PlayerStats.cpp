@@ -7,10 +7,11 @@
 #include "../../../include/game_constants.h"
 
 const float PlayerStats::POSITION_OFFSET = 50.0f;
-const float PlayerStats::TIME_BAR_WIDTH = 150.0f;
+const float PlayerStats::TIME_BAR_OFFSET = 10.0f;
+const float PlayerStats::TIME_BAR_WIDTH = 147.0f;
 const float PlayerStats::TIME_BAR_HEIGHT = 35.0f;
 
-PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const sf::View* view) {
+PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no) {
     if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
         std::cerr << "Failed to load _font in PlayerStats constructor.\n";
         exit(1);
@@ -25,7 +26,7 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
             break;
         case 1:
             _position_x = -113.0f;
-            _position_y = 600.0f; // or view->getCenter().y
+            _position_y = 600.0f;
             break;
         case 2:
             _position_x = 1605.0f;
@@ -33,7 +34,7 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
             break;
         case 3:
             _position_x = 1605.0f;
-            _position_y = 600.0f; // or view->getCenter().y
+            _position_y = 600.0f;
             break;
     }
 
@@ -81,7 +82,7 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no, const 
                               _position_y + POSITION_OFFSET * 2);
     _power_up.setPosition(_pacman.getGlobalBounds().left,
                           _position_y + POSITION_OFFSET * 3);
-    _power_up_time.setPosition(_nickname.getGlobalBounds().left,
+    _power_up_time.setPosition(_nickname.getGlobalBounds().left + TIME_BAR_OFFSET,
                                _power_up.getGlobalBounds().top);
 }
 
