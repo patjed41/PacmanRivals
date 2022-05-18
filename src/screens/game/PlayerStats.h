@@ -26,6 +26,7 @@ private:
     float _position_y;
 
     static const float POSITION_OFFSET;
+    static const float TIME_BAR_OFFSET;
 
     static const float TIME_BAR_WIDTH;
     static const float TIME_BAR_HEIGHT;
@@ -34,7 +35,7 @@ public:
 
     PlayerStats() = default;
 
-    PlayerStats(PlayerInfo* player_info, unsigned int player_no, const sf::View* view);
+    PlayerStats(PlayerInfo* player_info, unsigned int player_no);
 
     void update();
 
