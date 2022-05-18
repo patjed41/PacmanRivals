@@ -52,6 +52,8 @@ set(SOURCE_FILES
     src/power-ups/types/speed_up/SpeedUp.cpp
     src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/firing-bullet/Bullet.cpp
+    src/power-ups/types/spikes-placement/SpikesPlacement.cpp
+    src/power-ups/types/spikes-placement/Spike.cpp
     src/power-ups/types/shield/Shield.cpp
     src/power-ups/types/passing_walls/PassWall.cpp
     src/power-ups/types/gluttony/Gluttony.cpp
@@ -118,6 +120,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         ${CHARACTER_FILES}
         src/characters/player/Pacman.cpp
         src/power-ups/types/firing-bullet/Bullet.cpp
+        src/power-ups/types/spikes-placement/Spike.cpp
         src/power-ups/types/bomb-placement/Bomb.cpp
     )
 
@@ -190,6 +193,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/passing_walls/PassWall.cpp
         src/power-ups/types/gluttony/Gluttony.cpp
         src/power-ups/types/bomb-placement/BombPlacement.cpp
+        src/power-ups/types/spikes-placement/SpikesPlacement.cpp
     )
 
     set(GAME_SCREEN_FILES

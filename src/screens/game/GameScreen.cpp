@@ -72,6 +72,9 @@ void GameScreen::input() {
         else if (_player_input_handlers[i].getPowerUpToUse() == BOMB_PLACEMENT) {
             _bombs.insert(_pacmans[i]->placeBomb(i));
         }
+        else if (_player_input_handlers[i].getPowerUpToUse() == SPIKES_PLACEMENT) {
+            _spikes.insert(_pacmans[i]->placeSpike(i));
+        }
     }
 }
 
@@ -92,6 +95,7 @@ void GameScreen::loadNewMap() {
     _power_ups.clear();
     _bullets.clear();
     _bombs.clear();
+    _spikes.clear();
 
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
@@ -249,6 +253,35 @@ void GameScreen::handleCollisionsBombs() {
     }
 }
 
+void GameScreen::handleCollisionsSpikes() {
+    // Bullet hits pacman.
+    for (int i = 0; i < _pacmans.size(); ++i) {
+        auto pacman = _pacmans[i];
+        for (auto & spike : _spikes) {
+            if (i != spike->getUser() && !pacman->isDead() && !spike->disappeared()
+                && pacman->getPosition().intersects(spike->getPosition())) {
+                pacman->takeDamage();
+                spike->disappear();
+                // TODO: user who place spike should get points
+            }
+        }
+    }
+
+    // Bullet hits ghost.
+    for (size_t i = 0; i < _ghosts.size(); i++) {
+        for (auto & spike : _spikes) {
+            if (!spike->disappeared() && _ghosts[i]->getPosition().intersects(spike->getPosition())) {
+                // delete ghost
+                std::swap(_ghosts[i], _ghosts.back());
+                _ghosts.pop_back();
+                spike->disappear();
+                // TODO: user who place spike should get points
+                break;
+            }
+        }
+    }
+}
+
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
         loadNewMap();
@@ -271,6 +304,10 @@ void GameScreen::update(float dt_as_seconds) {
         bomb->update(dt_as_seconds);
     }
 
+    for (auto & spike : _spikes) {
+        spike->update(dt_as_seconds);
+    }
+
     _power_up_spawner.update(dt_as_seconds);
     if (_power_up_spawner.timeToSpawn()) {
         std::shared_ptr<PowerUp> new_power_up = _power_up_spawner.spawn(_pacmans, _power_ups);
@@ -285,6 +322,7 @@ void GameScreen::update(float dt_as_seconds) {
     handleCollisionsPPU();
     handleCollisionsBullets();
     handleCollisionsBombs();
+    handleCollisionsSpikes();
 
     for (int i = 0; i < _players_num; i++) {
         _player_infos[i].setPowerUpTimeLeft(_pacmans[i]->getPartOfPowerUpTimeLeft());
@@ -366,6 +404,12 @@ void GameScreen::draw() {
 
     for (auto & bomb : _bombs) {
         bomb->draw(_window);
+    }
+
+    for (auto & spike : _spikes) {
+        if (!spike->disappeared()) {
+            _window->draw(spike->getSprite());
+        }
     }
 
     _window->display();

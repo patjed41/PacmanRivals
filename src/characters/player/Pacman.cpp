@@ -223,7 +223,7 @@ PowerUpName Pacman::getCurrentPowerUp() const {
 }
 
 bool Pacman::hasUsablePowerUp() const {
-    return _current_power_up == BOMB_PLACEMENT ||
+    return _current_power_up == SPIKES_PLACEMENT || _current_power_up == BOMB_PLACEMENT ||
           (_current_power_up == FIRING_BULLET && _direction != STOP);
 }
 
@@ -307,4 +307,21 @@ std::shared_ptr<Bomb> Pacman::placeBomb(unsigned int bomberman) {
 
 void Pacman::setPosition(float tile_x, float tile_y) {
     _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
+}
+
+void Pacman::pickUpSpikes() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = SPIKES_PLACEMENT;
+}
+
+std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
+    if (_current_power_up != SPIKES_PLACEMENT || _power_up_seconds_left < 0) {
+        std::cerr << "placeSpike() call when it is impossible";
+        exit(1);
+    }
+
+    handlePowerUpExpiry();
+    return std::make_shared<Spike>(getCenter(), _map, user);
+
 }
