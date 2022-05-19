@@ -17,7 +17,7 @@ int main() {
     ScreenName current_screen = GAME;
     GameScreen game(&window, &current_screen);
 
-    std::vector<PlayerInfo> players_info = {PlayerInfo("TestPlayer", "red", "WASD")};
+    std::vector<PlayerInfo> players_info = {PlayerInfo("Player", "red", "WASD")};
     game.initialise(players_info, 1);
 
     game.update(clock.restart().asSeconds());
