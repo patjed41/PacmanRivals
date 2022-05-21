@@ -107,7 +107,7 @@ void PlayerStats::update() {
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
             break;
         case SHIELD:
-            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/blocking-shield.png"));
+            _power_up.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/shield.png"));
             _power_up.setScale(0.8, 0.8);
             _power_up_time.setFillColor(sf::Color::Blue);
             _power_up_time.setSize(sf::Vector2f(_player_info->getPowerUpTimeLeft() * TIME_BAR_WIDTH, _power_up.getGlobalBounds().height));
