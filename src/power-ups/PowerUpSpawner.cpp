@@ -117,7 +117,10 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
     else if (r == 3) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<FiringBullet>(spawn_tile));
     }
-    else {
+    else if (r == 4) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<PassWall>(spawn_tile));
+    }
+    else {
+        return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
     }
 }

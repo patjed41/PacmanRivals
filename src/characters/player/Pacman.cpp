@@ -138,7 +138,7 @@ void Pacman::handlePowerUpExpiry() {
             _speed = _NORMAL_SPEED;
             break;
         case GLUTTONY:
-            // TODO
+            changeColor(_color);
             break;
         case SHIELD:
             _is_shielded = false;
@@ -277,7 +277,13 @@ void Pacman::passWalls() {
     _pass_wall = true;
 }
 
+void Pacman::startEating() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = GLUTTONY;
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/eating-pac-mans/eating-pac-man-red.png"));
+}
+
 void Pacman::setPosition(float tile_x, float tile_y) {
     _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
 }
-
