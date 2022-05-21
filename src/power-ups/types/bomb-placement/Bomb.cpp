@@ -46,15 +46,11 @@ unsigned int Bomb::getBomberman() const {
 }
 
 bool Bomb::timeToExplode() const {
-    return _seconds_left <= 0;
+    return _seconds_left <= 0 && !_exploded;
 }
 
 void Bomb::explode() {
     _exploded = true;
-}
-
-bool Bomb::exploded() const {
-    return _exploded;
 }
 
 void Bomb::update(float dt_as_seconds) {
@@ -72,7 +68,7 @@ void Bomb::update(float dt_as_seconds) {
 }
 
 void Bomb::draw(sf::RenderWindow *window) {
-    if (!exploded()) {
+    if (!_exploded) {
         window->draw(_sprite);
         window->draw(_time_info);
     }
