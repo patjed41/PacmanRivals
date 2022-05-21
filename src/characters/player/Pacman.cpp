@@ -12,15 +12,19 @@ const float Pacman::_FAST_SPEED = 200.0f;
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
+    _color = "yellow";
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
+    _is_shielded = false;
     _pass_wall = false;
+
     _map = std::move(map);
 }
 
 void Pacman::changeColor(const std::string &color) {
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + color + ".png"));
+    _color = color;
 }
 
 bool Pacman::turningBack() const {
@@ -89,6 +93,42 @@ void Pacman::handleMovement(float dt_as_seconds) {
     }
 }
 
+void Pacman::fixPositionAfterWallPassing() {
+    _pass_wall = false;
+    sf::FloatRect position = getPosition();
+    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    if (_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
+        bool done = false;
+        for (int i = 0; i < MAP_HEIGHT; ++i) {
+            for (int j = 0; j < MAP_WIDTH; ++j) {
+                if (current_tile.y > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                    setPosition(current_tile.x - j, current_tile.y - i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                    setPosition(current_tile.x + j, current_tile.y + i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                    setPosition(current_tile.x - j, current_tile.y - i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                    setPosition(current_tile.x + j, current_tile.y + i);
+                    done = true;
+                    break;
+                }
+            }
+            if (done)
+                break;
+        }
+        _direction = _new_direction = STOP;
+    }
+}
+
 void Pacman::handlePowerUpExpiry() {
     switch (_current_power_up) {
         case COIN_MULTIPLIER:
@@ -101,45 +141,11 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case SHIELD:
-            // TODO
+            _is_shielded = false;
+            changeColor(_color);
             break;
         case WALL_PASSING:
-            {
-                _pass_wall = false;
-                sf::FloatRect position = getPosition();
-                sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
-                if(_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
-                    bool done = false;
-                    for (int i = 0; i < MAP_HEIGHT; ++i) {
-                        for (int j = 0; j < MAP_WIDTH; ++j) {
-                            if (current_tile.y > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
-                                setPosition(current_tile.x - j, current_tile.y - i);
-                                done = true;
-                                break;
-                            }
-                            else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
-                                setPosition(current_tile.x + j, current_tile.y + i);
-                                done = true;
-                                break;
-                            }
-                            else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
-                                setPosition(current_tile.x - j, current_tile.y - i);
-                                done = true;
-                                break;
-                            }
-                            else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
-                                setPosition(current_tile.x + j, current_tile.y + i);
-                                done = true;
-                                break;
-                            }
-                        }
-                        if (done)
-                            break;
-                    }
-
-                }
-
-            }
+            fixPositionAfterWallPassing();
             break;
         case SPIKES_PLACEMENT:
             // TODO
@@ -193,9 +199,10 @@ void Pacman::turnDown() {
 }
 
 void Pacman::takeDamage() {
-    // TODO: shield and immunity
-    _current_power_up = NONE;
-    _is_dead = true;
+    if (!_is_shielded) {
+        _current_power_up = NONE;
+        _is_dead = true;
+    }
 }
 
 bool Pacman::isDead() const {
@@ -241,6 +248,14 @@ void Pacman::pickUpBullet() {
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = FIRING_BULLET;
+}
+
+void Pacman::setShield() {
+    handlePowerUpExpiry();
+    _current_power_up = SHIELD;
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _is_shielded = true;
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {

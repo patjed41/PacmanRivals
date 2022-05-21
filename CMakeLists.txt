@@ -51,7 +51,8 @@ set(SOURCE_FILES
     src/power-ups/types/speed_up/SpeedUp.cpp
     src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/firing-bullet/Bullet.cpp
-        src/power-ups/types/passing_walls/PassWall.cpp
+    src/power-ups/types/shield/Shield.cpp
+    src/power-ups/types/passing_walls/PassWall.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -180,6 +181,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/speed_up/SpeedUp.cpp
         src/power-ups/types/slow_down/SlowDown.cpp
         src/power-ups/types/firing-bullet/FiringBullet.cpp
+        src/power-ups/types/shield/Shield.cpp
         src/power-ups/types/passing_walls/PassWall.cpp
     )
 
@@ -238,6 +240,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_power_up_spawner power-up-spawner ${POWER_UP_SPAWNER_FILES})
     make_new_test(check_slow_down speed-up-down ${PLAYER_FILES} src/power-ups/types/slow_down/SlowDown.cpp)
     make_new_test(check_speed_up speed-up-down ${PLAYER_FILES} src/power-ups/types/speed_up/SpeedUp.cpp)
+    make_new_test(check_shield shield ${PLAYER_FILES} src/power-ups/types/shield/Shield.cpp)
     make_new_test(check_firing_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_wall_passing wall-passing ${PLAYER_FILES} src/power-ups/types/passing_walls/PassWall.cpp)

@@ -17,11 +17,15 @@ private:
     float _power_up_seconds_left = -1.f;
     float _slow_down_seconds_left = -1.f;
     static const float _SLOW_SPEED;
-
     static const float _FAST_SPEED;
+
+    std::string _color;
+
     void handleMovement(float dt_as_seconds);
 
     void handlePowerUpExpiry();
+
+    void fixPositionAfterWallPassing();
 
 protected:
 
@@ -33,6 +37,7 @@ protected:
 
     bool turningBack() const;
 
+    bool _is_shielded;
 public:
 
     Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);
@@ -64,6 +69,8 @@ public:
     void slowDown();
 
     void pickUpBullet();
+
+    void setShield();
 
     std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
 
