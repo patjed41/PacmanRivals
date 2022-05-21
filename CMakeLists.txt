@@ -248,5 +248,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_firing_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_wall_passing wall-passing ${PLAYER_FILES} src/power-ups/types/passing_walls/PassWall.cpp)
+    make_new_test(check_gluttony gluttony ${PLAYER_FILES} src/power-ups/types/gluttony/Gluttony.cpp)
 
 endif()
