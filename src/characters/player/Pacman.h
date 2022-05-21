@@ -38,6 +38,7 @@ protected:
     bool turningBack() const;
 
     bool _is_shielded;
+
 public:
 
     Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);
@@ -75,6 +76,8 @@ public:
     std::shared_ptr<Bullet> fireBullet(unsigned int shooter);
 
     void passWalls();
+
+    void startEating();
 
     void setPosition(float tile_x, float tile_y);
 

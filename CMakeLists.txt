@@ -54,6 +54,7 @@ set(SOURCE_FILES
     src/power-ups/types/firing-bullet/Bullet.cpp
     src/power-ups/types/shield/Shield.cpp
     src/power-ups/types/passing_walls/PassWall.cpp
+    src/power-ups/types/gluttony/Gluttony.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -184,6 +185,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/firing-bullet/FiringBullet.cpp
         src/power-ups/types/shield/Shield.cpp
         src/power-ups/types/passing_walls/PassWall.cpp
+        src/power-ups/types/gluttony/Gluttony.cpp
     )
 
     set(GAME_SCREEN_FILES
