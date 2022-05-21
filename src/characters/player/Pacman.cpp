@@ -294,6 +294,17 @@ void Pacman::pickUpBomb() {
     _current_power_up = BOMB_PLACEMENT;
 }
 
+std::shared_ptr<Bomb> Pacman::placeBomb(unsigned int bomberman) {
+    if (_current_power_up != BOMB_PLACEMENT) {
+        std::cerr << "placeBomb() call when it is impossible";
+        exit(1);
+    }
+
+    handlePowerUpExpiry();
+    // TODO: play bomb placement sound
+    return std::make_shared<Bomb>(getCenter(), bomberman);
+}
+
 void Pacman::setPosition(float tile_x, float tile_y) {
     _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
 }

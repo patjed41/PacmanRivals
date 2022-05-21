@@ -9,3 +9,4 @@
 #define MIN_ROUNDS 1
 #define MAX_ROUNDS 9
 #define NICKLEN_MAX 8
+#define EXPLOSION_RADIUS 3
