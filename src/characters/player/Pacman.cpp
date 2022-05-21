@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <iostream>
+#include <sstream>
 #include "../../texture-holder/TextureHolder.h"
 
 const float Pacman::_POWER_UP_DURATION = 10.0f;
@@ -256,6 +257,10 @@ void Pacman::setShield() {
     _current_power_up = SHIELD;
     _power_up_seconds_left = _POWER_UP_DURATION;
     _is_shielded = true;
+    std::stringstream path_to_graphic_with_shield;
+    path_to_graphic_with_shield << "../assets/graphics/power-ups/shielded-pac-mans/"
+                                << "shielded-pac-man-" << _color << ".png";
+    _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_with_shield.str()));
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
