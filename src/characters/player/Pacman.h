@@ -6,6 +6,7 @@
 #include "../Character.h"
 #include "../../power-ups/PowerUpName.h"
 #include "../../power-ups/types/firing-bullet/Bullet.h"
+#include "../../power-ups/types/bomb-placement/Bomb.h"
 
 class Pacman : public Character {
 
@@ -80,6 +81,8 @@ public:
     void startEating();
 
     void pickUpBomb();
+
+    std::shared_ptr<Bomb> placeBomb(unsigned int bomberman);
 
     void setPosition(float tile_x, float tile_y);
 
