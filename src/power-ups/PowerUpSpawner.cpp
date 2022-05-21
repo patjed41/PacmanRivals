@@ -104,7 +104,7 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
             return nullptr;
     }
     */
-    int r = random(0, 4);
+    int r = random(0, 5);
     if (r == 0) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<SlowDown>(spawn_tile));
     }

@@ -99,6 +99,22 @@ void GameScreen::loadNewMap() {
     _rounds_left--;
 }
 
+void GameScreen::handleCollisionsPP() {
+    for (size_t i = 0; i < _players_num; i++) {
+        for (size_t j = 0; j < _players_num; j++) {
+            if (i != j && !_pacmans[i]->isDead() && !_pacmans[j]->isDead()
+                && _pacmans[i]->getCurrentPowerUp() == GLUTTONY
+                && _pacmans[j]->getCurrentPowerUp() != GLUTTONY
+                && _pacmans[i]->getPosition().intersects(_pacmans[j]->getPosition())) {
+                _pacmans[j]->takeDamage();
+                if (_pacmans[j]->isDead()) {
+                    // TODO: eater should get points
+                }
+            }
+        }
+    }
+}
+
 void GameScreen::handleCollisionsPC() {
     for (auto & pacman : _pacmans) {
         if (pacman->isDead()) {
@@ -129,12 +145,20 @@ void GameScreen::handleCollisionsPG() {
     }
 
     for (auto & pacman : _pacmans) {
-        for (auto & ghost : _ghosts) {
-            if (!pacman->isDead() && manhattanDistance(pacman->getCenter(), ghost->getCenter()) < TILE_SIZE) {
-                pacman->takeDamage();
-                if (alivePlayers() == 1) {
-                    _new_map_needed = true;
-                    return;
+        for (size_t i = 0; i < _ghosts.size(); i++) {
+            if (!pacman->isDead() && manhattanDistance(pacman->getCenter(), _ghosts[i]->getCenter()) < TILE_SIZE) {
+                if (pacman->getCurrentPowerUp() == GLUTTONY) {
+                    std::swap(_ghosts[i], _ghosts.back());
+                    _ghosts.pop_back();
+                    i--;
+                    // TODO: eater should get points
+                }
+                else {
+                    pacman->takeDamage();
+                    if (alivePlayers() == 1) {
+                        _new_map_needed = true;
+                        return;
+                    }
                 }
             }
         }
@@ -219,6 +243,7 @@ void GameScreen::update(float dt_as_seconds) {
         }
     }
 
+    handleCollisionsPP();
     handleCollisionsPC();
     handleCollisionsPG();
     handleCollisionsPPU();

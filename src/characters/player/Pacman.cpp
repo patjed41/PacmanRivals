@@ -146,6 +146,7 @@ void Pacman::handlePowerUpExpiry() {
             break;
         case WALL_PASSING:
             fixPositionAfterWallPassing();
+            changeColor(_color);
             break;
         case SPIKES_PLACEMENT:
             // TODO
@@ -255,7 +256,6 @@ void Pacman::setShield() {
     _current_power_up = SHIELD;
     _power_up_seconds_left = _POWER_UP_DURATION;
     _is_shielded = true;
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
 }
 
 std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
@@ -275,6 +275,7 @@ void Pacman::passWalls() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = WALL_PASSING;
     _pass_wall = true;
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
 }
 
 void Pacman::startEating() {
