@@ -49,6 +49,7 @@ private:
 
     void loadNewMap();
 
+    void handleCollisionsPP();
     void handleCollisionsPC();
     void handleCollisionsPG();
     void handleCollisionsPPU();
