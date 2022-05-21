@@ -153,10 +153,8 @@ void Pacman::handlePowerUpExpiry() {
             // TODO
             break;
         case BOMB_PLACEMENT:
-            // TODO
             break;
         case FIRING_BULLET:
-            // TODO
             break;
         default:
             break;
@@ -288,6 +286,12 @@ void Pacman::startEating() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = GLUTTONY;
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/eating-pac-mans/eating-pac-man-red.png"));
+}
+
+void Pacman::pickUpBomb() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = BOMB_PLACEMENT;
 }
 
 void Pacman::setPosition(float tile_x, float tile_y) {

@@ -55,6 +55,7 @@ set(SOURCE_FILES
     src/power-ups/types/shield/Shield.cpp
     src/power-ups/types/passing_walls/PassWall.cpp
     src/power-ups/types/gluttony/Gluttony.cpp
+    src/power-ups/types/bomb-placement/BombPlacement.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -186,6 +187,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/shield/Shield.cpp
         src/power-ups/types/passing_walls/PassWall.cpp
         src/power-ups/types/gluttony/Gluttony.cpp
+        src/power-ups/types/bomb-placement/BombPlacement.cpp
     )
 
     set(GAME_SCREEN_FILES
