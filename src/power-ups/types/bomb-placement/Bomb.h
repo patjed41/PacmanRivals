@@ -37,8 +37,6 @@ public:
 
     void explode();
 
-    bool exploded() const;
-
     void update(float dt_as_seconds);
 
     void draw(sf::RenderWindow *window);
