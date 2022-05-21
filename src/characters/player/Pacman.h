@@ -79,6 +79,8 @@ public:
 
     void startEating();
 
+    void pickUpBomb();
+
     void setPosition(float tile_x, float tile_y);
 
 };

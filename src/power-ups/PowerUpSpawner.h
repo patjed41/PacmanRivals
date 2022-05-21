@@ -11,6 +11,7 @@
 #include "types/speed_up/SpeedUp.h"
 #include "types/shield/Shield.h"
 #include "types/gluttony/Gluttony.h"
+#include "types/bomb-placement/BombPlacement.h"
 
 class PowerUpSpawner {
 
