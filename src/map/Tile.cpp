@@ -19,4 +19,14 @@ bool Tile::isWall() const {
 
 void Tile::setPosition(int i, int j) {
     _sprite.setPosition(j * TILE_SIZE, i * TILE_SIZE);
+    if (i == 0 || i == MAP_HEIGHT - 1 || j == 0 || j == MAP_WIDTH - 1) {
+        _edge = true;
+    }
+    else {
+        _edge = false;
+    }
+}
+
+bool Tile::isEdge() const {
+    return _edge;
 }

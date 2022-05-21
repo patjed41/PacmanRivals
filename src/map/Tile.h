@@ -9,6 +9,8 @@ private:
 
     int _type;
 
+    bool _edge;
+
     sf::Sprite _sprite;
 
 public:
@@ -20,5 +22,7 @@ public:
     const sf::Sprite &getSprite() const;
 
     bool isWall() const;
+
+    bool isEdge() const;
 
 };

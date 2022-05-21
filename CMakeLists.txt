@@ -52,6 +52,7 @@ set(SOURCE_FILES
     src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/firing-bullet/Bullet.cpp
     src/power-ups/types/shield/Shield.cpp
+    src/power-ups/types/passing_walls/PassWall.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -181,6 +182,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/slow_down/SlowDown.cpp
         src/power-ups/types/firing-bullet/FiringBullet.cpp
         src/power-ups/types/shield/Shield.cpp
+        src/power-ups/types/passing_walls/PassWall.cpp
     )
 
     set(GAME_SCREEN_FILES
@@ -241,5 +243,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_shield shield ${PLAYER_FILES} src/power-ups/types/shield/Shield.cpp)
     make_new_test(check_firing_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
+    make_new_test(check_wall_passing wall-passing ${PLAYER_FILES} src/power-ups/types/passing_walls/PassWall.cpp)
 
 endif()

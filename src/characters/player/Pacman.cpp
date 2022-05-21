@@ -17,6 +17,8 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _new_direction = STOP;
     _is_dead = false;
     _is_shielded = false;
+    _pass_wall = false;
+
     _map = std::move(map);
 }
 
@@ -41,7 +43,8 @@ void Pacman::handleMovement(float dt_as_seconds) {
     sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
     if (_direction == STOP) {
-        if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+        if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
+            || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
             _direction = _new_direction;
             move(dt_as_seconds);
         }
@@ -70,22 +73,59 @@ void Pacman::handleMovement(float dt_as_seconds) {
     else {
         move(dt_as_seconds);
         if (_direction == _new_direction) {
-            if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = _new_direction = STOP;
             }
         }
         else {
-            if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()) {
+            if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
+                || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
                 correct();
                 _direction = _new_direction;
                 move(dt_as_seconds);
             }
-            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall()) {
+            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = STOP;
             }
         }
+    }
+}
+
+void Pacman::fixPositionAfterWallPassing() {
+    _pass_wall = false;
+    sf::FloatRect position = getPosition();
+    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    if (_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
+        bool done = false;
+        for (int i = 0; i < MAP_HEIGHT; ++i) {
+            for (int j = 0; j < MAP_WIDTH; ++j) {
+                if (current_tile.y > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                    setPosition(current_tile.x - j, current_tile.y - i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                    setPosition(current_tile.x + j, current_tile.y + i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                    setPosition(current_tile.x - j, current_tile.y - i);
+                    done = true;
+                    break;
+                }
+                else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                    setPosition(current_tile.x + j, current_tile.y + i);
+                    done = true;
+                    break;
+                }
+            }
+            if (done)
+                break;
+        }
+        _direction = _new_direction = STOP;
     }
 }
 
@@ -102,10 +142,10 @@ void Pacman::handlePowerUpExpiry() {
             break;
         case SHIELD:
             _is_shielded = false;
-            this->changeColor(_color);
+            changeColor(_color);
             break;
         case WALL_PASSING:
-            // TODO
+            fixPositionAfterWallPassing();
             break;
         case SPIKES_PLACEMENT:
             // TODO
@@ -159,7 +199,6 @@ void Pacman::turnDown() {
 }
 
 void Pacman::takeDamage() {
-    // TODO: shield and immunity
     if (!_is_shielded) {
         _current_power_up = NONE;
         _is_dead = true;
@@ -230,3 +269,15 @@ std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
     // TODO: play firing sound
     return std::make_shared<Bullet>(getCenter(), _map, shooter, _direction);
 }
+
+void Pacman::passWalls() {
+    handlePowerUpExpiry();
+    _power_up_seconds_left = _POWER_UP_DURATION;
+    _current_power_up = WALL_PASSING;
+    _pass_wall = true;
+}
+
+void Pacman::setPosition(float tile_x, float tile_y) {
+    _sprite.setPosition(tile_x * TILE_SIZE, tile_y * TILE_SIZE);
+}
+

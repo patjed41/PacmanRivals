@@ -77,5 +77,9 @@ public:
         return _is_shielded;
     }
 
+    bool getPassWall() {
+        return _pass_wall;
+    }
+
 };
 
