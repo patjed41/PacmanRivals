@@ -208,6 +208,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/firing-bullet/FiringBullet.cpp
     )
 
+    set(BOMB_PLACEMENT_FILES
+        ${PLAYER_FILES}
+        src/power-ups/types/bomb-placement/BombPlacement.cpp
+    )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -253,5 +258,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_wall_passing wall-passing ${PLAYER_FILES} src/power-ups/types/passing_walls/PassWall.cpp)
     make_new_test(check_gluttony gluttony ${PLAYER_FILES} src/power-ups/types/gluttony/Gluttony.cpp)
+    make_new_test(check_bomb_placement bomb-placement ${BOMB_PLACEMENT_FILES})
+    make_new_test(check_bomb bomb-placement ${BOMB_PLACEMENT_FILES})
 
 endif()

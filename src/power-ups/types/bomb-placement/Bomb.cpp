@@ -18,20 +18,22 @@ Bomb::Bomb(sf::Vector2f position, unsigned int bomberman) {
 
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/bomb.png"));
     _sprite.setOrigin(getPosition().width / 2, getPosition().height / 2);
-    _sprite.setPosition(position);
+    _sprite.setPosition((int)position.x / TILE_SIZE * TILE_SIZE + TILE_SIZE / 2,
+                        (int)position.y / TILE_SIZE * TILE_SIZE + TILE_SIZE / 2);
 
     _time_info.setFont(_font);
     _time_info.setFillColor(sf::Color::White);
-    _time_info.setCharacterSize(20);
-    _time_info.setPosition(position.x, position.y);
+    _time_info.setCharacterSize(15);
+    _time_info.setPosition(getPosition().left + 16, getPosition().top + 16);
     _time_info.setString("3");
 
-    int y_tile = (position.y + TILE_SIZE / 2) / TILE_SIZE;
-    int x_tile = (position.x + TILE_SIZE / 2) / TILE_SIZE;
+    int y_tile = position.y / TILE_SIZE;
+    int x_tile = position.x / TILE_SIZE;
     for (int y = y_tile - EXPLOSION_RADIUS; y <= y_tile + EXPLOSION_RADIUS; y++) {
         for (int x = x_tile - EXPLOSION_RADIUS; x <= x_tile + EXPLOSION_RADIUS; x++) {
             if (y >= 0 && x >= 0 && y < MAP_HEIGHT && x < MAP_WIDTH) {
                 _explosion_sprites.emplace_back(TextureHolder::GetTexture("../assets/graphics/power-ups/explosion.png"));
+                _explosion_sprites.back().setPosition(x * TILE_SIZE, y * TILE_SIZE);
             }
         }
     }
