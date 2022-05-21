@@ -1,8 +1,6 @@
 #include "../../src/characters/player/Pacman.h"
 #include "../../src/texture-holder/TextureHolder.h"
-#include "../../src/power-ups/types/firing-bullet/Bullet.h"
 #include "../../include/err.h"
-#include "../../include/game_constants.h"
 
 #include <memory>
 
