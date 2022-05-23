@@ -57,6 +57,7 @@ set(SOURCE_FILES
     src/power-ups/types/gluttony/Gluttony.cpp
     src/power-ups/types/bomb-placement/BombPlacement.cpp
     src/power-ups/types/bomb-placement/Bomb.cpp
+        src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -190,7 +191,8 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/passing_walls/PassWall.cpp
         src/power-ups/types/gluttony/Gluttony.cpp
         src/power-ups/types/bomb-placement/BombPlacement.cpp
-    )
+            src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
+            )
 
     set(GAME_SCREEN_FILES
         ${SCREEN_FILES}
