@@ -322,6 +322,5 @@ std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
     }
 
     handlePowerUpExpiry();
-    return std::make_shared<Spike>(getCenter(), _map, user);
-
+    return std::make_shared<Spike>(getCenter(), user);
 }

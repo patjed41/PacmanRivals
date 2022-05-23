@@ -11,8 +11,6 @@ private:
 
     sf::Sprite _sprite;
 
-    std::shared_ptr<Map> _map;
-
     unsigned int _user;
 
     bool _disappeared = false;
@@ -21,7 +19,7 @@ public:
 
     Spike() = default;
 
-    Spike(sf::Vector2f position, std::shared_ptr<Map> map, unsigned int user);
+    Spike(sf::Vector2f position, unsigned int user);
 
     sf::FloatRect getPosition() const;
 

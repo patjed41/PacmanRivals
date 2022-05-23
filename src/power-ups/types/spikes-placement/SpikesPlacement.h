@@ -6,8 +6,6 @@ class SpikesPlacement : public PowerUp {
 
 public:
 
-    int number_of_spikes = 3;
-
     SpikesPlacement() = default;
 
     SpikesPlacement(const sf::Vector2i &position);

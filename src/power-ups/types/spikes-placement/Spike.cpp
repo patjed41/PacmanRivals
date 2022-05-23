@@ -3,8 +3,7 @@
 #include <utility>
 #include "../../../texture-holder/TextureHolder.h"
 
-Spike::Spike(sf::Vector2f position, std::shared_ptr<Map> map, unsigned int user) {
-    _map = std::move(map);
+Spike::Spike(sf::Vector2f position, unsigned int user) {
     _user = user;
 
     _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/thorn.png"));

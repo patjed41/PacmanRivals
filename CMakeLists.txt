@@ -217,6 +217,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/bomb-placement/BombPlacement.cpp
     )
 
+    set(SPIKE_PLACEMENT_FILES
+        ${PLAYER_FILES}
+        src/power-ups/types/spikes-placement/SpikesPlacement.cpp
+    )
+
     # Tests:
     make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
@@ -264,5 +269,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_gluttony gluttony ${PLAYER_FILES} src/power-ups/types/gluttony/Gluttony.cpp)
     make_new_test(check_bomb_placement bomb-placement ${BOMB_PLACEMENT_FILES})
     make_new_test(check_bomb bomb-placement ${BOMB_PLACEMENT_FILES})
+    make_new_test(check_spike spikes-placement ${SPIKE_PLACEMENT_FILES})
+    make_new_test(check_spike_placement spikes-placement ${SPIKE_PLACEMENT_FILES})
 
 endif()
