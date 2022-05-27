@@ -21,6 +21,7 @@ private:
     static const float _SLOW_SPEED;
     static const float _FAST_SPEED;
     int _spikes_to_place = 0;
+    float _timeout;
 
     std::string _color;
 
@@ -61,6 +62,8 @@ public:
     void takeDamage();
 
     bool isDead() const;
+
+    bool hasTimeout() const;
 
     float getPartOfPowerUpTimeLeft() const;
 

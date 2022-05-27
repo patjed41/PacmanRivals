@@ -165,6 +165,7 @@ void Pacman::handlePowerUpExpiry() {
 }
 
 void Pacman::update(float dt_as_seconds) {
+    _timeout -= dt_as_seconds;
     handleMovement(dt_as_seconds);
 
     // Handle power-up expiry apart from SLOW_DOWN.
@@ -223,7 +224,7 @@ PowerUpName Pacman::getCurrentPowerUp() const {
 }
 
 bool Pacman::hasUsablePowerUp() const {
-    return _current_power_up == SPIKES_PLACEMENT || _current_power_up == BOMB_PLACEMENT ||
+    return (_current_power_up == SPIKES_PLACEMENT && _timeout <= 0) || _current_power_up == BOMB_PLACEMENT ||
           (_current_power_up == FIRING_BULLET && _direction != STOP);
 }
 
@@ -314,6 +315,7 @@ void Pacman::pickUpSpikes() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = SPIKES_PLACEMENT;
     _spikes_to_place = NUMBER_OF_SPIKES;
+    _timeout = SPIKES_TIMEOUT;
 }
 
 std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
@@ -321,11 +323,14 @@ std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
         std::cerr << "placeSpike() call when it is impossible";
         exit(1);
     }
-    std::cerr << _spikes_to_place << '\n';
     --_spikes_to_place;
+    _timeout = SPIKES_TIMEOUT;
     if (_spikes_to_place == 0) {
-        std::cerr << "Expired\n";
         handlePowerUpExpiry();
     }
     return std::make_shared<Spike>(getCenter(), user);
+}
+
+bool Pacman::hasTimeout() const {
+    return _timeout > 0;
 }
