@@ -20,6 +20,7 @@ private:
     float _slow_down_seconds_left = -1.f;
     static const float _SLOW_SPEED;
     static const float _FAST_SPEED;
+    int _spikes_to_place = 0;
 
     std::string _color;
 

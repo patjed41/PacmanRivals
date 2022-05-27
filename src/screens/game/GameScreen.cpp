@@ -258,7 +258,7 @@ void GameScreen::handleCollisionsSpikes() {
     for (int i = 0; i < _pacmans.size(); ++i) {
         auto pacman = _pacmans[i];
         for (auto & spike : _spikes) {
-            if (i != spike->getUser() && !pacman->isDead() && !spike->disappeared()
+            if ((i != spike->getUser()) && !pacman->isDead() && !spike->disappeared()
                 && pacman->getPosition().intersects(spike->getPosition())) {
                 pacman->takeDamage();
                 spike->disappear();

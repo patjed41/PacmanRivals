@@ -150,7 +150,7 @@ void Pacman::handlePowerUpExpiry() {
             changeColor(_color);
             break;
         case SPIKES_PLACEMENT:
-            // TODO
+            _spikes_to_place = 0;
             break;
         case BOMB_PLACEMENT:
             break;
@@ -313,6 +313,7 @@ void Pacman::pickUpSpikes() {
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = SPIKES_PLACEMENT;
+    _spikes_to_place = NUMBER_OF_SPIKES;
 }
 
 std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
@@ -320,7 +321,11 @@ std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
         std::cerr << "placeSpike() call when it is impossible";
         exit(1);
     }
-
-    handlePowerUpExpiry();
+    std::cerr << _spikes_to_place << '\n';
+    --_spikes_to_place;
+    if (_spikes_to_place == 0) {
+        std::cerr << "Expired\n";
+        handlePowerUpExpiry();
+    }
     return std::make_shared<Spike>(getCenter(), user);
 }
