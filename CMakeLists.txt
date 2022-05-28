@@ -52,6 +52,8 @@ set(SOURCE_FILES
     src/power-ups/types/speed_up/SpeedUp.cpp
     src/power-ups/types/firing-bullet/FiringBullet.cpp
     src/power-ups/types/firing-bullet/Bullet.cpp
+    src/power-ups/types/spikes-placement/SpikesPlacement.cpp
+    src/power-ups/types/spikes-placement/Spike.cpp
     src/power-ups/types/shield/Shield.cpp
     src/power-ups/types/passing_walls/PassWall.cpp
     src/power-ups/types/gluttony/Gluttony.cpp
@@ -118,6 +120,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         ${CHARACTER_FILES}
         src/characters/player/Pacman.cpp
         src/power-ups/types/firing-bullet/Bullet.cpp
+        src/power-ups/types/spikes-placement/Spike.cpp
         src/power-ups/types/bomb-placement/Bomb.cpp
     )
 
@@ -190,6 +193,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/passing_walls/PassWall.cpp
         src/power-ups/types/gluttony/Gluttony.cpp
         src/power-ups/types/bomb-placement/BombPlacement.cpp
+        src/power-ups/types/spikes-placement/SpikesPlacement.cpp
     )
 
     set(GAME_SCREEN_FILES
@@ -211,6 +215,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(BOMB_PLACEMENT_FILES
         ${PLAYER_FILES}
         src/power-ups/types/bomb-placement/BombPlacement.cpp
+    )
+
+    set(SPIKE_PLACEMENT_FILES
+        ${PLAYER_FILES}
+        src/power-ups/types/spikes-placement/SpikesPlacement.cpp
     )
 
     # Tests:
@@ -260,5 +269,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_gluttony gluttony ${PLAYER_FILES} src/power-ups/types/gluttony/Gluttony.cpp)
     make_new_test(check_bomb_placement bomb-placement ${BOMB_PLACEMENT_FILES})
     make_new_test(check_bomb bomb-placement ${BOMB_PLACEMENT_FILES})
+    make_new_test(check_spike spikes-placement ${SPIKE_PLACEMENT_FILES})
+    make_new_test(check_spike_placement spikes-placement ${SPIKE_PLACEMENT_FILES})
 
 endif()

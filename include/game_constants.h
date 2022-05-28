@@ -10,3 +10,5 @@
 #define MAX_ROUNDS 9
 #define NICKLEN_MAX 8
 #define EXPLOSION_RADIUS 3
+#define NUMBER_OF_SPIKES 3
+#define SPIKES_TIMEOUT 0.8

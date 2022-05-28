@@ -2,6 +2,7 @@
 #include "../../include/math.h"
 #include "../../include/random.h"
 #include "types/passing_walls/PassWall.h"
+#include "types/spikes-placement/SpikesPlacement.h"
 
 const float PowerUpSpawner::_SECONDS_BETWEEN_SPAWNS = 5.f;
 
@@ -104,7 +105,7 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
             return nullptr;
     }
     */
-    int r = random(0, 6);
+    int r = random(0, 7);
     if (r == 0) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<SlowDown>(spawn_tile));
     }
@@ -122,6 +123,9 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
     }
     else if (r == 5) {
         return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+    }
+    else if (r == 6) {
+        return std::static_pointer_cast<PowerUp>(std::make_shared<SpikesPlacement>(spawn_tile));
     }
     else {
         return std::static_pointer_cast<PowerUp>(std::make_shared<BombPlacement>(spawn_tile));
