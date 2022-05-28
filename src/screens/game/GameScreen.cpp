@@ -37,10 +37,33 @@ unsigned int GameScreen::alivePlayers() const {
     return result;
 }
 
-void GameScreen::rewardWinner() {
+bool GameScreen::someoneWinsByPoints() {
     for (size_t i = 0; i < _players_num; i++) {
-        if (!_pacmans[i]->isDead()) {
-            _player_infos[i].newWin();
+        if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
+            (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
+            _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void GameScreen::rewardWinner() {
+    if (someoneWinsByPoints()) {
+        for (size_t i = 0; i < _players_num; i++) {
+            if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
+                (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
+                _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+                _player_infos[i].newWin();
+            }
+        }
+    }
+    else {
+        for (size_t i = 0; i < _players_num; i++) {
+            if (!_pacmans[i]->isDead()) {
+                _player_infos[i].newWin();
+            }
         }
     }
 }
@@ -112,6 +135,11 @@ void GameScreen::loadNewMap() {
 }
 
 void GameScreen::handleCollisionsPP() {
+    if (alivePlayers() == 1) {
+        _new_map_needed = true;
+        return;
+    }
+
     for (size_t i = 0; i < _players_num; i++) {
         for (size_t j = 0; j < _players_num; j++) {
             if (i != j && !_pacmans[i]->isDead() && !_pacmans[j]->isDead()
@@ -121,7 +149,7 @@ void GameScreen::handleCollisionsPP() {
                 _pacmans[j]->takeDamage();
                 if (_pacmans[j]->isDead()) {
                     _player_infos[i].addRoundPoints(GHOST_KILL_POINTS);
-                    if (alivePlayers() == 1) {
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
                         _new_map_needed = true;
                         return;
                     }
@@ -132,6 +160,10 @@ void GameScreen::handleCollisionsPP() {
 }
 
 void GameScreen::handleCollisionsPC() {
+    if (_new_map_needed) {
+        return;
+    }
+
     for (size_t i = 0; i < _players_num; i++) {
         if (_pacmans[i]->isDead()) {
             continue;
@@ -148,6 +180,9 @@ void GameScreen::handleCollisionsPC() {
                         && _pacmans[i]->getPosition().intersects(_coins[y * MAP_WIDTH + x].getPosition())) {
                         _coins[y * MAP_WIDTH + x].Take();
                         _player_infos[i].addRoundPoints(1);
+                        if (someoneWinsByPoints()) {
+                            _new_map_needed = true;
+                        }
                     }
                 }
             }
@@ -156,8 +191,7 @@ void GameScreen::handleCollisionsPC() {
 }
 
 void GameScreen::handleCollisionsPG() {
-    if (alivePlayers() == 1) {
-        _new_map_needed = true;
+    if (_new_map_needed) {
         return;
     }
 
@@ -172,10 +206,11 @@ void GameScreen::handleCollisionsPG() {
                 }
                 else {
                     _pacmans[i]->takeDamage();
-                    if (alivePlayers() == 1) {
-                        _new_map_needed = true;
-                        return;
-                    }
+                }
+
+                if (alivePlayers() == 1 || someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
                 }
             }
         }
@@ -183,6 +218,10 @@ void GameScreen::handleCollisionsPG() {
 }
 
 void GameScreen::handleCollisionsPPU() {
+    if (_new_map_needed) {
+        return;
+    }
+
     for (auto it = _power_ups.begin(); it != _power_ups.end(); it++) {
         for (unsigned int i = 0; i < _pacmans.size(); i++) {
             if (!_pacmans[i]->isDead() && _pacmans[i]->getPosition().intersects((*it)->getPosition())) {
@@ -196,7 +235,7 @@ void GameScreen::handleCollisionsPPU() {
 }
 
 void GameScreen::handleCollisionsBullets() {
-    if (alivePlayers() == 1) {
+    if (_new_map_needed) {
         return;
     }
 
@@ -209,7 +248,7 @@ void GameScreen::handleCollisionsBullets() {
                 bullet->disappear();
                 if (_pacmans[i]->isDead()) {
                     _player_infos[bullet->getShooter()].addRoundPoints(PACMAN_KILL_POINTS);
-                    if (alivePlayers() == 1) {
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
                         _new_map_needed = true;
                         return;
                     }
@@ -227,6 +266,10 @@ void GameScreen::handleCollisionsBullets() {
                 _ghosts.pop_back();
                 bullet->disappear();
                 _player_infos[bullet->getShooter()].addRoundPoints(GHOST_KILL_POINTS);
+                if (someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
                 break;
             }
         }
@@ -245,7 +288,7 @@ void GameScreen::handleCollisionsBullets() {
 }
 
 void GameScreen::handleCollisionsBombs() {
-    if (alivePlayers() == 1) {
+    if (_new_map_needed) {
         return;
     }
 
@@ -260,6 +303,10 @@ void GameScreen::handleCollisionsBombs() {
                     _ghosts.pop_back();
                     i--;
                     _player_infos[bomb->getBomberman()].addRoundPoints(GHOST_KILL_POINTS);
+                    if (someoneWinsByPoints()) {
+                        _new_map_needed = true;
+                        return;
+                    }
                 }
             }
 
@@ -270,7 +317,7 @@ void GameScreen::handleCollisionsBombs() {
                     if (_pacmans[i]->isDead() && i != bomb->getBomberman()) {
                         _player_infos[bomb->getBomberman()].addRoundPoints(PACMAN_KILL_POINTS);
                     }
-                    if (alivePlayers() == 1) {
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
                         _new_map_needed = true;
                         return;
                     }
@@ -281,7 +328,7 @@ void GameScreen::handleCollisionsBombs() {
 }
 
 void GameScreen::handleCollisionsSpikes() {
-    if (alivePlayers() == 1) {
+    if (_new_map_needed) {
         return;
     }
 
@@ -296,7 +343,7 @@ void GameScreen::handleCollisionsSpikes() {
                 if (pacman->isDead() && i != spike->getUser()) {
                     _player_infos[spike->getUser()].addRoundPoints(PACMAN_KILL_POINTS);
                 }
-                if (alivePlayers() == 1) {
+                if (alivePlayers() == 1 || someoneWinsByPoints()) {
                     _new_map_needed = true;
                     return;
                 }
@@ -313,6 +360,10 @@ void GameScreen::handleCollisionsSpikes() {
                 _ghosts.pop_back();
                 spike->disappear();
                 _player_infos[spike->getUser()].addRoundPoints(GHOST_KILL_POINTS);
+                if (someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
                 break;
             }
         }
