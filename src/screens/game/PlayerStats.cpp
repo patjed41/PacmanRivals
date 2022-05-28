@@ -152,6 +152,8 @@ void PlayerStats::drawAlive(sf::RenderWindow *window) {
     _points.setFont(_font);
     _status_alive.setFont(_font);
 
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _player_info->getColor() + ".png"));
+    
     window->draw(_pacman);
     window->draw(_nickname);
     window->draw(_points);
