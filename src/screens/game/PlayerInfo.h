@@ -37,6 +37,8 @@ public:
 
     unsigned int getRoundPoints() const;
 
+    void addRoundPoints(unsigned int points);
+
     void setPowerUpTimeLeft(float power_up_time_left);
 
     float getPowerUpTimeLeft() const;
@@ -44,5 +46,7 @@ public:
     void setPowerUp(PowerUpName power_up);
 
     PowerUpName getPowerUp() const;
+
+    void nextRound();
 
 };
