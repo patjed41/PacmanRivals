@@ -179,7 +179,12 @@ void GameScreen::handleCollisionsPC() {
                     if (!_grid->getTiles()[y][x].isWall() && !_coins[y * MAP_WIDTH + x].isTaken()
                         && _pacmans[i]->getPosition().intersects(_coins[y * MAP_WIDTH + x].getPosition())) {
                         _coins[y * MAP_WIDTH + x].Take();
-                        _player_infos[i].addRoundPoints(1);
+                        if (_pacmans[i]->getCurrentPowerUp() == COIN_MULTIPLIER){
+                            _player_infos[i].addRoundPoints(2);
+                        }
+                        else {
+                            _player_infos[i].addRoundPoints(1);
+                        }
                         if (someoneWinsByPoints()) {
                             _new_map_needed = true;
                         }
