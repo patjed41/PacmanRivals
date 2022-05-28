@@ -148,7 +148,7 @@ void GameScreen::handleCollisionsPP() {
                 && _pacmans[i]->getPosition().intersects(_pacmans[j]->getPosition())) {
                 _pacmans[j]->takeDamage();
                 if (_pacmans[j]->isDead()) {
-                    _player_infos[i].addRoundPoints(GHOST_KILL_POINTS);
+                    _player_infos[i].addRoundPoints(PACMAN_KILL_POINTS);
                     if (alivePlayers() == 1 || someoneWinsByPoints()) {
                         _new_map_needed = true;
                         return;
