@@ -6,6 +6,7 @@
 #include "../Character.h"
 #include "../../power-ups/PowerUpName.h"
 #include "../../power-ups/types/firing-bullet/Bullet.h"
+#include "../../power-ups/types/spikes-placement/Spike.h"
 #include "../../power-ups/types/bomb-placement/Bomb.h"
 
 class Pacman : public Character {
@@ -19,6 +20,8 @@ private:
     float _slow_down_seconds_left = -1.f;
     static const float _SLOW_SPEED;
     static const float _FAST_SPEED;
+    int _spikes_to_place = 0;
+    float _timeout;
 
     std::string _color;
 
@@ -62,6 +65,8 @@ public:
 
     bool isDead() const;
 
+    bool hasTimeout() const;
+
     float getPartOfPowerUpTimeLeft() const;
 
     PowerUpName getCurrentPowerUp() const;
@@ -89,6 +94,10 @@ public:
     std::shared_ptr<Bomb> placeBomb(unsigned int bomberman);
 
     void setPosition(float tile_x, float tile_y);
+
+    void pickUpSpikes();
+
+    std::shared_ptr<Spike> placeSpike(unsigned int user);
 
 };
 

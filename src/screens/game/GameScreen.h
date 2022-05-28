@@ -42,6 +42,8 @@ private:
     std::unordered_set<std::shared_ptr<Bullet>> _bullets;
     std::unordered_set<std::shared_ptr<Bomb>> _bombs;
 
+    std::unordered_set<std::shared_ptr<Spike>> _spikes;
+
     bool _new_map_needed = false;
 
     unsigned int _players_num = 0;
@@ -56,6 +58,7 @@ private:
     void handleCollisionsPPU();
     void handleCollisionsBullets();
     void handleCollisionsBombs();
+    void handleCollisionsSpikes();
 
     unsigned int alivePlayers() const;
 
