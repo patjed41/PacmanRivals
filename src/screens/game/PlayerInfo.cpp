@@ -30,6 +30,10 @@ unsigned int PlayerInfo::getRoundPoints() const {
     return _round_points;
 }
 
+void PlayerInfo::addRoundPoints(unsigned int points) {
+    _round_points += points;
+}
+
 void PlayerInfo::setPowerUpTimeLeft(float power_up_time_left) {
     _power_up_time_left = power_up_time_left;
 }
@@ -44,4 +48,10 @@ void PlayerInfo::setPowerUp(PowerUpName power_up) {
 
 PowerUpName PlayerInfo::getPowerUp() const {
     return _power_up;
+}
+
+void PlayerInfo::nextRound() {
+    _power_up = NONE;
+    _power_up_time_left = 0.;
+    _round_points = 0;
 }
