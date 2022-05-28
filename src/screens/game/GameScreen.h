@@ -61,6 +61,7 @@ private:
     void handleCollisionsSpikes();
 
     unsigned int alivePlayers() const;
+    bool someoneWinsByPoints();
 
     void rewardWinner();
 
