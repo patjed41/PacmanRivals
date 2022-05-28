@@ -59,6 +59,7 @@ set(SOURCE_FILES
     src/power-ups/types/gluttony/Gluttony.cpp
     src/power-ups/types/bomb-placement/BombPlacement.cpp
     src/power-ups/types/bomb-placement/Bomb.cpp
+        src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
@@ -194,6 +195,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/power-ups/types/gluttony/Gluttony.cpp
         src/power-ups/types/bomb-placement/BombPlacement.cpp
         src/power-ups/types/spikes-placement/SpikesPlacement.cpp
+        src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
     )
 
     set(GAME_SCREEN_FILES
@@ -263,6 +265,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_slow_down speed-up-down ${PLAYER_FILES} src/power-ups/types/slow_down/SlowDown.cpp)
     make_new_test(check_speed_up speed-up-down ${PLAYER_FILES} src/power-ups/types/speed_up/SpeedUp.cpp)
     make_new_test(check_shield shield ${PLAYER_FILES} src/power-ups/types/shield/Shield.cpp)
+    make_new_test(check_coin_multiplier coin-multiplier ${PLAYER_FILES} src/power-ups/types/coin-multiplier/CoinMultiplier.cpp)
     make_new_test(check_firing_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_bullet firing-bullet ${FIRING_BULLET_FILES})
     make_new_test(check_wall_passing wall-passing ${PLAYER_FILES} src/power-ups/types/passing_walls/PassWall.cpp)

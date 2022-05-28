@@ -19,7 +19,6 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _is_dead = false;
     _is_shielded = false;
     _pass_wall = false;
-    _coin_multiplier = false;
 
     _map = std::move(map);
 }
@@ -134,7 +133,6 @@ void Pacman::fixPositionAfterWallPassing() {
 void Pacman::handlePowerUpExpiry() {
     switch (_current_power_up) {
         case COIN_MULTIPLIER:
-            _coin_multiplier = false;
             break;
         case SPEED_UP:
             _speed = _NORMAL_SPEED;
@@ -297,7 +295,6 @@ void Pacman::coinMultiply() {
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = COIN_MULTIPLIER;
-    _coin_multiplier = true;
 }
 
 void Pacman::pickUpBomb() {

@@ -2,7 +2,7 @@
 #include "../../../texture-holder/TextureHolder.h"
 
 CoinMultiplier::CoinMultiplier(const sf::Vector2i &position) {
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/shield.png"));
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/coin-multiplier.png"));
     _sprite.setPosition(position.x * TILE_SIZE, position.y * TILE_SIZE);
 }
 

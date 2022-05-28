@@ -43,8 +43,6 @@ protected:
 
     bool _is_shielded;
 
-    bool _coin_multiplier;
-
 public:
 
     Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);

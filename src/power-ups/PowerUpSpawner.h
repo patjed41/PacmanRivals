@@ -12,6 +12,7 @@
 #include "types/shield/Shield.h"
 #include "types/gluttony/Gluttony.h"
 #include "types/bomb-placement/BombPlacement.h"
+#include "types/coin-multiplier/CoinMultiplier.h"
 
 class PowerUpSpawner {
 
