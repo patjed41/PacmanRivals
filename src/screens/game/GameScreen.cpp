@@ -37,10 +37,33 @@ unsigned int GameScreen::alivePlayers() const {
     return result;
 }
 
-void GameScreen::rewardWinner() {
+bool GameScreen::someoneWinsByPoints() {
     for (size_t i = 0; i < _players_num; i++) {
-        if (!_pacmans[i]->isDead()) {
-            _player_infos[i].newWin();
+        if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
+            (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
+            _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void GameScreen::rewardWinner() {
+    if (someoneWinsByPoints()) {
+        for (size_t i = 0; i < _players_num; i++) {
+            if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
+                (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
+                _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+                _player_infos[i].newWin();
+            }
+        }
+    }
+    else {
+        for (size_t i = 0; i < _players_num; i++) {
+            if (!_pacmans[i]->isDead()) {
+                _player_infos[i].newWin();
+            }
         }
     }
 }
@@ -91,6 +114,10 @@ void GameScreen::loadNewMap() {
     }
     _ghosts = _level_manager.getGhosts();
 
+    for (auto & info : _player_infos) {
+        info.nextRound();
+    }
+
     _power_up_spawner.initialise(_grid);
     _power_ups.clear();
     _bullets.clear();
@@ -108,6 +135,11 @@ void GameScreen::loadNewMap() {
 }
 
 void GameScreen::handleCollisionsPP() {
+    if (alivePlayers() == 1) {
+        _new_map_needed = true;
+        return;
+    }
+
     for (size_t i = 0; i < _players_num; i++) {
         for (size_t j = 0; j < _players_num; j++) {
             if (i != j && !_pacmans[i]->isDead() && !_pacmans[j]->isDead()
@@ -116,54 +148,8 @@ void GameScreen::handleCollisionsPP() {
                 && _pacmans[i]->getPosition().intersects(_pacmans[j]->getPosition())) {
                 _pacmans[j]->takeDamage();
                 if (_pacmans[j]->isDead()) {
-                    // TODO: eater should get points
-                }
-            }
-        }
-    }
-}
-
-void GameScreen::handleCollisionsPC() {
-    for (auto & pacman : _pacmans) {
-        if (pacman->isDead()) {
-            continue;
-        }
-
-        sf::Vector2i pacman_tile;
-        pacman_tile.x = int(pacman->getPosition().left / TILE_SIZE);
-        pacman_tile.y = int(pacman->getPosition().top / TILE_SIZE);
-
-        for (int x = pacman_tile.x - 1; x <= pacman_tile.x + 1; x++) {
-            for (int y = pacman_tile.y - 1; y <= pacman_tile.y + 1; y++) {
-                if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT) {
-                    if (!_grid->getTiles()[y][x].isWall() && !_coins[y * MAP_WIDTH + x].isTaken()
-                        && pacman->getPosition().intersects(_coins[y * MAP_WIDTH + x].getPosition())) {
-                        _coins[y * MAP_WIDTH + x].Take();
-                    }
-                }
-            }
-        }
-    }
-}
-
-void GameScreen::handleCollisionsPG() {
-    if (alivePlayers() == 1) {
-        _new_map_needed = true;
-        return;
-    }
-
-    for (auto & pacman : _pacmans) {
-        for (size_t i = 0; i < _ghosts.size(); i++) {
-            if (!pacman->isDead() && manhattanDistance(pacman->getCenter(), _ghosts[i]->getCenter()) < TILE_SIZE) {
-                if (pacman->getCurrentPowerUp() == GLUTTONY) {
-                    std::swap(_ghosts[i], _ghosts.back());
-                    _ghosts.pop_back();
-                    i--;
-                    // TODO: eater should get points
-                }
-                else {
-                    pacman->takeDamage();
-                    if (alivePlayers() == 1) {
+                    _player_infos[i].addRoundPoints(PACMAN_KILL_POINTS);
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
                         _new_map_needed = true;
                         return;
                     }
@@ -173,7 +159,74 @@ void GameScreen::handleCollisionsPG() {
     }
 }
 
+void GameScreen::handleCollisionsPC() {
+    if (_new_map_needed) {
+        return;
+    }
+
+    for (size_t i = 0; i < _players_num; i++) {
+        if (_pacmans[i]->isDead()) {
+            continue;
+        }
+
+        sf::Vector2i pacman_tile;
+        pacman_tile.x = int(_pacmans[i]->getPosition().left / TILE_SIZE);
+        pacman_tile.y = int(_pacmans[i]->getPosition().top / TILE_SIZE);
+
+        for (int x = pacman_tile.x - 1; x <= pacman_tile.x + 1; x++) {
+            for (int y = pacman_tile.y - 1; y <= pacman_tile.y + 1; y++) {
+                if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT) {
+                    if (!_grid->getTiles()[y][x].isWall() && !_coins[y * MAP_WIDTH + x].isTaken()
+                        && _pacmans[i]->getPosition().intersects(_coins[y * MAP_WIDTH + x].getPosition())) {
+                        _coins[y * MAP_WIDTH + x].Take();
+                        if (_pacmans[i]->getCurrentPowerUp() == COIN_MULTIPLIER){
+                            _player_infos[i].addRoundPoints(2);
+                        }
+                        else {
+                            _player_infos[i].addRoundPoints(1);
+                        }
+                        if (someoneWinsByPoints()) {
+                            _new_map_needed = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void GameScreen::handleCollisionsPG() {
+    if (_new_map_needed) {
+        return;
+    }
+
+    for (size_t i = 0; i < _players_num; i++) {
+        for (size_t j = 0; j < _ghosts.size(); j++) {
+            if (!_pacmans[i]->isDead() && manhattanDistance(_pacmans[i]->getCenter(), _ghosts[j]->getCenter()) < TILE_SIZE) {
+                if (_pacmans[i]->getCurrentPowerUp() == GLUTTONY) {
+                    std::swap(_ghosts[j], _ghosts.back());
+                    _ghosts.pop_back();
+                    j--;
+                    _player_infos[i].addRoundPoints(GHOST_KILL_POINTS);
+                }
+                else {
+                    _pacmans[i]->takeDamage();
+                }
+
+                if (alivePlayers() == 1 || someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
+            }
+        }
+    }
+}
+
 void GameScreen::handleCollisionsPPU() {
+    if (_new_map_needed) {
+        return;
+    }
+
     for (auto it = _power_ups.begin(); it != _power_ups.end(); it++) {
         for (unsigned int i = 0; i < _pacmans.size(); i++) {
             if (!_pacmans[i]->isDead() && _pacmans[i]->getPosition().intersects((*it)->getPosition())) {
@@ -187,14 +240,24 @@ void GameScreen::handleCollisionsPPU() {
 }
 
 void GameScreen::handleCollisionsBullets() {
+    if (_new_map_needed) {
+        return;
+    }
+
     // Bullet hits pacman.
-    for (auto & pacman : _pacmans) {
+    for (size_t i = 0; i < _players_num; i++) {
         for (auto & bullet : _bullets) {
-            if (!pacman->isDead() && !bullet->disappeared()
-                && pacman->getPosition().intersects(bullet->getPosition())) {
-                pacman->takeDamage();
+            if (!_pacmans[i]->isDead() && !bullet->disappeared()
+                && _pacmans[i]->getPosition().intersects(bullet->getPosition())) {
+                _pacmans[i]->takeDamage();
                 bullet->disappear();
-                // TODO: shooter should get points
+                if (_pacmans[i]->isDead()) {
+                    _player_infos[bullet->getShooter()].addRoundPoints(PACMAN_KILL_POINTS);
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
+                        _new_map_needed = true;
+                        return;
+                    }
+                }
             }
         }
     }
@@ -207,7 +270,11 @@ void GameScreen::handleCollisionsBullets() {
                 std::swap(_ghosts[i], _ghosts.back());
                 _ghosts.pop_back();
                 bullet->disappear();
-                // TODO: shooter should get points
+                _player_infos[bullet->getShooter()].addRoundPoints(GHOST_KILL_POINTS);
+                if (someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
                 break;
             }
         }
@@ -226,6 +293,10 @@ void GameScreen::handleCollisionsBullets() {
 }
 
 void GameScreen::handleCollisionsBombs() {
+    if (_new_map_needed) {
+        return;
+    }
+
     for (auto & bomb : _bombs) {
         if (bomb->timeToExplode()) {
             bomb->explode();
@@ -236,7 +307,11 @@ void GameScreen::handleCollisionsBombs() {
                     std::swap(_ghosts[i], _ghosts.back());
                     _ghosts.pop_back();
                     i--;
-                    // TODO: bomberman should get points
+                    _player_infos[bomb->getBomberman()].addRoundPoints(GHOST_KILL_POINTS);
+                    if (someoneWinsByPoints()) {
+                        _new_map_needed = true;
+                        return;
+                    }
                 }
             }
 
@@ -245,7 +320,11 @@ void GameScreen::handleCollisionsBombs() {
                 if (!_pacmans[i]->isDead() && bomb->explosionReaches(_pacmans[i]->getPosition())) {
                     _pacmans[i]->takeDamage();
                     if (_pacmans[i]->isDead() && i != bomb->getBomberman()) {
-                        // TODO: bombarman should get points
+                        _player_infos[bomb->getBomberman()].addRoundPoints(PACMAN_KILL_POINTS);
+                    }
+                    if (alivePlayers() == 1 || someoneWinsByPoints()) {
+                        _new_map_needed = true;
+                        return;
                     }
                 }
             }
@@ -254,20 +333,30 @@ void GameScreen::handleCollisionsBombs() {
 }
 
 void GameScreen::handleCollisionsSpikes() {
-    // Bullet hits pacman.
-    for (int i = 0; i < _pacmans.size(); ++i) {
+    if (_new_map_needed) {
+        return;
+    }
+
+    // Spike hits pacman.
+    for (int i = 0; i < _players_num; ++i) {
         auto pacman = _pacmans[i];
         for (auto & spike : _spikes) {
             if ((i != spike->getUser() || !pacman->hasTimeout()) && !pacman->isDead() && !spike->disappeared()
                 && pacman->getPosition().intersects(spike->getPosition())) {
                 pacman->takeDamage();
                 spike->disappear();
-                // TODO: user who place spike should get points
+                if (pacman->isDead() && i != spike->getUser()) {
+                    _player_infos[spike->getUser()].addRoundPoints(PACMAN_KILL_POINTS);
+                }
+                if (alivePlayers() == 1 || someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
             }
         }
     }
 
-    // Bullet hits ghost.
+    // Spike hits ghost.
     for (size_t i = 0; i < _ghosts.size(); i++) {
         for (auto & spike : _spikes) {
             if (!spike->disappeared() && _ghosts[i]->getPosition().intersects(spike->getPosition())) {
@@ -275,7 +364,11 @@ void GameScreen::handleCollisionsSpikes() {
                 std::swap(_ghosts[i], _ghosts.back());
                 _ghosts.pop_back();
                 spike->disappear();
-                // TODO: user who place spike should get points
+                _player_infos[spike->getUser()].addRoundPoints(GHOST_KILL_POINTS);
+                if (someoneWinsByPoints()) {
+                    _new_map_needed = true;
+                    return;
+                }
                 break;
             }
         }

@@ -73,7 +73,7 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
     const std::unordered_set<std::shared_ptr<PowerUp>> &power_ups
 ) {
     std::vector<sf::Vector2i> availableTiles = findAvailableTiles(pacmans, power_ups);
-    if (availableTiles.size() == 0) {
+    if (availableTiles.empty()) {
         return nullptr;
     }
 
@@ -81,7 +81,7 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
 
     sf::Vector2i spawn_tile = availableTiles[random(0, availableTiles.size() - 1)];
     PowerUpName power_up = _power_ups[random(0, _power_ups.size() - 1)];
-    /*
+
     switch (power_up) {
         case COIN_MULTIPLIER:
             return std::static_pointer_cast<PowerUp>(std::make_shared<CoinMultiplier>(spawn_tile));
@@ -94,7 +94,7 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
         case SHIELD:
             return std::static_pointer_cast<PowerUp>(std::make_shared<Shield>(spawn_tile));
         case WALL_PASSING:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<WallPassing>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<PassWall>(spawn_tile));
         case SPIKES_PLACEMENT:
             return std::static_pointer_cast<PowerUp>(std::make_shared<SpikesPlacement>(spawn_tile));
         case BOMB_PLACEMENT:
@@ -104,30 +104,5 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
         default:
             return nullptr;
     }
-    */
-    int r = random(0, 7);
-    if (r == 0) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<SlowDown>(spawn_tile));
-    }
-    else if (r == 1) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<SpeedUp>(spawn_tile));
-    }
-    else if (r == 2) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<Shield>(spawn_tile));
-    }
-    else if (r == 3) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<FiringBullet>(spawn_tile));
-    }
-    else if (r == 4) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<PassWall>(spawn_tile));
-    }
-    else if (r == 5) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
-    }
-    else if (r == 6) {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<SpikesPlacement>(spawn_tile));
-    }
-    else {
-        return std::static_pointer_cast<PowerUp>(std::make_shared<BombPlacement>(spawn_tile));
-    }
+
 }

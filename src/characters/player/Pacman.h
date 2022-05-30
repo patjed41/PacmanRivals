@@ -85,6 +85,8 @@ public:
 
     void startEating();
 
+    void coinMultiply();
+
     void pickUpBomb();
 
     std::shared_ptr<Bomb> placeBomb(unsigned int bomberman);
