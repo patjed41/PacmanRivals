@@ -17,6 +17,8 @@ public:
 
     void setTile(int i, int j, int type);
 
+    void setTile(int i, int j, int type, int color);
+
     std::vector<std::vector<Tile>> &getTiles();
 
 };
