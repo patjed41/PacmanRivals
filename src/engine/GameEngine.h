@@ -8,6 +8,7 @@
 #include "../screens/menu/MenuScreen.h"
 #include "../screens/lobby/LobbyScreen.h"
 #include "../screens/game/GameScreen.h"
+#include "../screens/controls/ControlsScreen.h"
 #include "../screens/between-rounds/BetweenRoundsScreen.h"
 #include "../screens/game-over/GameOverScreen.h"
 
@@ -23,6 +24,7 @@ private:
     MenuScreen _menu;
     LobbyScreen _lobby;
     GameScreen _game;
+    ControlsScreen _controls;
     BetweenRoundsScreen _between_rounds;
     GameOverScreen _game_over;
 

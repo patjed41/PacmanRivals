@@ -28,6 +28,7 @@ set(SOURCE_FILES
     src/characters/ghosts/CycleGhost.cpp
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
+    src/screens/controls/ControlsScreen.cpp
     src/screens/lobby/LobbyScreen.cpp
     src/screens/lobby/options/Options.cpp
     src/screens/lobby/options/Selector.cpp

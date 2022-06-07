@@ -9,6 +9,7 @@ GameEngine::GameEngine() {
     _window.setMouseCursorVisible(false);
 
     _menu = MenuScreen(&_window, &_current_screen);
+    _controls = ControlsScreen(&_window, &_current_screen);
     _lobby = LobbyScreen(&_window, &_current_screen);
     _game = GameScreen(&_window, &_current_screen);
     _between_rounds = BetweenRoundsScreen(&_window, &_current_screen);
@@ -24,6 +25,12 @@ void GameEngine::input() {
             _menu.input();
             if (_current_screen == LOBBY) {
                 _lobby.initialise();
+            }
+            return;
+        case CONTROLS:
+            _controls.input();
+            if (_current_screen == MENU) {
+                _menu.initialise();
             }
             return;
         case LOBBY:
@@ -60,6 +67,9 @@ void GameEngine::update(float dt_as_seconds) {
         case MENU:
             _menu.update(dt_as_seconds);
             return;
+        case CONTROLS:
+            _controls.update(dt_as_seconds);
+            return;
         case LOBBY:
             _lobby.update(dt_as_seconds);
             return;
@@ -87,6 +97,9 @@ void GameEngine::draw() {
     switch (_current_screen) {
         case MENU:
             _menu.draw();
+            return;
+        case CONTROLS:
+            _controls.draw();
             return;
         case LOBBY:
             _lobby.draw();
