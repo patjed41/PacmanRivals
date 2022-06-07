@@ -20,10 +20,11 @@ private:
 
     static const int _NUM_MAPS;
     std::vector<bool> _played_maps;
+    int _loaded_level;
 
-    void loadNewGrid(int map);
-    void loadNewGhosts(int map);
-    void loadNewPlayers(int map);
+    void loadNewGrid();
+    void loadNewGhosts();
+    void loadNewPlayers();
 
 public:
 
@@ -38,5 +39,7 @@ public:
     void loadNewLevel();
 
     void initialise();
+
+    int getLoadedLevel() const;
 
 };
