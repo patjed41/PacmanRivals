@@ -128,7 +128,6 @@ void LevelManager::loadNewLevel() {
     int map = available_maps[random(0, (int) available_maps.size() - 1)];
     _played_maps[map - 1] = true;
 
-    map = 5;
     loadNewGrid(map);
     loadNewPlayers(map);
     loadNewGhosts(map);
