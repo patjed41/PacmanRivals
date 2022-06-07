@@ -3,17 +3,18 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Screen.h"
-//#include "WinnerPrinter.h"
+#include "WinnerPrinter.h"
 #include "../game/PlayerInfo.h"
 
 class GameOverScreen : Screen {
 
     sf::View _view;
 
-    sf::Text _game_over_text;
     sf::Font _font;
 
-    //std::vector<WinnerPrinter> _winner_printers;
+    sf::Text _game_over_text;
+
+    std::vector<WinnerPrinter> _winner_printers;
 
 public:
 

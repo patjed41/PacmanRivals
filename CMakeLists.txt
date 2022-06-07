@@ -47,6 +47,7 @@ set(SOURCE_FILES
     src/screens/between-rounds/BetweenRoundsScreen.cpp
     src/screens/between-rounds/ScorePrinter.cpp
     src/screens/game-over/GameOverScreen.cpp
+    src/screens/game-over/WinnerPrinter.cpp
     src/power-ups/PowerUp.cpp
     src/power-ups/PowerUpSpawner.cpp
     src/power-ups/types/slow_down/SlowDown.cpp
@@ -60,7 +61,7 @@ set(SOURCE_FILES
     src/power-ups/types/gluttony/Gluttony.cpp
     src/power-ups/types/bomb-placement/BombPlacement.cpp
     src/power-ups/types/bomb-placement/Bomb.cpp
-        src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
+    src/power-ups/types/coin-multiplier/CoinMultiplier.cpp
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
