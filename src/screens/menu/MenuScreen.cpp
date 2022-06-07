@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-const unsigned int MenuScreen::OPTIONS_NUM = 2;
+const unsigned int MenuScreen::OPTIONS_NUM = 3;
 const float MenuScreen::SPACE_BETWEEN = 200.f;
 
 MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
@@ -18,6 +18,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _options = std::vector<sf::Text>(OPTIONS_NUM);
     _options[0].setString("New Game");
     _options[1].setString("Settings");
+    _options[2].setString("Controls");
     // option_offset - vertical distance from screen's center of current option
     float option_offset = -SPACE_BETWEEN * (OPTIONS_NUM / 2.f);
     for (int i = 0; i < OPTIONS_NUM; i++) {
@@ -54,9 +55,12 @@ void MenuScreen::input() {
                 if (_current_option == 1) {
                     *_current_screen = MENU;
                 }
+                if (_current_option == 2) {
+                    *_current_screen = CONTROLS;
+                }
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                _current_option = (_current_option + OPTIONS_NUM + 1) % OPTIONS_NUM; // currently 2
+                _current_option = (_current_option + OPTIONS_NUM + 1) % OPTIONS_NUM;
                 _options[_current_option].setFillColor(sf::Color::Red);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
