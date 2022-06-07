@@ -22,7 +22,7 @@ int main() {
 
     game.update(clock.restart().asSeconds());
 
-    err::check(current_screen == MENU, 1);
+    err::check(current_screen == GAME_OVER, 1);
     err::check(game.getPlayerInfos().size() == 1, 2);
     err::check(game.getPlayerInfos()[0].getRoundsWon() == 1, 3);
 }
