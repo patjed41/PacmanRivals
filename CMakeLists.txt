@@ -162,7 +162,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         ${TEST_FILES}
         src/screens/lobby/options/Selector.cpp
         src/screens/lobby/buttons/ButtonAD.cpp
-        )
+    )
 
     set(OPTIONS_FILES
         ${SELECTOR_FILES}
@@ -217,7 +217,12 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInputHandler.cpp
         src/screens/game/PlayerInfo.cpp
         src/screens/game/PlayerStats.cpp
-        )
+    )
+
+    set(CONTROLS_SCREEN_FILES
+        ${SCREEN_FILES}
+        src/screens/controls/ControlsScreen.cpp
+    )
 
     set(FIRING_BULLET_FILES
         ${PLAYER_FILES}
@@ -269,6 +274,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_game_options game-options ${GAME_OPTIONS_FILES})
     make_new_test(check_player_options player-options ${PLAYER_OPTIONS_FILES})
     make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
+    make_new_test(check_controls_screen controls-screen ${CONTROLS_SCREEN_FILES})
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_game_over_screen game-over-screen ${GAME_OVER_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
