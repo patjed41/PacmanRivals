@@ -50,6 +50,8 @@ private:
 
     unsigned int _rounds_left = 0;
 
+    unsigned int _points_to_win;
+
     void loadNewMap();
 
     void handleCollisionsPP();
@@ -61,7 +63,8 @@ private:
     void handleCollisionsSpikes();
 
     unsigned int alivePlayers() const;
-    bool someoneWinsByPoints();
+    bool someoneWinsByPoints() const;
+    void countPointsToWin();
 
     void rewardWinner();
 
