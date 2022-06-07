@@ -7,7 +7,11 @@ int main() {
     LevelManager manager = LevelManager();
 
     manager.loadNewLevel();
-    std::vector<std::shared_ptr<Pacman>> players = manager.getPlayers();
+    std::vector<std::shared_ptr<Pacman>> players;
+    while (manager.getLoadedLevel() != 1) {
+        manager.loadNewLevel();
+        players = manager.getPlayers();
+    }
 
     sf::Texture texturePacMan;
     texturePacMan.loadFromFile("../assets/graphics/pac-man-yellow.png");

@@ -5,9 +5,12 @@
 int main() {
     TextureHolder textureHolder;
     LevelManager manager = LevelManager();
+    std::shared_ptr<Map> grid;
 
-    manager.loadNewLevel();
-    auto grid = manager.getGrid();
+    while (manager.getLoadedLevel() != 1) {
+        manager.loadNewLevel();
+        grid = manager.getGrid();
+    }
 
     std::ifstream myfile;
     myfile.open("../assets/maps/grids/grid1.txt");
