@@ -46,6 +46,7 @@ set(SOURCE_FILES
     src/screens/game/PlayerStats.cpp
     src/screens/between-rounds/BetweenRoundsScreen.cpp
     src/screens/between-rounds/ScorePrinter.cpp
+    src/screens/game-over/GameOverScreen.cpp
     src/power-ups/PowerUp.cpp
     src/power-ups/PowerUpSpawner.cpp
     src/power-ups/types/slow_down/SlowDown.cpp
@@ -71,7 +72,7 @@ target_link_libraries(PacmanRivals sfml-graphics sfml-window sfml-system sfml-au
 
 # Tests with code coverage run in Debug build type.
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    # setting flags required for Debug
+    # Setting flags required for Debug.
     SET(CMAKE_CXX_FLAGS= "-g -O0 -Wall -W -Wshadow -Wunused-variable
     -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers
     -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs

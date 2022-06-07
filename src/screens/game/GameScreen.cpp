@@ -429,7 +429,7 @@ void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
         rewardWinner();
         if (_rounds_left == 0) {
-            *_current_screen = MENU;
+            *_current_screen = GAME_OVER;
         }
         else {
             *_current_screen = BETWEEN_ROUNDS;
