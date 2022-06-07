@@ -4,5 +4,6 @@ enum ScreenName {
     MENU,
     LOBBY,
     GAME,
-    BETWEEN_ROUNDS
+    BETWEEN_ROUNDS,
+    GAME_OVER
 };
