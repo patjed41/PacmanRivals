@@ -7,10 +7,20 @@
 GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : Screen(window, current_screen) {
     _main_view.reset(sf::FloatRect(0, 0, (float)sf::VideoMode::getDesktopMode().width,
                               (float)sf::VideoMode::getDesktopMode().height));
-    _main_view.setCenter(MAP_WIDTH * TILE_SIZE / 2.f, MAP_HEIGHT * TILE_SIZE / 2.f);
+    _main_view.setCenter(MAP_WIDTH * TILE_SIZE / 2.f, MAP_HEIGHT * TILE_SIZE / 2.15f);
 
     _level_manager = LevelManager();
     _power_up_spawner = PowerUpSpawner();
+
+    if (!_font.loadFromFile("../assets/fonts/Emulogic-zrEw.ttf")) {
+        std::cerr << "Failed to load _font in GameScreen constructor.\n";
+        exit(1);
+    }
+
+    _points_to_win_text.setFont(_font);
+    _points_to_win_text.setFillColor(sf::Color::White);
+    _points_to_win_text.setCharacterSize(40);
+    _points_to_win_text.setPosition(410, -60);
 }
 
 void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
@@ -45,7 +55,9 @@ void GameScreen::countPointsToWin() {
         }
     }
 
-    _points_to_win = (coins + _ghosts.size() * GHOST_KILL_POINTS) / (_players_num + 1);
+    _points_to_win = (unsigned int) ((float) (coins + _ghosts.size() * GHOST_KILL_POINTS) / ((float) _players_num + 0.5f));
+    _points_to_win -= _points_to_win % 10;
+    _points_to_win_text.setString("Points to win: " + std::to_string(_points_to_win));
 }
 
 bool GameScreen::someoneWinsByPoints() const {
@@ -513,6 +525,9 @@ void GameScreen::draw() {
             _window->draw(spike->getSprite());
         }
     }
+
+    _points_to_win_text.setFont(_font);
+    _window->draw(_points_to_win_text);
 
     _window->display();
 }

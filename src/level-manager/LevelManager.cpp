@@ -31,7 +31,7 @@ void LevelManager::loadNewGrid() {
     std::ifstream myfile;
     myfile.open("../assets/maps/grids/grid" + std::to_string(_loaded_level) + ".txt");
 
-    int color = random(0, NUM_COLORS - 1);
+    int color = random(1, NUM_COLORS - 1);
 
     if (myfile.is_open()) {
         for (int i = 0; i < MAP_HEIGHT; i++) {
