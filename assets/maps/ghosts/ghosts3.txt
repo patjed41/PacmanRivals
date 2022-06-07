@@ -1,0 +1,15 @@
+14
+linear 2 2 1
+linear 18 2 1
+linear 13 6 0
+linear 8 10 1
+linear 28 14 0
+linear 13 17 1
+linear 8 13 0
+linear 10 1 3
+linear 18 1 3
+linear 18 17 2
+linear 6 13 3
+linear 24 10 2
+linear 23 14 3
+random 14 11 2

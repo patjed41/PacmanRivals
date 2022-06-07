@@ -10,10 +10,11 @@ CycleGhost::CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_til
 
     _directions = std::move(directions);
     _direction = static_cast<Direction>(_directions[0]);
+    _start = true;
 }
 
 void CycleGhost::update(float dt_as_seconds) {
-    if (reachedNewTile(dt_as_seconds)) {
+    if (reachedNewTile(dt_as_seconds) && !_start) {
         _cycle_index = (_cycle_index + 1) % _directions.size();
 
         move(dt_as_seconds);
@@ -25,5 +26,6 @@ void CycleGhost::update(float dt_as_seconds) {
         }
     } else {
         move(dt_as_seconds);
+        _start = false;
     }
 }

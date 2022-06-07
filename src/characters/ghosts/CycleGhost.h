@@ -10,6 +10,8 @@ private:
 
     std::vector<int> _directions;
 
+    bool _start;
+
 public:
 
     CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, std::vector<int> directions);

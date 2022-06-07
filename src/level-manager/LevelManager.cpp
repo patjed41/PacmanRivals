@@ -106,10 +106,7 @@ void LevelManager::loadNewPlayers(int map) {
     myfile.open("../assets/maps/players/players" + std::to_string(map) + ".txt");
 
     if (myfile.is_open()) {
-        int size;
-        myfile >> size;
-
-        for (int k = 0; k < size; k++) {
+        for (int k = 0; k < 4; k++) {
             int i, j;
             myfile >> i >> j;
             _pacmans.emplace_back(std::make_shared<Pacman>(_grid, float(i) * TILE_SIZE, float(j) * TILE_SIZE));
@@ -131,6 +128,7 @@ void LevelManager::loadNewLevel() {
     int map = available_maps[random(0, (int) available_maps.size() - 1)];
     _played_maps[map - 1] = true;
 
+    map = 5;
     loadNewGrid(map);
     loadNewPlayers(map);
     loadNewGhosts(map);
