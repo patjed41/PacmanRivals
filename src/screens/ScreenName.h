@@ -2,6 +2,7 @@
 
 enum ScreenName {
     MENU,
+    CONTROLS,
     LOBBY,
     GAME,
     BETWEEN_ROUNDS,
