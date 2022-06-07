@@ -37,11 +37,20 @@ unsigned int GameScreen::alivePlayers() const {
     return result;
 }
 
-bool GameScreen::someoneWinsByPoints() {
+void GameScreen::countPointsToWin() {
+    unsigned int coins = 0;
+    for (int x = 0; x < MAP_WIDTH; x++) {
+        for (int y = 0; y < MAP_HEIGHT; y++) {
+            coins += (unsigned int) !_grid->getTiles()[y][x].isWall();
+        }
+    }
+
+    _points_to_win = (coins + _ghosts.size() * GHOST_KILL_POINTS) / (_players_num + 1);
+}
+
+bool GameScreen::someoneWinsByPoints() const {
     for (size_t i = 0; i < _players_num; i++) {
-        if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
-            (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
-            _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+        if (_player_infos[i].getRoundPoints() >= _points_to_win) {
             return true;
         }
     }
@@ -52,9 +61,7 @@ bool GameScreen::someoneWinsByPoints() {
 void GameScreen::rewardWinner() {
     if (someoneWinsByPoints()) {
         for (size_t i = 0; i < _players_num; i++) {
-            if ((_players_num == 4 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_4) ||
-                (_players_num == 3 && _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_3) ||
-                _player_infos[i].getRoundPoints() >= POINTS_TO_WIN_2) {
+            if (_player_infos[i].getRoundPoints() >= _points_to_win) {
                 _player_infos[i].newWin();
             }
         }
@@ -113,6 +120,8 @@ void GameScreen::loadNewMap() {
         _pacmans[i]->changeColor(_player_infos[i].getColor());
     }
     _ghosts = _level_manager.getGhosts();
+
+    countPointsToWin();
 
     for (auto & info : _player_infos) {
         info.nextRound();
