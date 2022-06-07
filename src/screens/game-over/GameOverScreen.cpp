@@ -14,11 +14,11 @@ GameOverScreen::GameOverScreen(sf::RenderWindow* window, ScreenName* current_scr
 
     _game_over_text.setString("Game over");
     _game_over_text.setFont(_font);
-    _game_over_text.setFillColor(sf::Color::White);
+    _game_over_text.setFillColor(sf::Color::Red);
     _game_over_text.setCharacterSize(100);
     sf::FloatRect game_over_text_bounds = _game_over_text.getGlobalBounds();
     _game_over_text.setOrigin(game_over_text_bounds.width / 2, game_over_text_bounds.height / 2);
-    _game_over_text.setPosition(_view.getCenter().x, _game_over_text.getCharacterSize() / 2);
+    _game_over_text.setPosition(_view.getCenter().x, _game_over_text.getCharacterSize());
 }
 
 void GameOverScreen::initialise(const std::vector<PlayerInfo> & player_infos) {
@@ -28,12 +28,12 @@ void GameOverScreen::initialise(const std::vector<PlayerInfo> & player_infos) {
         best_score = std::max(best_score, player_infos[i].getRoundsWon());
     }
 
-    /*_winner_printers.clear();
+    _winner_printers.clear();
     for (size_t i = 0; i < players_num; i++) {
         if (player_infos[i].getRoundsWon() == best_score) {
             _winner_printers.emplace_back(player_infos[i], _winner_printers.size(), &_view);
         }
-    }*/
+    }
 }
 
 void GameOverScreen::input() {
@@ -58,9 +58,9 @@ void GameOverScreen::draw() {
     _game_over_text.setFont(_font);
     _window->draw(_game_over_text);
 
-    /*for (WinnerPrinter & printer : _winner_printers) {
+    for (WinnerPrinter & printer : _winner_printers) {
         printer.draw(_window);
-    }*/
+    }
 
     _window->display();
 }
