@@ -8,7 +8,7 @@
 int main() {
     TextureHolder textureHolder;
 
-    sf::Sprite sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
+    sf::Sprite sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/walls/path.png"));
 
     std::shared_ptr map = std::make_shared<Map>();
     TestCharacter character(sprite, map);

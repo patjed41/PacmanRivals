@@ -6,11 +6,12 @@
 #include "../texture-holder/TextureHolder.h"
 #include "../../include/random.h"
 
-const int LevelManager::_NUM_MAPS = 10;
+const int LevelManager::NUM_MAPS = 10;
+const int LevelManager::NUM_COLORS = 10;
 
 LevelManager::LevelManager() {
     _grid = std::make_shared<Map>();
-    _played_maps = std::vector<bool>(_NUM_MAPS, false);
+    _played_maps = std::vector<bool>(NUM_MAPS, false);
     _loaded_level = -1;
 }
 
@@ -30,12 +31,14 @@ void LevelManager::loadNewGrid() {
     std::ifstream myfile;
     myfile.open("../assets/maps/grids/grid" + std::to_string(_loaded_level) + ".txt");
 
+    int color = random(0, NUM_COLORS - 1);
+
     if (myfile.is_open()) {
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 int tmp;
                 myfile >> tmp;
-                _grid->setTile(i, j, tmp);
+                _grid->setTile(i, j, tmp, color);
             }
         }
         myfile.close();
@@ -121,7 +124,7 @@ void LevelManager::loadNewPlayers() {
 
 void LevelManager::loadNewLevel() {
     std::vector<int> available_maps;
-    for (int i = 0; i < _NUM_MAPS; i++) {
+    for (int i = 0; i < NUM_MAPS; i++) {
         if (!_played_maps[i]) {
             available_maps.push_back(i + 1);
         }
