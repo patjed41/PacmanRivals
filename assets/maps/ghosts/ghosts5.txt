@@ -1,0 +1,12 @@
+11
+random 15 11 0
+random 11 11 0
+random 11 8 0
+random 14 8 0
+random 2 1 0
+random 2 18 0
+random 27 1 0
+random 28 18 0
+linear 11 11 1
+linear 14 5 3
+linear 14 17 2
