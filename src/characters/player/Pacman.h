@@ -9,6 +9,7 @@
 #include "../../power-ups/types/spikes-placement/Spike.h"
 #include "../../power-ups/types/bomb-placement/Bomb.h"
 
+
 class Pacman : public Character {
 
 private:
@@ -24,6 +25,8 @@ private:
     float _timeout;
 
     std::string _color;
+    
+    std::string _current_direction;
 
     void handleMovement(float dt_as_seconds);
 
@@ -42,6 +45,7 @@ protected:
     bool turningBack() const;
 
     bool _is_shielded;
+
 
 public:
 

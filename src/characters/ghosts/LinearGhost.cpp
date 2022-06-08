@@ -12,6 +12,14 @@ LinearGhost::LinearGhost(std::shared_ptr<Map> map, int start_tile_x, int start_t
 }
 
 void LinearGhost::update(float dt_as_seconds) {
+    _textureChange = (_textureChange + 1) % 1000;
+
+    if (_textureChange == 500) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-2.png"));
+    } else if (_textureChange == 0) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow.png"));
+    }
+
     if (reachedNewTile(dt_as_seconds)) {
         sf::FloatRect curr_position = getPosition();
 
@@ -19,8 +27,7 @@ void LinearGhost::update(float dt_as_seconds) {
         sf::Vector2i next_tile = positionOfNewTile(curr_tile);
 
         move(dt_as_seconds);
-
-        if (_map.get()->getTiles()[next_tile.y][next_tile.x].isWall()) {
+        if (_map->getTiles()[next_tile.y][next_tile.x].isWall()) {
             correct();
             _direction = getOppositeDirection();
             move(dt_as_seconds);

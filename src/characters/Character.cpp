@@ -7,6 +7,7 @@ const float Character::_NORMAL_SPEED = 100;
 
 Character::Character(sf::Sprite sprite, std::shared_ptr<Map> map) {
     _direction = STOP;
+    _textureChange = 0;
     _sprite = std::move(sprite);
     _map = std::move(map);
 }

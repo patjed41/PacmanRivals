@@ -9,22 +9,25 @@ const float Pacman::_POWER_UP_DURATION = 10.0f;
 const float Pacman::_SLOW_SPEED = 50.0f;
 const float Pacman::_FAST_SPEED = 200.0f;
 
+
 // Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
+    _sprite = sf::Sprite(
+            TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
     _color = "yellow";
+    _current_direction = "right";
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
     _is_shielded = false;
     _pass_wall = false;
-
     _map = std::move(map);
 }
 
 void Pacman::changeColor(const std::string &color) {
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + color + ".png"));
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-" +
+                                                 _current_direction + "/pac-man-" + color + ".png"));
     _color = color;
 }
 
@@ -39,7 +42,7 @@ bool Pacman::turningBack() const {
 void Pacman::handleMovement(float dt_as_seconds) {
     sf::FloatRect position = getPosition();
 
-    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    sf::Vector2i current_tile = {(int) position.left / TILE_SIZE, (int) position.top / TILE_SIZE};
     sf::Vector2i new_tile = positionOfNewTile(current_tile);
     sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
@@ -58,35 +61,33 @@ void Pacman::handleMovement(float dt_as_seconds) {
     }
 
     if (_direction == RIGHT) {
-        current_tile = {(int)(position.left + position.width) / TILE_SIZE, (int)position.top / TILE_SIZE};
+        current_tile = {(int) (position.left + position.width) / TILE_SIZE, (int) position.top / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
-    }
-    else if (_direction == DOWN) {
-        current_tile = {(int)position.left / TILE_SIZE, (int)(position.top + position.height) / TILE_SIZE};
+    } else if (_direction == DOWN) {
+        current_tile = {(int) position.left / TILE_SIZE, (int) (position.top + position.height) / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
     }
 
     if (!reachedNewTile(dt_as_seconds)) {
         move(dt_as_seconds);
-    }
-    else {
+    } else {
         move(dt_as_seconds);
         if (_direction == _new_direction) {
-            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
+            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() &&
+                (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = _new_direction = STOP;
             }
-        }
-        else {
+        } else {
             if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
                 || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
                 correct();
                 _direction = _new_direction;
                 move(dt_as_seconds);
-            }
-            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
+            } else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() &&
+                       (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = STOP;
             }
@@ -97,7 +98,7 @@ void Pacman::handleMovement(float dt_as_seconds) {
 void Pacman::fixPositionAfterWallPassing() {
     _pass_wall = false;
     sf::FloatRect position = getPosition();
-    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    sf::Vector2i current_tile = {(int) position.left / TILE_SIZE, (int) position.top / TILE_SIZE};
     if (_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
         bool done = false;
         for (int i = 0; i < MAP_HEIGHT; ++i) {
@@ -106,18 +107,17 @@ void Pacman::fixPositionAfterWallPassing() {
                     setPosition(current_tile.x - j, current_tile.y - i);
                     done = true;
                     break;
-                }
-                else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                } else if (current_tile.y < MAP_HEIGHT - 2 &&
+                           !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
                     setPosition(current_tile.x + j, current_tile.y + i);
                     done = true;
                     break;
-                }
-                else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                } else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
                     setPosition(current_tile.x - j, current_tile.y - i);
                     done = true;
                     break;
-                }
-                else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                } else if (current_tile.x < MAP_WIDTH - 2 &&
+                           !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
                     setPosition(current_tile.x + j, current_tile.y + i);
                     done = true;
                     break;
@@ -167,6 +167,18 @@ void Pacman::update(float dt_as_seconds) {
     _timeout -= dt_as_seconds;
     handleMovement(dt_as_seconds);
 
+    _textureChange = (_textureChange + 1) % 1000;
+
+    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
+        if (_textureChange == 500) {
+            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
+                                                         _current_direction + "/pac-man-" + _color + ".png"));
+        } else if (_textureChange == 0) {
+            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-" +
+                                                         _current_direction + "/pac-man-" + _color + ".png"));
+        }
+    }
+
     // Handle power-up expiry apart from SLOW_DOWN.
     if (_power_up_seconds_left >= 0 && _power_up_seconds_left - dt_as_seconds < 0) {
         handlePowerUpExpiry();
@@ -184,18 +196,23 @@ void Pacman::update(float dt_as_seconds) {
 
 void Pacman::turnLeft() {
     _new_direction = LEFT;
+    _current_direction = "left";
 }
 
 void Pacman::turnRight() {
     _new_direction = RIGHT;
+    _current_direction = "right";
 }
 
 void Pacman::turnUp() {
     _new_direction = UP;
+    _current_direction = "up";
+
 }
 
 void Pacman::turnDown() {
     _new_direction = DOWN;
+    _current_direction = "down";
 }
 
 void Pacman::takeDamage() {
@@ -212,8 +229,7 @@ bool Pacman::isDead() const {
 float Pacman::getPartOfPowerUpTimeLeft() const {
     if (isDead() || _power_up_seconds_left < 0) {
         return 0;
-    }
-    else {
+    } else {
         return _power_up_seconds_left / _POWER_UP_DURATION;
     }
 }
@@ -224,7 +240,7 @@ PowerUpName Pacman::getCurrentPowerUp() const {
 
 bool Pacman::hasUsablePowerUp() const {
     return (_current_power_up == SPIKES_PLACEMENT && _timeout <= 0) || _current_power_up == BOMB_PLACEMENT ||
-          (_current_power_up == FIRING_BULLET && _direction != STOP);
+           (_current_power_up == FIRING_BULLET && _direction != STOP);
 }
 
 void Pacman::speedUp() {
@@ -287,7 +303,7 @@ void Pacman::startEating() {
     _current_power_up = GLUTTONY;
     std::stringstream path_to_graphic_eating;
     path_to_graphic_eating << "../assets/graphics/power-ups/eating-pac-mans/"
-                                << "eating-pac-man-" << _color << ".png";
+                           << "eating-pac-man-" << _color << ".png";
     _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_eating.str()));
 }
 

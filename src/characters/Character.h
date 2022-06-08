@@ -28,6 +28,8 @@ protected:
 
     Direction _direction;
 
+    int _textureChange;
+
     void move(float dt_as_seconds);
 
     sf::Vector2i positionOfNewTile(sf::Vector2i tile) const;

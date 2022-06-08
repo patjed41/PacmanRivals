@@ -38,7 +38,7 @@ PlayerStats::PlayerStats(PlayerInfo* player_info, unsigned int player_no) {
             break;
     }
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _player_info->getColor() + ".png"));
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + _player_info->getColor() + ".png"));
     _pacman.setScale(0.8, 0.8);
 
     _power_up_time.setSize(sf::Vector2f(TIME_BAR_WIDTH, TIME_BAR_HEIGHT));
@@ -152,7 +152,7 @@ void PlayerStats::drawAlive(sf::RenderWindow *window) {
     _points.setFont(_font);
     _status_alive.setFont(_font);
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _player_info->getColor() + ".png"));
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + _player_info->getColor() + ".png"));
     
     window->draw(_pacman);
     window->draw(_nickname);

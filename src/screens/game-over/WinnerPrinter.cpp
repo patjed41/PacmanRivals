@@ -12,7 +12,7 @@ WinnerPrinter::WinnerPrinter(const PlayerInfo & player_info, unsigned int id, co
         exit(1);
     }
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + player_info.getColor() + ".png"));
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + player_info.getColor() + ".png"));
     _pacman.setScale(3, 3);
 
     _nickname.setFont(_font);

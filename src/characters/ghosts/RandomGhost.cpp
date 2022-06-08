@@ -51,6 +51,14 @@ Character::Direction RandomGhost::randNewDirection() {
 }
 
 void RandomGhost::update(float dt_as_seconds) {
+    _textureChange = (_textureChange + 1) % 1000;
+
+    if (_textureChange == 500) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink-2.png"));
+    } else if (_textureChange == 0) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink.png"));
+    }
+
     if (reachedNewTile(dt_as_seconds)) {
         Character::Direction new_direction = randNewDirection();
 
