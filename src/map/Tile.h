@@ -15,7 +15,7 @@ private:
 
 public:
 
-    explicit Tile(int type);
+    explicit Tile(int type, int color);
 
     void setPosition(int i, int j);
 

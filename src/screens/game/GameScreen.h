@@ -50,6 +50,11 @@ private:
 
     unsigned int _rounds_left = 0;
 
+    sf::Font _font;
+
+    unsigned int _points_to_win;
+    sf::Text _points_to_win_text;
+
     void loadNewMap();
 
     void handleCollisionsPP();
@@ -61,7 +66,8 @@ private:
     void handleCollisionsSpikes();
 
     unsigned int alivePlayers() const;
-    bool someoneWinsByPoints();
+    bool someoneWinsByPoints() const;
+    void countPointsToWin();
 
     void rewardWinner();
 

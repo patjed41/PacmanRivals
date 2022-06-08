@@ -1,11 +1,11 @@
 #include "Tile.h"
 #include "../texture-holder/TextureHolder.h"
 
-Tile::Tile(int type) : _type(type) {
+Tile::Tile(int type, int color) : _type(type) {
     if (_type == 1) {
-        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/wall.png"));
+        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/walls/wall" + std::to_string(color) + ".png"));
     } else {
-        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/path.png"));
+        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/walls/path.png"));
     }
 }
 

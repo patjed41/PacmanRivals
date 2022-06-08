@@ -18,6 +18,11 @@ private:
     std::vector<std::shared_ptr<Ghost>> _ghosts;
     std::vector<std::shared_ptr<Pacman>> _pacmans;
 
+    static const int NUM_MAPS;
+    static const int NUM_COLORS;
+    std::vector<bool> _played_maps;
+    int _loaded_level;
+
     void loadNewGrid();
     void loadNewGhosts();
     void loadNewPlayers();
@@ -35,5 +40,7 @@ public:
     void loadNewLevel();
 
     void initialise();
+
+    int getLoadedLevel() const;
 
 };
