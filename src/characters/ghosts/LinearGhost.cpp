@@ -5,21 +5,27 @@
 LinearGhost::LinearGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, int direction) {
     _map = std::move(map);
 
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow.png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-1.png"));
     _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
 
     _direction = static_cast<Direction>(direction);
+    _state = "1";
 }
 
 void LinearGhost::animate(float dt_as_seconds) {
-    _textureChange = (_textureChange + 1) % 1000;
+    _textureChange += dt_as_seconds;
 
-    if (_textureChange == 500) {
-        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-2.png"));
-    } else if (_textureChange == 0) {
-        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow.png"));
+    if (_textureChange >= 0.6){
+        _textureChange -= 0.6;
+
+        if (_state == "1"){
+            _state = "2";
+        }
+        else {
+            _state = "1";
+        }
     }
-
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-" + _state + ".png"));
 }
 
 void LinearGhost::update(float dt_as_seconds) {

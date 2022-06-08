@@ -17,6 +17,7 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _sprite.setPosition(start_tile_x, start_tile_y);
     _color = "yellow";
     _current_direction = "right";
+    _state = "opened";
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
@@ -173,17 +174,25 @@ void Pacman::handlePowerUpExpiry() {
 }
 
 void Pacman::animate(float dt_as_seconds) {
-    _textureChange = (_textureChange + 1) % 1000;
 
-    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
-        if (_textureChange == 500) {
-            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
-                                                         _current_direction + "/pac-man-" + _color + ".png"));
-        } else if (_textureChange == 0) {
-            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-" +
-                                                         _current_direction + "/pac-man-" + _color + ".png"));
+    _textureChange += dt_as_seconds;
+
+    if (_textureChange >= 0.6){
+        _textureChange -= 0.6;
+
+        if (_state == "opened"){
+            _state = "closed";
+        }
+        else {
+            _state = "opened";
         }
     }
+    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
+            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _state + "/pac-man-" +
+                                                         _current_direction + "/pac-man-" + _color + ".png"));
+
+    }
+
 }
 
 void Pacman::update(float dt_as_seconds) {

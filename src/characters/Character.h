@@ -28,7 +28,9 @@ protected:
 
     Direction _direction;
 
-    int _textureChange;
+    float _textureChange;
+
+    std::string _state;
 
     void move(float dt_as_seconds);
 
