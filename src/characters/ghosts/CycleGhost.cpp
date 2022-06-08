@@ -13,7 +13,7 @@ CycleGhost::CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_til
     _start = true;
 }
 
-void CycleGhost::update(float dt_as_seconds) {
+void CycleGhost::animate(float dt_as_seconds) {
     _textureChange = (_textureChange + 1) % 1000;
 
     if (_textureChange == 500) {
@@ -22,6 +22,9 @@ void CycleGhost::update(float dt_as_seconds) {
         _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green.png"));
     }
 
+}
+
+void CycleGhost::update(float dt_as_seconds) {
     if (reachedNewTile(dt_as_seconds) && !_start) {
         _cycle_index = (_cycle_index + 1) % _directions.size();
 

@@ -62,6 +62,12 @@ void GameEngine::input() {
     }
 }
 
+void GameEngine::animate(float dt_as_seconds){
+    if (_current_screen == GAME) {
+        _game.animate(dt_as_seconds);
+    }
+}
+
 void GameEngine::update(float dt_as_seconds) {
     switch (_current_screen) {
         case MENU:
@@ -127,6 +133,7 @@ void GameEngine::run() {
         float dt_as_seconds = dt.asSeconds();
 
         input();
+        animate(dt_as_seconds);
         update(dt_as_seconds);
         draw();
     }

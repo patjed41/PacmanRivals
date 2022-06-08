@@ -93,6 +93,15 @@ void Pacman::handleMovement(float dt_as_seconds) {
             }
         }
     }
+    if (_direction == LEFT){
+        _current_direction = "left";
+    } else if (_direction == RIGHT){
+        _current_direction = "right";
+    } else if (_direction == DOWN){
+        _current_direction = "down";
+    } else if (_direction == UP){
+        _current_direction = "up";
+    }
 }
 
 void Pacman::fixPositionAfterWallPassing() {
@@ -163,10 +172,7 @@ void Pacman::handlePowerUpExpiry() {
     _current_power_up = NONE;
 }
 
-void Pacman::update(float dt_as_seconds) {
-    _timeout -= dt_as_seconds;
-    handleMovement(dt_as_seconds);
-
+void Pacman::animate(float dt_as_seconds) {
     _textureChange = (_textureChange + 1) % 1000;
 
     if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
@@ -178,6 +184,12 @@ void Pacman::update(float dt_as_seconds) {
                                                          _current_direction + "/pac-man-" + _color + ".png"));
         }
     }
+}
+
+void Pacman::update(float dt_as_seconds) {
+    _timeout -= dt_as_seconds;
+    handleMovement(dt_as_seconds);
+
 
     // Handle power-up expiry apart from SLOW_DOWN.
     if (_power_up_seconds_left >= 0 && _power_up_seconds_left - dt_as_seconds < 0) {
@@ -196,31 +208,18 @@ void Pacman::update(float dt_as_seconds) {
 
 void Pacman::turnLeft() {
     _new_direction = LEFT;
-    _current_direction = "left";
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
-                                                 _current_direction + "/pac-man-" + _color + ".png"));
 }
 
 void Pacman::turnRight() {
     _new_direction = RIGHT;
-    _current_direction = "right";
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
-                                                 _current_direction + "/pac-man-" + _color + ".png"));
 }
 
 void Pacman::turnUp() {
     _new_direction = UP;
-    _current_direction = "up";
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
-                                                 _current_direction + "/pac-man-" + _color + ".png"));
-
 }
 
 void Pacman::turnDown() {
     _new_direction = DOWN;
-    _current_direction = "down";
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-closed/pac-man-" +
-                                                 _current_direction + "/pac-man-" + _color + ".png"));
 }
 
 void Pacman::takeDamage() {

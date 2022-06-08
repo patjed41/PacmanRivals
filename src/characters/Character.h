@@ -48,6 +48,8 @@ public:
 
     const sf::Sprite &getSprite() const;
 
+    virtual void animate(float dt_as_seconds) = 0;
+
     virtual void update(float dt_as_seconds) = 0;
 
     virtual ~Character() = default;

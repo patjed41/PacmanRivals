@@ -53,6 +53,8 @@ public:
 
     void changeColor(const std::string & color);
 
+    void animate(float dt_as_seconds) override;
+
     void update(float dt_as_seconds) override;
 
     void turnLeft();

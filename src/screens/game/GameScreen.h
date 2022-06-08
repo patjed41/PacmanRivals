@@ -81,6 +81,8 @@ public:
 
     void input() override;
 
+    void animate(float dt_as_seconds);
+
     void update(float dt_as_seconds) override;
 
     void draw() override;
