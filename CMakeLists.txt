@@ -242,7 +242,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     )
 
     # Tests:
-    make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
     make_new_test(check_different_levels board ${LEVEL_FILES})
     make_new_test(check_correctLeft character ${CHARACTER_FILES})
