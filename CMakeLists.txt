@@ -161,6 +161,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game/PlayerInfo.cpp
     )
 
+    set(SETTINGS_SCREEN_FILES
+        ${SCREEN_FILES}
+        src/screens/settings/SettingsScreen.cpp
+    )
+
     set(SELECTOR_FILES
         ${TEST_FILES}
         src/screens/lobby/options/Selector.cpp
@@ -278,6 +283,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_player_options player-options ${PLAYER_OPTIONS_FILES})
     make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
     make_new_test(check_controls_screen controls-screen ${CONTROLS_SCREEN_FILES})
+    make_new_test(check_settings_screen settings-screen ${SETTINGS_SCREEN_FILES})
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_game_over_screen game-over-screen ${GAME_OVER_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
