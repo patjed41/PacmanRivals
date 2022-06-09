@@ -64,7 +64,7 @@ void RandomGhost::animate(float dt_as_seconds) {
             _state = "1";
         }
     }
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-" + _state + ".png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink-" + _state + ".png"));
 }
 
 void RandomGhost::update(float dt_as_seconds) {

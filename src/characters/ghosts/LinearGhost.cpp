@@ -25,7 +25,7 @@ void LinearGhost::animate(float dt_as_seconds) {
             _state = "1";
         }
     }
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-" + _state + ".png"));
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-" + _state + ".png"));
 }
 
 void LinearGhost::update(float dt_as_seconds) {
