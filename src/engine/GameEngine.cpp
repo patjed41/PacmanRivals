@@ -10,6 +10,7 @@ GameEngine::GameEngine() {
 
     _menu = MenuScreen(&_window, &_current_screen);
     _controls = ControlsScreen(&_window, &_current_screen);
+    _settings = SettingsScreen(&_window, &_current_screen);
     _lobby = LobbyScreen(&_window, &_current_screen);
     _game = GameScreen(&_window, &_current_screen);
     _between_rounds = BetweenRoundsScreen(&_window, &_current_screen);
@@ -29,6 +30,12 @@ void GameEngine::input() {
             return;
         case CONTROLS:
             _controls.input();
+            if (_current_screen == MENU) {
+                _menu.initialise();
+            }
+            return;
+        case SETTINGS:
+            _settings.input();
             if (_current_screen == MENU) {
                 _menu.initialise();
             }
@@ -70,6 +77,9 @@ void GameEngine::update(float dt_as_seconds) {
         case CONTROLS:
             _controls.update(dt_as_seconds);
             return;
+        case SETTINGS:
+            _settings.update(dt_as_seconds);
+            return;
         case LOBBY:
             _lobby.update(dt_as_seconds);
             return;
@@ -100,6 +110,9 @@ void GameEngine::draw() {
             return;
         case CONTROLS:
             _controls.draw();
+            return;
+        case SETTINGS:
+            _settings.draw();
             return;
         case LOBBY:
             _lobby.draw();

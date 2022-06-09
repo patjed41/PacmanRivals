@@ -10,6 +10,7 @@
 #include "../screens/lobby/LobbyScreen.h"
 #include "../screens/game/GameScreen.h"
 #include "../screens/controls/ControlsScreen.h"
+#include "../screens/settings/SettingsScreen.h"
 #include "../screens/between-rounds/BetweenRoundsScreen.h"
 #include "../screens/game-over/GameOverScreen.h"
 
@@ -28,6 +29,7 @@ private:
     LobbyScreen _lobby;
     GameScreen _game;
     ControlsScreen _controls;
+    SettingsScreen _settings;
     BetweenRoundsScreen _between_rounds;
     GameOverScreen _game_over;
 
