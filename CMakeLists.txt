@@ -17,6 +17,7 @@ endif()
 set(SOURCE_FILES
     src/engine/GameEngine.cpp
     src/texture-holder/TextureHolder.cpp
+    src/sound-manager/SoundManager.cpp
     src/map/Tile.cpp
     src/map/Map.cpp
     src/level-manager/LevelManager.cpp
