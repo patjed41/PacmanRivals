@@ -294,5 +294,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_bomb bomb-placement ${BOMB_PLACEMENT_FILES})
     make_new_test(check_spike spikes-placement ${SPIKE_PLACEMENT_FILES})
     make_new_test(check_spike_placement spikes-placement ${SPIKE_PLACEMENT_FILES})
+    make_new_test(check_sound_manager sound-manager ${TEST_FILES})
 
 endif()
