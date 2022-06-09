@@ -34,6 +34,8 @@ private:
 
     void fixPositionAfterWallPassing();
 
+    void animate(float dt_as_seconds) override;
+
 protected:
 
     bool _pass_wall;
@@ -51,8 +53,6 @@ public:
     Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y);
 
     void changeColor(const std::string & color);
-
-    void animate(float dt_as_seconds) override;
 
     void update(float dt_as_seconds) override;
 

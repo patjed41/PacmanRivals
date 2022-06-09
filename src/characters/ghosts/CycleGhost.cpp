@@ -12,6 +12,7 @@ CycleGhost::CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_til
     _direction = static_cast<Direction>(_directions[0]);
     _start = true;
     _state = "1";
+    _textureChange = 0.0;
 }
 
 void CycleGhost::animate(float dt_as_seconds) {
@@ -31,6 +32,7 @@ void CycleGhost::animate(float dt_as_seconds) {
 }
 
 void CycleGhost::update(float dt_as_seconds) {
+    animate(dt_as_seconds);
     if (reachedNewTile(dt_as_seconds) && !_start) {
         _cycle_index = (_cycle_index + 1) % _directions.size();
 

@@ -7,10 +7,12 @@ RandomGhost::RandomGhost(std::shared_ptr<Map> map, int start_tile_x, int start_t
     _map = std::move(map);
 
     _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink-1.png"));
+
     _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
 
     _direction = static_cast<Direction>(direction);
     _state = "1";
+    _textureChange = 0.0;
 }
 
 Character::Direction RandomGhost::randNewDirection() {
@@ -64,21 +66,27 @@ void RandomGhost::animate(float dt_as_seconds) {
             _state = "1";
         }
     }
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink-" + _state + ".png"));
+
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-pink-" + _state + ".png"));
 }
 
+
 void RandomGhost::update(float dt_as_seconds) {
+    animate(dt_as_seconds);
+
     if (reachedNewTile(dt_as_seconds)) {
         Character::Direction new_direction = randNewDirection();
 
         move(dt_as_seconds);
-
-        if (_direction != new_direction) {
+       if (_direction != new_direction) {
             correct();
             _direction = new_direction;
             move(dt_as_seconds);
         }
+
+
     } else {
-        move(dt_as_seconds);
+       move(dt_as_seconds);
     }
 }
+

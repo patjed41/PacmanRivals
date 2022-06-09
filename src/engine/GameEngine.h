@@ -30,8 +30,6 @@ private:
 
     void input();
 
-    void animate(float dt_as_seconds);
-
     void update(float dt_as_seconds);
 
     void draw();

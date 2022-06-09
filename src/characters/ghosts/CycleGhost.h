@@ -12,11 +12,11 @@ private:
 
     bool _start;
 
+    void animate(float dt_as_seconds) override;
+
 public:
 
     CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, std::vector<int> directions);
-
-    void animate(float dt_as_seconds) override;
 
     void update(float dt_as_seconds) override;
 

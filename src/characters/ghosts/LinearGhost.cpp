@@ -10,6 +10,7 @@ LinearGhost::LinearGhost(std::shared_ptr<Map> map, int start_tile_x, int start_t
 
     _direction = static_cast<Direction>(direction);
     _state = "1";
+    _textureChange = 0.0;
 }
 
 void LinearGhost::animate(float dt_as_seconds) {
@@ -29,7 +30,7 @@ void LinearGhost::animate(float dt_as_seconds) {
 }
 
 void LinearGhost::update(float dt_as_seconds) {
-
+    animate(dt_as_seconds);
     if (reachedNewTile(dt_as_seconds)) {
         sf::FloatRect curr_position = getPosition();
 

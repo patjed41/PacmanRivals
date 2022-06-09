@@ -38,6 +38,8 @@ protected:
 
     sf::Vector2i positionOfTileInNewDirection(sf::Vector2i new_tile, Direction _new_direction) const;
 
+    virtual void animate(float dt_as_seconds) = 0;
+
 public:
 
     Character() = default;
@@ -49,8 +51,6 @@ public:
     sf::Vector2f getCenter() const;
 
     const sf::Sprite &getSprite() const;
-
-    virtual void animate(float dt_as_seconds) = 0;
 
     virtual void update(float dt_as_seconds) = 0;
 

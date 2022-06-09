@@ -396,16 +396,6 @@ void GameScreen::handleCollisionsSpikes() {
     }
 }
 
-void GameScreen::animate(float dt_as_seconds) {
-    for (auto & pacman : _pacmans) {
-        pacman->animate(dt_as_seconds);
-    }
-
-    for (auto & ghost : _ghosts) {
-        ghost->animate(dt_as_seconds);
-    }
-}
-
 
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {

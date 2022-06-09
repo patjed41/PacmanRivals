@@ -197,8 +197,9 @@ void Pacman::animate(float dt_as_seconds) {
 
 void Pacman::update(float dt_as_seconds) {
     _timeout -= dt_as_seconds;
-    handleMovement(dt_as_seconds);
 
+    animate(dt_as_seconds);
+    handleMovement(dt_as_seconds);
 
     // Handle power-up expiry apart from SLOW_DOWN.
     if (_power_up_seconds_left >= 0 && _power_up_seconds_left - dt_as_seconds < 0) {
