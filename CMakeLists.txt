@@ -17,6 +17,7 @@ endif()
 set(SOURCE_FILES
     src/engine/GameEngine.cpp
     src/texture-holder/TextureHolder.cpp
+    src/sound-manager/SoundManager.cpp
     src/map/Tile.cpp
     src/map/Map.cpp
     src/level-manager/LevelManager.cpp
@@ -29,6 +30,7 @@ set(SOURCE_FILES
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
     src/screens/controls/ControlsScreen.cpp
+    src/screens/settings/SettingsScreen.cpp
     src/screens/lobby/LobbyScreen.cpp
     src/screens/lobby/options/Options.cpp
     src/screens/lobby/options/Selector.cpp
@@ -103,6 +105,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     # Groups of source files common for many tests:
     set(TEST_FILES
         src/texture-holder/TextureHolder.cpp
+        src/sound-manager/SoundManager.cpp
     )
 
     set(CHARACTER_FILES
@@ -156,6 +159,11 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         src/screens/game-over/GameOverScreen.cpp
         src/screens/game-over/WinnerPrinter.cpp
         src/screens/game/PlayerInfo.cpp
+    )
+
+    set(SETTINGS_SCREEN_FILES
+        ${SCREEN_FILES}
+        src/screens/settings/SettingsScreen.cpp
     )
 
     set(SELECTOR_FILES
@@ -240,7 +248,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     )
 
     # Tests:
-    make_new_test(check_initial_positions_players board ${LEVEL_FILES})
     make_new_test(check_initial_board board ${LEVEL_FILES})
     make_new_test(check_different_levels board ${LEVEL_FILES})
     make_new_test(check_correctLeft character ${CHARACTER_FILES})
@@ -276,6 +283,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_player_options player-options ${PLAYER_OPTIONS_FILES})
     make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
     make_new_test(check_controls_screen controls-screen ${CONTROLS_SCREEN_FILES})
+    make_new_test(check_settings_screen settings-screen ${SETTINGS_SCREEN_FILES})
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})
     make_new_test(check_game_over_screen game-over-screen ${GAME_OVER_SCREEN_FILES})
     make_new_test(check_lobby_screen lobby-screen ${LOBBY_SCREEN_FILES})
@@ -292,5 +300,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_bomb bomb-placement ${BOMB_PLACEMENT_FILES})
     make_new_test(check_spike spikes-placement ${SPIKE_PLACEMENT_FILES})
     make_new_test(check_spike_placement spikes-placement ${SPIKE_PLACEMENT_FILES})
+    make_new_test(check_sound_manager sound-manager ${TEST_FILES})
 
 endif()

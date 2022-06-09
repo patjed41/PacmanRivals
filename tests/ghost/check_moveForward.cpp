@@ -1,9 +1,11 @@
 #include "TestGhosts.h"
 #include "../../include/err.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     std::shared_ptr map = std::make_shared<Map>();
 

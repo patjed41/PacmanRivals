@@ -1,10 +1,12 @@
 #include "../../src/coins/Coin.h"
 #include "../../include/err.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/game_constants.h"
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     Coin coin = Coin(0.f, 0.f);
 

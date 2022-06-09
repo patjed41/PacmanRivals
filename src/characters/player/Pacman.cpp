@@ -3,7 +3,9 @@
 #include <utility>
 #include <iostream>
 #include <sstream>
+
 #include "../../texture-holder/TextureHolder.h"
+#include "../../sound-manager/SoundManager.h"
 
 const float Pacman::_POWER_UP_DURATION = 10.0f;
 const float Pacman::_SLOW_SPEED = 50.0f;
@@ -302,7 +304,9 @@ std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
     }
 
     handlePowerUpExpiry();
-    // TODO: play firing sound
+
+    SoundManager::playShoot();
+
     return std::make_shared<Bullet>(getCenter(), _map, shooter, _direction);
 }
 

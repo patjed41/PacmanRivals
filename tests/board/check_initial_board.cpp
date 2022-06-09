@@ -1,9 +1,12 @@
 #include "../../src/level-manager/LevelManager.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
+
     LevelManager manager = LevelManager();
     std::shared_ptr<Map> grid;
 
