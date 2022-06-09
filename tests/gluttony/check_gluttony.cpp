@@ -1,5 +1,6 @@
 #include "../../src/characters/player/Pacman.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../src/power-ups/types/gluttony/Gluttony.h"
 #include "../../include/err.h"
 
@@ -7,6 +8,7 @@
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     std::shared_ptr<Map> map;
 

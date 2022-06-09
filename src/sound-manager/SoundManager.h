@@ -16,13 +16,17 @@ private:
     int _sounds_volume;
     int _music_volume;
 
+    static void checkIfSingleton();
+
 public:
 
     SoundManager();
 
+    static int getSoundsVolume();
     static void increaseSoundsVolume();
     static void decreaseSoundsVolume();
 
+    static int getMusicVolume();
     static void increaseMusicVolume();
     static void decreaseMusicVolume();
 

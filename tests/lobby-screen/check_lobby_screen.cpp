@@ -1,11 +1,13 @@
 #include "../../src/screens/lobby/LobbyScreen.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 
 #include <SFML/Graphics.hpp>
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     sf::Clock clock;
 

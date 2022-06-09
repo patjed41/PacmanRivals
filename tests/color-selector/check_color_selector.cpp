@@ -1,5 +1,6 @@
 #include "../../src/screens/lobby/options/player/ColorSelector.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 #include "../../include/simulate_keypress.h"
 
@@ -9,6 +10,7 @@
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     sf::RenderWindow window(
         sf::VideoMode(sf::VideoMode::getDesktopMode().width,
