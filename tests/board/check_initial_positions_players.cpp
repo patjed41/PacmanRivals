@@ -16,22 +16,12 @@ int main() {
         players = manager.getPlayers();
     }
 
-    std::ifstream file;
-    file.open("../assets/maps/players/players1.txt");
+    std::vector<float> x = {2, 28, 28, 2};
+    std::vector<float> y = {1, 16, 1, 18};
 
-    if (file.is_open()) {
-        for (int i = 0; i < 4; i++) {
-            int x, y;
-            file >> x >> y;
-
-            err::checkEqualFloat(x * TILE_SIZE, players[i]->getPosition().left);
-            err::checkEqualFloat(y * TILE_SIZE, players[i]->getPosition().top);
-        }
-
-        file.close();
-    } else {
-        std::cerr << "Can't find input file" << std::endl;
-        exit(1);
+    for (int i = 0; i < 4; i++) {
+        err::checkEqualFloat(x[i] * TILE_SIZE, players[i]->getPosition().left);
+        err::checkEqualFloat(y[i] * TILE_SIZE, players[i]->getPosition().top);
     }
 
     return 0;
