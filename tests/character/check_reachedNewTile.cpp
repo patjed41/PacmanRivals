@@ -1,12 +1,12 @@
 #include "../../src/map/Map.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 #include "TestCharacter.h"
 
-#include <iostream>
-
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     sf::Sprite sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/walls/path.png"));
 

@@ -1,8 +1,8 @@
 #include "../../src/screens/lobby/options/player/ControlSelector.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 #include "../../include/simulate_keypress.h"
-#include "../../include/game_constants.h"
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -10,6 +10,7 @@
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     sf::RenderWindow window(
         sf::VideoMode(sf::VideoMode::getDesktopMode().width,

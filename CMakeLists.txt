@@ -104,6 +104,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     # Groups of source files common for many tests:
     set(TEST_FILES
         src/texture-holder/TextureHolder.cpp
+        src/sound-manager/SoundManager.cpp
     )
 
     set(CHARACTER_FILES

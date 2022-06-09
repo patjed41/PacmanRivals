@@ -1,12 +1,14 @@
 #include "../../src/characters/player/Pacman.h"
 #include "../../src/power-ups/PowerUpSpawner.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 #include "../../include/random.h"
 #include "../../include/math.h"
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     PowerUpSpawner spawner;
 

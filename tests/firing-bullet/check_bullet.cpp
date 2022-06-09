@@ -1,11 +1,13 @@
 #include "../../src/characters/player/Pacman.h"
 #include "../../src/texture-holder/TextureHolder.h"
+#include "../../src/sound-manager/SoundManager.h"
 #include "../../include/err.h"
 
 #include <memory>
 
 int main() {
     TextureHolder textureHolder;
+    SoundManager soundManager;
 
     std::shared_ptr<Map> map = std::make_shared<Map>();
 
