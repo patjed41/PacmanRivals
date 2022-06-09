@@ -30,6 +30,7 @@ set(SOURCE_FILES
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
     src/screens/controls/ControlsScreen.cpp
+    src/screens/settings/SettingsScreen.cpp
     src/screens/lobby/LobbyScreen.cpp
     src/screens/lobby/options/Options.cpp
     src/screens/lobby/options/Selector.cpp

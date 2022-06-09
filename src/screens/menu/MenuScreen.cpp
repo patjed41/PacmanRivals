@@ -53,7 +53,7 @@ void MenuScreen::input() {
                     *_current_screen = LOBBY;
                 }
                 if (_current_option == 1) {
-                    *_current_screen = MENU;
+                    *_current_screen = SETTINGS;
                 }
                 if (_current_option == 2) {
                     *_current_screen = CONTROLS;
