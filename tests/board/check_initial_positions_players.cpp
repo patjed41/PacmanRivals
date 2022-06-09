@@ -16,31 +16,19 @@ int main() {
         players = manager.getPlayers();
     }
 
-    sf::Texture texturePacMan;
-    texturePacMan.loadFromFile("../assets/graphics/pac-man-yellow.png");
-    std::vector<sf::Sprite> spritePacMan(players.size());
+    std::ifstream file;
+    file.open("../assets/maps/players/players1.txt");
 
+    if (file.is_open()) {
+        for (int i = 0; i < 4; i++) {
+            int x, y;
+            file >> x >> y;
 
-    for (int i = 0; i < players.size(); i++) {
-        spritePacMan[i].setTexture(texturePacMan);
-        spritePacMan[i].setPosition((*players[i].get()).getSprite().getGlobalBounds().left, (*players[i].get()).getSprite().getGlobalBounds().top);
-    }
-
-    std::ifstream myfile;
-    myfile.open("../assets/maps/players/players1.txt");
-
-    if (myfile.is_open()) {
-        int size;
-        myfile >> size;
-
-        for (int k = 0; k < size; k++) {
-            int i, j;
-            myfile >> i >> j;
-
-            err::check(spritePacMan[k].getPosition().x == i * TILE_SIZE, k);
-            err::check(spritePacMan[k].getPosition().y == j * TILE_SIZE, k);
+            err::checkEqualFloat(x * TILE_SIZE, players[i]->getPosition().left);
+            err::checkEqualFloat(y * TILE_SIZE, players[i]->getPosition().top);
         }
-        myfile.close();
+
+        file.close();
     } else {
         std::cerr << "Can't find input file" << std::endl;
         exit(1);
