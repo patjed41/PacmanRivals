@@ -13,7 +13,7 @@ MenuCharacter::MenuCharacter(float start_tile_x, float start_tile_y,  int direct
         int color = random(0, 2);
         _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-" + colors[color] + ".png"));
     }
-    _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
+    _sprite.setPosition(start_tile_x, start_tile_y);
 
     if(random(0, 3) == 0) {
         _if_random = true;
@@ -43,7 +43,7 @@ void MenuCharacter::update(float dt_as_seconds) {
     if (curr_position.left < 0) {
         _sprite.setPosition(sf::VideoMode::getDesktopMode().width, curr_position.top);
     } else if (curr_position.top < 0) {
-        _sprite.setPosition(curr_position.top, sf::VideoMode::getDesktopMode().height);
+        _sprite.setPosition(curr_position.left, sf::VideoMode::getDesktopMode().height);
     } else if (curr_position.left > sf::VideoMode::getDesktopMode().width) {
         _sprite.setPosition(0, curr_position.top);
     } else if (curr_position.top > sf::VideoMode::getDesktopMode().height) {
