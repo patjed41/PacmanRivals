@@ -54,6 +54,8 @@ protected:
 
     bool reachedNewTile(float dt_as_seconds) const;
 
+    Direction getOppositeDirection() const;
+
     void correct();
 
     void correctRight();

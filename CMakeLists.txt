@@ -27,6 +27,7 @@ set(SOURCE_FILES
     src/characters/ghosts/LinearGhost.cpp
     src/characters/ghosts/RandomGhost.cpp
     src/characters/ghosts/CycleGhost.cpp
+    src/characters/menu-character/MenuCharacter.cpp
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
     src/screens/controls/ControlsScreen.cpp
