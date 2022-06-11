@@ -18,7 +18,7 @@ private:
     std::vector<sf::Text> _options;
     unsigned int _current_option;
     std::vector<std::shared_ptr<MenuCharacter>> _menu_characters;
-    int _number_of_characters = 10;
+    int _number_of_characters = 30;
 
 public:
 
