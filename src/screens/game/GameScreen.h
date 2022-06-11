@@ -46,6 +46,10 @@ private:
 
     bool _new_map_needed = false;
 
+    bool _is_paused = false;
+
+    sf::Text _pause;
+
     unsigned int _players_num = 0;
 
     unsigned int _rounds_left = 0;

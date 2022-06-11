@@ -21,6 +21,12 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _points_to_win_text.setFillColor(sf::Color::White);
     _points_to_win_text.setCharacterSize(40);
     _points_to_win_text.setPosition(410, -60);
+
+    _pause.setFont(_font);
+    _pause.setString("pause");
+    _pause.setFillColor(sf::Color::White);
+    _pause.setCharacterSize(100);
+    _pause.setPosition(_main_view.getCenter().x - 270, _main_view.getCenter().y - 50);
 }
 
 void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
@@ -101,11 +107,13 @@ void GameScreen::input() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                // pause
+                _is_paused = !_is_paused;
             }
         }
     }
-
+    if (_is_paused) {
+        return;
+    }
     for (size_t i = 0; i < _players_num; i++) {
         _player_input_handlers[i].input();
         if (_player_input_handlers[i].getPowerUpToUse() == FIRING_BULLET) {
@@ -402,6 +410,10 @@ void GameScreen::update(float dt_as_seconds) {
         _new_map_needed = false;
     }
 
+    if(_is_paused) {
+        return;
+    }
+
     for (auto & pacman : _pacmans) {
         pacman->update(dt_as_seconds);
     }
@@ -528,6 +540,11 @@ void GameScreen::draw() {
 
     _points_to_win_text.setFont(_font);
     _window->draw(_points_to_win_text);
+
+    if (_is_paused) {
+        _pause.setFont(_font);
+        _window->draw(_pause);
+    }
 
     _window->display();
 }
