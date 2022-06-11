@@ -16,13 +16,12 @@ void MenuCharacter::update(float dt_as_seconds) {
         sf::Vector2i next_tile = positionOfNewTile(curr_tile);
 
         move(dt_as_seconds);
-
-        if (_map.get()->getTiles()[next_tile.y][next_tile.x].isWall()) {
-            correct();
-            _direction = getOppositeDirection();
-            move(dt_as_seconds);
-        }
     } else {
         move(dt_as_seconds);
+    }
+
+    sf::FloatRect curr_position = getPosition();
+    if (curr_position.left < 0) {
+        _sprite.setPosition(sf::VideoMode::getDesktopMode().width, curr_position.top);
     }
 }

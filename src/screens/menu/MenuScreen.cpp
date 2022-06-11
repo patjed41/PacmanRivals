@@ -86,9 +86,9 @@ void MenuScreen::update(float dt_as_seconds) {
     // and update(float dt_as_seconds) should be called from here. Spawning
     // new characters and removing characters that walked beyond the screen
     // should also happen here.
-//    for (auto character : _menu_characters) {
-//        character->update(dt_as_seconds);
-//    }
+    for (auto character : _menu_characters) {
+        character->update(dt_as_seconds);
+    }
 }
 
 void MenuScreen::draw() {
