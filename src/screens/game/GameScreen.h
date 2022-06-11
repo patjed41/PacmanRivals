@@ -49,6 +49,7 @@ private:
     bool _is_paused = false;
 
     sf::Text _pause;
+    sf::Text _continue;
 
     unsigned int _players_num = 0;
 
