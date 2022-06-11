@@ -27,6 +27,12 @@ GameScreen::GameScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     _pause.setFillColor(sf::Color::White);
     _pause.setCharacterSize(100);
     _pause.setPosition(_main_view.getCenter().x - 270, _main_view.getCenter().y - 50);
+
+    _continue.setFont(_font);
+    _continue.setString("press enter to continue");
+    _continue.setFillColor(sf::Color::White);
+    _continue.setCharacterSize(50);
+    _continue.setPosition(_main_view.getCenter().x - 600, _main_view.getCenter().y + 70);
 }
 
 void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int rounds) {
@@ -103,11 +109,15 @@ void GameScreen::input() {
     while (_window->pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                _window->close();
+                if (_is_paused) {
+                    *_current_screen = MENU;
+                } else {
+                    _is_paused = true;
+                }
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                _is_paused = !_is_paused;
+                _is_paused = false;
             }
         }
     }
@@ -544,6 +554,9 @@ void GameScreen::draw() {
     if (_is_paused) {
         _pause.setFont(_font);
         _window->draw(_pause);
+
+        _continue.setFont(_font);
+        _window->draw(_continue);
     }
 
     _window->display();
