@@ -17,6 +17,7 @@ Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y)
     _sprite = sf::Sprite(
             TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
+
     _color = "yellow";
     _current_direction = "right";
     _state = "opened";
@@ -96,13 +97,13 @@ void Pacman::handleMovement(float dt_as_seconds) {
             }
         }
     }
-    if (_direction == LEFT){
+    if (_direction == LEFT) {
         _current_direction = "left";
-    } else if (_direction == RIGHT){
+    } else if (_direction == RIGHT) {
         _current_direction = "right";
-    } else if (_direction == DOWN){
+    } else if (_direction == DOWN) {
         _current_direction = "down";
-    } else if (_direction == UP){
+    } else if (_direction == UP) {
         _current_direction = "up";
     }
 }
@@ -179,20 +180,31 @@ void Pacman::animate(float dt_as_seconds) {
 
     _textureChange += dt_as_seconds;
 
-    if (_textureChange >= 0.6){
+    if (_textureChange >= 0.6) {
         _textureChange -= 0.6;
 
-        if (_state == "opened"){
+        if (_state == "opened") {
             _state = "closed";
-        }
-        else {
+        } else {
             _state = "opened";
         }
     }
-    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
-            _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _state + "/pac-man-" +
-                                                         _current_direction + "/pac-man-" + _color + ".png"));
 
+    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _state + "/pac-man-" +
+                                                     _current_direction + "/pac-man-" + _color + ".png"));
+
+    } else if (_current_power_up == GLUTTONY) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/eating-pac-mans/pac-man-" + _state
+                                                     + "/eating-pac-man-" + _color + "-" + _current_direction +".png"));
+    } else if (_current_power_up == SHIELD) {
+        _sprite.setTexture(TextureHolder::GetTexture(
+                "../assets/graphics/power-ups/shielded-pac-mans/shield-pac-man-" + _state + "-" + _current_direction +
+                ".png"));
+    } else if (_current_power_up == WALL_PASSING) {
+        _sprite.setTexture(TextureHolder::GetTexture(
+                "../assets/graphics/power-ups/passing-pac-mans/passing-pac-man-" + _state + "-" + _current_direction +
+                                                                                    ".png"));
     }
 
 }
@@ -292,7 +304,10 @@ void Pacman::setShield() {
     _is_shielded = true;
     std::stringstream path_to_graphic_with_shield;
     path_to_graphic_with_shield << "../assets/graphics/power-ups/shielded-pac-mans/"
-                                << "shielded-pac-man-" << _color << ".png";
+                                << "shield-pac-man-opened-right" << ".png";
+
+//    << "../assets/graphics/power-ups/shielded-pac-mans/"
+//                                << "shielded-pac-man-" << _color << ".png";
     _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_with_shield.str()));
 }
 
@@ -315,7 +330,9 @@ void Pacman::passWalls() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = WALL_PASSING;
     _pass_wall = true;
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
+    _sprite.setTexture(
+            TextureHolder::GetTexture("../assets/graphics/power-ups/passing-pac-mans/passing-pac-man-opened-right.png"));
+
 }
 
 void Pacman::startEating() {
@@ -323,8 +340,9 @@ void Pacman::startEating() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = GLUTTONY;
     std::stringstream path_to_graphic_eating;
-    path_to_graphic_eating << "../assets/graphics/power-ups/eating-pac-mans/"
-                           << "eating-pac-man-" << _color << ".png";
+    path_to_graphic_eating << "../assets/graphics/power-ups/eating-pac-mans/pac-man-opened/"
+                           << "eating-pac-man-" << _color << "-right.png";
+
     _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_eating.str()));
 }
 

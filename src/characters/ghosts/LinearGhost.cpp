@@ -5,7 +5,7 @@
 LinearGhost::LinearGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, int direction) {
     _map = std::move(map);
 
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-1.png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-1-right.png"));
     _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
 
     _direction = static_cast<Direction>(direction);
@@ -26,7 +26,13 @@ void LinearGhost::animate(float dt_as_seconds) {
             _state = "1";
         }
     }
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-" + _state + ".png"));
+    if (_direction == LEFT || _direction == UP){
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-" + _state + "-left.png"));
+
+    }
+    else {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-yellow-" + _state + "-right.png"));
+    }
 }
 
 void LinearGhost::update(float dt_as_seconds) {
