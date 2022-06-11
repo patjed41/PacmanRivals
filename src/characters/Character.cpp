@@ -25,6 +25,21 @@ const sf::Sprite &Character::getSprite() const {
     return _sprite;
 }
 
+Character::Direction Character::getOppositeDirection() const {
+    switch (_direction) {
+        case LEFT:
+            return RIGHT;
+        case RIGHT:
+            return LEFT;
+        case UP:
+            return DOWN;
+        case DOWN:
+            return UP;
+        default:
+            return STOP;
+    }
+}
+
 void Character::move(float dt_as_seconds) {
     switch (_direction) {
         case LEFT:

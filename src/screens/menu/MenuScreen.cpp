@@ -30,6 +30,11 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
         _options[i].setPosition(_view.getCenter().x, _view.getCenter().y + option_offset);
         option_offset += SPACE_BETWEEN;
     }
+    int offset = 1;
+    for (int i = 0; i < _number_of_characters; ++i) {
+        _menu_characters.emplace_back(std::make_shared<MenuCharacter>(offset, offset, 0));
+        offset += 2;
+    }
 }
 
 void MenuScreen::initialise() {
@@ -81,6 +86,9 @@ void MenuScreen::update(float dt_as_seconds) {
     // and update(float dt_as_seconds) should be called from here. Spawning
     // new characters and removing characters that walked beyond the screen
     // should also happen here.
+//    for (auto character : _menu_characters) {
+//        character->update(dt_as_seconds);
+//    }
 }
 
 void MenuScreen::draw() {
@@ -88,6 +96,10 @@ void MenuScreen::draw() {
     _window->setView(_view);
 
     _options[_current_option].setFillColor(sf::Color::Red);
+
+    for (auto character : _menu_characters) {
+        _window->draw(character->getSprite());
+    }
 
     for (int i = 0; i < OPTIONS_NUM; i++) {
         _options[i].setFont(_font);
