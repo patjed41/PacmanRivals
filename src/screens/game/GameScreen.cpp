@@ -322,6 +322,7 @@ void GameScreen::handleCollisionsBombs() {
 
     for (auto & bomb : _bombs) {
         if (bomb->timeToExplode()) {
+            SoundManager::playBomb();
             bomb->explode();
 
             // explosion reaches ghost
