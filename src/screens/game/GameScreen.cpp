@@ -1,5 +1,6 @@
 #include "GameScreen.h"
 #include "../../../include/math.h"
+#include "../../sound-manager/SoundManager.h"
 
 #include <utility>
 #include <cmath>
@@ -33,6 +34,7 @@ void GameScreen::initialise(std::vector<PlayerInfo> player_infos, unsigned int r
     for (int i = 0; i < _players_num; i++) {
         _player_stats.emplace_back(&_player_infos[i], i);
     }
+    SoundManager::stopMusic();
 }
 
 unsigned int GameScreen::alivePlayers() const {

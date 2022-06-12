@@ -10,6 +10,8 @@ private:
 
     static SoundManager* _instance;
 
+    sf::Music _menu_music;
+
     sf::SoundBuffer _death_buffer;
     sf::Sound _death_sound;
 
@@ -45,6 +47,8 @@ public:
     static void increaseMusicVolume();
     static void decreaseMusicVolume();
 
+    static void playMusic();
+    static void stopMusic();
     static void playDeath();
     static void playWinner();
     static void playPickup();

@@ -14,6 +14,10 @@ SoundManager::SoundManager() {
     _sounds_volume = 50;
     _music_volume = 50;
 
+    if (!_menu_music.openFromFile("../assets/sounds/menu-music.ogg")) {
+        std::cerr << "Failed to load menu-music.ogg\n";
+    }
+
     if (!_death_buffer.loadFromFile("../assets/sounds/death.ogg")) {
         std::cerr << "Failed to load death.ogg\n";
     }
@@ -90,9 +94,21 @@ void SoundManager::decreaseMusicVolume() {
     }
 }
 
+void SoundManager::playMusic() {
+    checkIfSingleton();
+    _instance->_menu_music.setVolume(_instance->_music_volume);
+    _instance->_menu_music.setLoop(true);
+    _instance->_menu_music.play();
+}
+
+void SoundManager::stopMusic() {
+    checkIfSingleton();
+    _instance->_menu_music.stop();
+}
+
 void SoundManager::playDeath() {
     checkIfSingleton();
-    _instance->_death_sound.setVolume(_instance->_sounds_volume);
+    _instance->_death_sound.setVolume(_instance->_sounds_volume - 8);
     _instance->_death_sound.play();
 }
 
