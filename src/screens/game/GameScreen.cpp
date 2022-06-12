@@ -110,6 +110,7 @@ void GameScreen::input() {
         if (event.type == sf::Event::KeyPressed) {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 if (_is_paused) {
+                    _is_paused = false;
                     *_current_screen = MENU;
                 } else {
                     _is_paused = true;
