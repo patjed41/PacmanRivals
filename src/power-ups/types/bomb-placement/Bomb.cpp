@@ -1,6 +1,7 @@
 #include "Bomb.h"
 #include "../../../../include/game_constants.h"
 #include "../../../texture-holder/TextureHolder.h"
+#include "../../../sound-manager/SoundManager.h"
 
 #include <iostream>
 
@@ -53,6 +54,7 @@ bool Bomb::timeToExplode() const {
 
 void Bomb::explode() {
     _exploded = true;
+    SoundManager::playBomb();
 }
 
 void Bomb::update(float dt_as_seconds) {

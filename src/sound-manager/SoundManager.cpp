@@ -14,10 +14,35 @@ SoundManager::SoundManager() {
     _sounds_volume = 50;
     _music_volume = 50;
 
+    if (!_death_buffer.loadFromFile("../assets/sounds/death.ogg")) {
+        std::cerr << "Failed to load death.ogg\n";
+    }
+    _death_sound.setBuffer(_death_buffer);
+
+    if (!_winner_buffer.loadFromFile("../assets/sounds/winner.ogg")) {
+        std::cerr << "Failed to load winner.ogg\n";
+    }
+    _winner_sound.setBuffer(_winner_buffer);
+
+    if (!_pickup_buffer.loadFromFile("../assets/sounds/pick.ogg")) {
+        std::cerr << "Failed to load pick.ogg\n";
+    }
+    _pickup_sound.setBuffer(_pickup_buffer);
+
     if (!_shoot_buffer.loadFromFile("../assets/sounds/shoot.ogg")) {
         std::cerr << "Failed to load shoot.ogg\n";
     }
     _shoot_sound.setBuffer(_shoot_buffer);
+
+    if (!_bomb_buffer.loadFromFile("../assets/sounds/bomb.ogg")) {
+        std::cerr << "Failed to load bomb.ogg\n";
+    }
+    _bomb_sound.setBuffer(_bomb_buffer);
+
+    if (!_spikes_buffer.loadFromFile("../assets/sounds/spikes.ogg")) {
+        std::cerr << "Failed to load spikes.ogg\n";
+    }
+    _spikes_sound.setBuffer(_spikes_buffer);
 }
 
 void SoundManager::checkIfSingleton() {
@@ -65,8 +90,38 @@ void SoundManager::decreaseMusicVolume() {
     }
 }
 
+void SoundManager::playDeath() {
+    checkIfSingleton();
+    _instance->_death_sound.setVolume(_instance->_sounds_volume);
+    _instance->_death_sound.play();
+}
+
+void SoundManager::playWinner() {
+    checkIfSingleton();
+    _instance->_winner_sound.setVolume(_instance->_sounds_volume);
+    _instance->_winner_sound.play();
+}
+
+void SoundManager::playPickup() {
+    checkIfSingleton();
+    _instance->_pickup_sound.setVolume(_instance->_sounds_volume);
+    _instance->_pickup_sound.play();
+}
+
 void SoundManager::playShoot() {
     checkIfSingleton();
     _instance->_shoot_sound.setVolume(_instance->_sounds_volume);
     _instance->_shoot_sound.play();
+}
+
+void SoundManager::playBomb() {
+    checkIfSingleton();
+    _instance->_bomb_sound.setVolume(_instance->_sounds_volume);
+    _instance->_bomb_sound.play();
+}
+
+void SoundManager::playSpikes() {
+    checkIfSingleton();
+    _instance->_spikes_sound.setVolume(_instance->_sounds_volume);
+    _instance->_spikes_sound.play();
 }

@@ -204,6 +204,7 @@ void Pacman::takeDamage() {
     if (!_is_shielded) {
         _current_power_up = NONE;
         _is_dead = true;
+        SoundManager::playDeath();
     }
 }
 
@@ -230,6 +231,7 @@ bool Pacman::hasUsablePowerUp() const {
 }
 
 void Pacman::speedUp() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _current_power_up = SPEED_UP;
     _power_up_seconds_left = _POWER_UP_DURATION;
@@ -238,6 +240,7 @@ void Pacman::speedUp() {
 }
 
 void Pacman::slowDown() {
+    SoundManager::playPickup();
     if (_current_power_up == SPEED_UP) {
         _current_power_up = NONE;
         _power_up_seconds_left = -1.0f;
@@ -247,12 +250,14 @@ void Pacman::slowDown() {
 }
 
 void Pacman::pickUpBullet() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = FIRING_BULLET;
 }
 
 void Pacman::setShield() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _current_power_up = SHIELD;
     _power_up_seconds_left = _POWER_UP_DURATION;
@@ -278,6 +283,7 @@ std::shared_ptr<Bullet> Pacman::fireBullet(unsigned int shooter) {
 }
 
 void Pacman::passWalls() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = WALL_PASSING;
@@ -286,6 +292,7 @@ void Pacman::passWalls() {
 }
 
 void Pacman::startEating() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = GLUTTONY;
@@ -296,12 +303,14 @@ void Pacman::startEating() {
 }
 
 void Pacman::coinMultiply() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = COIN_MULTIPLIER;
 }
 
 void Pacman::pickUpBomb() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = BOMB_PLACEMENT;
@@ -314,7 +323,7 @@ std::shared_ptr<Bomb> Pacman::placeBomb(unsigned int bomberman) {
     }
 
     handlePowerUpExpiry();
-    // TODO: play bomb placement sound
+
     return std::make_shared<Bomb>(getCenter(), bomberman);
 }
 
@@ -323,6 +332,7 @@ void Pacman::setPosition(float tile_x, float tile_y) {
 }
 
 void Pacman::pickUpSpikes() {
+    SoundManager::playPickup();
     handlePowerUpExpiry();
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = SPIKES_PLACEMENT;
@@ -340,6 +350,7 @@ std::shared_ptr<Spike> Pacman::placeSpike(unsigned int user) {
     if (_spikes_to_place == 0) {
         handlePowerUpExpiry();
     }
+    SoundManager::playSpikes();
     return std::make_shared<Spike>(getCenter(), user);
 }
 

@@ -10,8 +10,23 @@ private:
 
     static SoundManager* _instance;
 
+    sf::SoundBuffer _death_buffer;
+    sf::Sound _death_sound;
+
+    sf::SoundBuffer _winner_buffer;
+    sf::Sound _winner_sound;
+
+    sf::SoundBuffer _pickup_buffer;
+    sf::Sound _pickup_sound;
+
     sf::SoundBuffer _shoot_buffer;
     sf::Sound _shoot_sound;
+
+    sf::SoundBuffer _bomb_buffer;
+    sf::Sound _bomb_sound;
+
+    sf::SoundBuffer _spikes_buffer;
+    sf::Sound _spikes_sound;
 
     int _sounds_volume;
     int _music_volume;
@@ -30,6 +45,10 @@ public:
     static void increaseMusicVolume();
     static void decreaseMusicVolume();
 
+    static void playDeath();
+    static void playWinner();
+    static void playPickup();
     static void playShoot();
-
+    static void playBomb();
+    static void playSpikes();
 };
