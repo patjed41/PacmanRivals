@@ -20,8 +20,6 @@ int main() {
     ScreenName current_screen = BETWEEN_ROUNDS;
     BetweenRoundsScreen between_rounds(&window, &current_screen);
 
-    std::vector<PlayerInfo> player_infos = {PlayerInfo("player", "red", "C1")};
-    between_rounds.initialise(player_infos);
     between_rounds.input();
     between_rounds.update(clock.restart().asSeconds());
     err::checkEqual(BETWEEN_ROUNDS, current_screen);
