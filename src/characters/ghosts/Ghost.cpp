@@ -1,5 +1,20 @@
 #include "Ghost.h"
 
+Character::Direction Ghost::getOppositeDirection() const {
+    switch (_direction) {
+        case LEFT:
+            return RIGHT;
+        case RIGHT:
+            return LEFT;
+        case UP:
+            return DOWN;
+        case DOWN:
+            return UP;
+        default:
+            return STOP;
+    }
+}
+
 sf::Vector2i Ghost::getUpTile() const {
     sf::FloatRect pos = getPosition();
     sf::Vector2i curr_tile = {(int) (pos.left / TILE_SIZE + 0.5), (int) (pos.top / TILE_SIZE + 0.5)};
