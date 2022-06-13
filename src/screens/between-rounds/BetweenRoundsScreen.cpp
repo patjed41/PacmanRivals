@@ -1,4 +1,5 @@
 #include "BetweenRoundsScreen.h"
+#include "../../sound-manager/SoundManager.h"
 
 #include <iostream>
 
@@ -26,6 +27,8 @@ void BetweenRoundsScreen::initialise(const std::vector<PlayerInfo> & player_info
     for (size_t i = 0; i < players_num; i++) {
         _score_printers.emplace_back(player_infos[i], positions[i], &_view);
     }
+
+    SoundManager::stopChomp();
 }
 
 void BetweenRoundsScreen::input() {

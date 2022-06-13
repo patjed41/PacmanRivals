@@ -47,6 +47,12 @@ SoundManager::SoundManager() {
         std::cerr << "Failed to load spikes.ogg\n";
     }
     _spikes_sound.setBuffer(_spikes_buffer);
+
+    if (!_chomp_buffer.loadFromFile("../assets/sounds/chomp.ogg")) {
+        std::cerr << "Failed to load chomp.ogg\n";
+    }
+    _chomp_sound.setBuffer(_chomp_buffer);
+    _chomp_sound.setLoop(true);
 }
 
 void SoundManager::checkIfSingleton() {
@@ -141,4 +147,15 @@ void SoundManager::playSpikes() {
     checkIfSingleton();
     _instance->_spikes_sound.setVolume(_instance->_sounds_volume);
     _instance->_spikes_sound.play();
+}
+
+void SoundManager::playChomp() {
+    checkIfSingleton();
+    _instance->_chomp_sound.setVolume(_instance->_sounds_volume / 4);
+    _instance->_chomp_sound.play();
+}
+
+void SoundManager::stopChomp() {
+    checkIfSingleton();
+    _instance->_chomp_sound.stop();
 }

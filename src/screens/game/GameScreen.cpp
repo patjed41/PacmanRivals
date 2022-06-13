@@ -115,12 +115,14 @@ void GameScreen::input() {
                     _is_paused = false;
                     *_current_screen = MENU;
                 } else {
+                    SoundManager::stopChomp();
                     _is_paused = true;
                 }
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _is_paused) {
                 _is_paused = false;
+                SoundManager::playChomp();
             }
         }
     }
@@ -173,6 +175,8 @@ void GameScreen::loadNewMap() {
         }
     }
 
+    SoundManager::playChomp();
+
     _rounds_left--;
 }
 
@@ -221,7 +225,7 @@ void GameScreen::handleCollisionsPC() {
                     if (!_grid->getTiles()[y][x].isWall() && !_coins[y * MAP_WIDTH + x].isTaken()
                         && _pacmans[i]->getPosition().intersects(_coins[y * MAP_WIDTH + x].getPosition())) {
                         _coins[y * MAP_WIDTH + x].Take();
-                        if (_pacmans[i]->getCurrentPowerUp() == COIN_MULTIPLIER){
+                        if (_pacmans[i]->getCurrentPowerUp() == COIN_MULTIPLIER) {
                             _player_infos[i].addRoundPoints(2);
                         }
                         else {
@@ -425,7 +429,7 @@ void GameScreen::update(float dt_as_seconds) {
         _new_map_needed = false;
     }
 
-    if(_is_paused) {
+    if (_is_paused) {
         return;
     }
 

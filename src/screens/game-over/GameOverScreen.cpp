@@ -1,4 +1,5 @@
 #include "GameOverScreen.h"
+#include "../../sound-manager/SoundManager.h"
 
 #include <iostream>
 #include <algorithm>
@@ -34,6 +35,8 @@ void GameOverScreen::initialise(const std::vector<PlayerInfo> & player_infos) {
             _winner_printers.emplace_back(player_infos[i], _winner_printers.size(), &_view);
         }
     }
+
+    SoundManager::stopChomp();
 }
 
 void GameOverScreen::input() {

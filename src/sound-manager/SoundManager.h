@@ -30,6 +30,9 @@ private:
     sf::SoundBuffer _spikes_buffer;
     sf::Sound _spikes_sound;
 
+    sf::SoundBuffer _chomp_buffer;
+    sf::Sound _chomp_sound;
+
     int _sounds_volume;
     int _music_volume;
 
@@ -55,4 +58,6 @@ public:
     static void playShoot();
     static void playBomb();
     static void playSpikes();
+    static void playChomp();
+    static void stopChomp();
 };
