@@ -10,6 +10,8 @@ public:
 
 protected:
 
+    Character::Direction getOppositeDirection() const;
+
     sf::Vector2i getUpTile() const;
 
     sf::Vector2i getDownTile() const;
