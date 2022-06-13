@@ -84,19 +84,19 @@ std::shared_ptr<PowerUp> PowerUpSpawner::spawn(
 
     switch (power_up) {
         case COIN_MULTIPLIER:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<CoinMultiplier>(spawn_tile));
         case SPEED_UP:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<SpeedUp>(spawn_tile));
         case SLOW_DOWN:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<SlowDown>(spawn_tile));
         case GLUTTONY:
             return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
         case SHIELD:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<Shield>(spawn_tile));
         case WALL_PASSING:
             return std::static_pointer_cast<PowerUp>(std::make_shared<PassWall>(spawn_tile));
         case SPIKES_PLACEMENT:
-            return std::static_pointer_cast<PowerUp>(std::make_shared<Gluttony>(spawn_tile));
+            return std::static_pointer_cast<PowerUp>(std::make_shared<SpikesPlacement>(spawn_tile));
         case BOMB_PLACEMENT:
             return std::static_pointer_cast<PowerUp>(std::make_shared<BombPlacement>(spawn_tile));
         case FIRING_BULLET:
