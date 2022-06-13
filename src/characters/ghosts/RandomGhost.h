@@ -8,6 +8,8 @@ private:
 
     Character::Direction randNewDirection();
 
+    void animate(float dt_as_seconds) override;
+
 public:
 
     RandomGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, int direction);

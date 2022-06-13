@@ -40,9 +40,11 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
     }
 }
 
-void MenuScreen::initialise() {
+void MenuScreen::initialise(bool restart_music) {
     _current_option = 0;
-    SoundManager::playMusic();
+    if (restart_music) {
+        SoundManager::playMusic();
+    }
 }
 
 void MenuScreen::input() {
@@ -82,14 +84,6 @@ void MenuScreen::input() {
 
 
 void MenuScreen::update(float dt_as_seconds) {
-    // TODO
-    // There is nothing to update. But if we decide to implement randomly
-    // spawning pacmans and ghosts walking on the menu screen, their logic
-    // should be handled here. New class like MenuCharacter is probably needed.
-    // This class should have draw() and update(float dt_as_seconds) methods
-    // and update(float dt_as_seconds) should be called from here. Spawning
-    // new characters and removing characters that walked beyond the screen
-    // should also happen here.
     for (auto character : _menu_characters) {
         character->update(dt_as_seconds);
     }

@@ -5,15 +5,40 @@
 CycleGhost::CycleGhost(std::shared_ptr<Map> map, int start_tile_x, int start_tile_y, std::vector<int> directions) {
     _map = std::move(map);
 
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green.png"));
+    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-1-right.png"));
     _sprite.setPosition(start_tile_x * TILE_SIZE, start_tile_y * TILE_SIZE);
 
     _directions = std::move(directions);
     _direction = static_cast<Direction>(_directions[0]);
     _start = true;
+    _state = "1";
+    _textureChange = 0.0;
+}
+
+void CycleGhost::animate(float dt_as_seconds) {
+    _textureChange += dt_as_seconds;
+
+    if (_textureChange >= 0.6){
+        _textureChange -= 0.6;
+
+        if (_state == "1"){
+            _state = "2";
+        }
+        else {
+            _state = "1";
+        }
+    }
+    if (_direction == LEFT || _direction == UP){
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-" + _state + "-left.png"));
+
+    }
+    else {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-green-" + _state + "-right.png"));
+    }
 }
 
 void CycleGhost::update(float dt_as_seconds) {
+    animate(dt_as_seconds);
     if (reachedNewTile(dt_as_seconds) && !_start) {
         _cycle_index = (_cycle_index + 1) % _directions.size();
 

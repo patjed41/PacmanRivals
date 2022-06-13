@@ -15,7 +15,7 @@ ScorePrinter::ScorePrinter(const PlayerInfo & player_info, unsigned int place, c
         exit(1);
     }
 
-    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + player_info.getColor() + ".png"));
+    _pacman.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + player_info.getColor() + ".png"));
     _pacman.setScale(4, 4);
 
     _text.setFont(_font);

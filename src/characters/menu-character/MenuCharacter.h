@@ -8,6 +8,8 @@ class MenuCharacter : public Character {
 private:
     bool _if_random;
 
+    void animate(float dt_as_seconds) override;
+
 public:
 
     MenuCharacter(float start_tile_x, float start_tile_y,  int direction);

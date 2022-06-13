@@ -26,7 +26,7 @@ public:
 
     MenuScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void initialise();
+    void initialise(bool restart_music);
 
     void input() override;
 

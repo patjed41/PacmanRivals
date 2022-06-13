@@ -42,7 +42,7 @@ ColorSelector::ColorSelector(sf::RenderWindow* window,  unsigned int player) : S
 
     _available_colors[_current_index] = false;
     _current_color = _pac_man_options[_current_index];
-    _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
+    _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + _pac_man_options[_current_index] + ".png"));
     _color.setScale(1.5, 1.5);
 
     _border.setTexture(TextureHolder::GetTexture("../assets/graphics/select-button-border.png"));
@@ -67,7 +67,7 @@ void ColorSelector::input(const sf::Event &event) {
             } while (!_available_colors[_current_index]);
             _available_colors[_current_index] = false;
             _current_color = _pac_man_options[_current_index];
-            _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
+            _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + _pac_man_options[_current_index] + ".png"));
             _color.setScale(1.5, 1.5);
             _A.click();
         }
@@ -82,7 +82,7 @@ void ColorSelector::input(const sf::Event &event) {
             _available_colors[_current_index] = false;
             _current_color = _pac_man_options[_current_index];
 
-            _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _pac_man_options[_current_index] + ".png"));
+            _color.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + _pac_man_options[_current_index] + ".png"));
             _color.setScale(1.5, 1.5);
             _D.click();
         }

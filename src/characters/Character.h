@@ -28,11 +28,17 @@ protected:
 
     Direction _direction;
 
+    float _textureChange;
+
+    std::string _state;
+
     void move(float dt_as_seconds);
 
     sf::Vector2i positionOfNewTile(sf::Vector2i tile) const;
 
     sf::Vector2i positionOfTileInNewDirection(sf::Vector2i new_tile, Direction _new_direction) const;
+
+    virtual void animate(float dt_as_seconds) = 0;
 
 public:
 

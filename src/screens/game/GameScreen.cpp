@@ -418,6 +418,7 @@ void GameScreen::handleCollisionsSpikes() {
     }
 }
 
+
 void GameScreen::update(float dt_as_seconds) {
     if (_new_map_needed) {
         loadNewMap();

@@ -85,6 +85,7 @@ void SoundManager::increaseMusicVolume() {
     if (_instance->_music_volume < 100) {
         _instance->_music_volume += 10;
     }
+    _instance->_menu_music.setVolume((float)_instance->_music_volume);
 }
 
 void SoundManager::decreaseMusicVolume() {
@@ -92,11 +93,11 @@ void SoundManager::decreaseMusicVolume() {
     if (_instance->_music_volume > 0) {
         _instance->_music_volume -= 10;
     }
+    _instance->_menu_music.setVolume((float)_instance->_music_volume);
 }
 
 void SoundManager::playMusic() {
     checkIfSingleton();
-    _instance->_menu_music.setVolume(_instance->_music_volume);
     _instance->_menu_music.setLoop(true);
     _instance->_menu_music.play();
 }

@@ -11,22 +11,27 @@ const float Pacman::_POWER_UP_DURATION = 10.0f;
 const float Pacman::_SLOW_SPEED = 50.0f;
 const float Pacman::_FAST_SPEED = 200.0f;
 
+
 // Constructs default yellow pacman.
 Pacman::Pacman(std::shared_ptr<Map> map, float start_tile_x, float start_tile_y) : Character() {
-    _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-yellow.png"));
+    _sprite = sf::Sprite(
+            TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-yellow.png"));
     _sprite.setPosition(start_tile_x, start_tile_y);
+
     _color = "yellow";
+    _current_direction = "right";
+    _state = "opened";
     _direction = STOP;
     _new_direction = STOP;
     _is_dead = false;
     _is_shielded = false;
     _pass_wall = false;
-
     _map = std::move(map);
 }
 
 void Pacman::changeColor(const std::string &color) {
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + color + ".png"));
+    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-" +
+                                                 _current_direction + "/pac-man-" + color + ".png"));
     _color = color;
 }
 
@@ -41,7 +46,7 @@ bool Pacman::turningBack() const {
 void Pacman::handleMovement(float dt_as_seconds) {
     sf::FloatRect position = getPosition();
 
-    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    sf::Vector2i current_tile = {(int) position.left / TILE_SIZE, (int) position.top / TILE_SIZE};
     sf::Vector2i new_tile = positionOfNewTile(current_tile);
     sf::Vector2i tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
 
@@ -60,46 +65,53 @@ void Pacman::handleMovement(float dt_as_seconds) {
     }
 
     if (_direction == RIGHT) {
-        current_tile = {(int)(position.left + position.width) / TILE_SIZE, (int)position.top / TILE_SIZE};
+        current_tile = {(int) (position.left + position.width) / TILE_SIZE, (int) position.top / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
-    }
-    else if (_direction == DOWN) {
-        current_tile = {(int)position.left / TILE_SIZE, (int)(position.top + position.height) / TILE_SIZE};
+    } else if (_direction == DOWN) {
+        current_tile = {(int) position.left / TILE_SIZE, (int) (position.top + position.height) / TILE_SIZE};
         new_tile = positionOfNewTile(current_tile);
         tile_in_new_direction = positionOfTileInNewDirection(current_tile, _new_direction);
     }
 
     if (!reachedNewTile(dt_as_seconds)) {
         move(dt_as_seconds);
-    }
-    else {
+    } else {
         move(dt_as_seconds);
         if (_direction == _new_direction) {
-            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
+            if (_map->getTiles()[new_tile.y][new_tile.x].isWall() &&
+                (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = _new_direction = STOP;
             }
-        }
-        else {
+        } else {
             if (!_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isWall()
                 || (_pass_wall && !_map->getTiles()[tile_in_new_direction.y][tile_in_new_direction.x].isEdge())) {
                 correct();
                 _direction = _new_direction;
                 move(dt_as_seconds);
-            }
-            else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() && (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
+            } else if (_map->getTiles()[new_tile.y][new_tile.x].isWall() &&
+                       (!_pass_wall || _map->getTiles()[new_tile.y][new_tile.x].isEdge())) {
                 correct();
                 _direction = STOP;
             }
         }
+    }
+    if (_direction == LEFT) {
+        _current_direction = "left";
+    } else if (_direction == RIGHT) {
+        _current_direction = "right";
+    } else if (_direction == DOWN) {
+        _current_direction = "down";
+    } else if (_direction == UP) {
+        _current_direction = "up";
     }
 }
 
 void Pacman::fixPositionAfterWallPassing() {
     _pass_wall = false;
     sf::FloatRect position = getPosition();
-    sf::Vector2i current_tile = {(int)position.left / TILE_SIZE, (int)position.top / TILE_SIZE};
+    sf::Vector2i current_tile = {(int) position.left / TILE_SIZE, (int) position.top / TILE_SIZE};
     if (_map->getTiles()[current_tile.y][current_tile.x].isWall()) {
         bool done = false;
         for (int i = 0; i < MAP_HEIGHT; ++i) {
@@ -108,18 +120,17 @@ void Pacman::fixPositionAfterWallPassing() {
                     setPosition(current_tile.x - j, current_tile.y - i);
                     done = true;
                     break;
-                }
-                else if (current_tile.y < MAP_HEIGHT - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                } else if (current_tile.y < MAP_HEIGHT - 2 &&
+                           !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
                     setPosition(current_tile.x + j, current_tile.y + i);
                     done = true;
                     break;
-                }
-                else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
+                } else if (current_tile.x > 0 && !_map->getTiles()[current_tile.y - i][current_tile.x - j].isWall()) {
                     setPosition(current_tile.x - j, current_tile.y - i);
                     done = true;
                     break;
-                }
-                else if (current_tile.x < MAP_WIDTH - 2 && !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
+                } else if (current_tile.x < MAP_WIDTH - 2 &&
+                           !_map->getTiles()[current_tile.y + i][current_tile.x + j].isWall()) {
                     setPosition(current_tile.x + j, current_tile.y + i);
                     done = true;
                     break;
@@ -165,8 +176,43 @@ void Pacman::handlePowerUpExpiry() {
     _current_power_up = NONE;
 }
 
+void Pacman::animate(float dt_as_seconds) {
+
+    _textureChange += dt_as_seconds;
+
+    if (_textureChange >= 0.6) {
+        _textureChange -= 0.6;
+
+        if (_state == "opened") {
+            _state = "closed";
+        } else {
+            _state = "opened";
+        }
+    }
+
+    if (_current_power_up != GLUTTONY && _current_power_up != SHIELD && _current_power_up != WALL_PASSING) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + _state + "/pac-man-" +
+                                                     _current_direction + "/pac-man-" + _color + ".png"));
+
+    } else if (_current_power_up == GLUTTONY) {
+        _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/power-ups/eating-pac-mans/pac-man-" + _state
+                                                     + "/eating-pac-man-" + _color + "-" + _current_direction +".png"));
+    } else if (_current_power_up == SHIELD) {
+        _sprite.setTexture(TextureHolder::GetTexture(
+                "../assets/graphics/power-ups/shielded-pac-mans/shield-pac-man-" + _state + "-" + _current_direction +
+                ".png"));
+    } else if (_current_power_up == WALL_PASSING) {
+        _sprite.setTexture(TextureHolder::GetTexture(
+                "../assets/graphics/power-ups/passing-pac-mans/passing-pac-man-" + _state + "-" + _current_direction +
+                                                                                    ".png"));
+    }
+
+}
+
 void Pacman::update(float dt_as_seconds) {
     _timeout -= dt_as_seconds;
+
+    animate(dt_as_seconds);
     handleMovement(dt_as_seconds);
 
     // Handle power-up expiry apart from SLOW_DOWN.
@@ -215,8 +261,7 @@ bool Pacman::isDead() const {
 float Pacman::getPartOfPowerUpTimeLeft() const {
     if (isDead() || _power_up_seconds_left < 0) {
         return 0;
-    }
-    else {
+    } else {
         return _power_up_seconds_left / _POWER_UP_DURATION;
     }
 }
@@ -227,7 +272,7 @@ PowerUpName Pacman::getCurrentPowerUp() const {
 
 bool Pacman::hasUsablePowerUp() const {
     return (_current_power_up == SPIKES_PLACEMENT && _timeout <= 0) || _current_power_up == BOMB_PLACEMENT ||
-          (_current_power_up == FIRING_BULLET && _direction != STOP);
+           (_current_power_up == FIRING_BULLET && _direction != STOP);
 }
 
 void Pacman::speedUp() {
@@ -263,7 +308,7 @@ void Pacman::setShield() {
     _is_shielded = true;
     std::stringstream path_to_graphic_with_shield;
     path_to_graphic_with_shield << "../assets/graphics/power-ups/shielded-pac-mans/"
-                                << "shielded-pac-man-" << _color << ".png";
+                                << "shield-pac-man-opened-right" << ".png";
     _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_with_shield.str()));
     SoundManager::playPickup();
 }
@@ -287,7 +332,8 @@ void Pacman::passWalls() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = WALL_PASSING;
     _pass_wall = true;
-    _sprite.setTexture(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-ghost.png"));
+    _sprite.setTexture(
+            TextureHolder::GetTexture("../assets/graphics/power-ups/passing-pac-mans/passing-pac-man-opened-right.png"));
     SoundManager::playPickup();
 }
 
@@ -296,8 +342,9 @@ void Pacman::startEating() {
     _power_up_seconds_left = _POWER_UP_DURATION;
     _current_power_up = GLUTTONY;
     std::stringstream path_to_graphic_eating;
-    path_to_graphic_eating << "../assets/graphics/power-ups/eating-pac-mans/"
-                                << "eating-pac-man-" << _color << ".png";
+    path_to_graphic_eating << "../assets/graphics/power-ups/eating-pac-mans/pac-man-opened/"
+                           << "eating-pac-man-" << _color << "-right.png";
+
     _sprite.setTexture(TextureHolder::GetTexture(path_to_graphic_eating.str()));
     SoundManager::playPickup();
 }

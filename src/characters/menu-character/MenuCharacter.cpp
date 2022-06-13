@@ -2,16 +2,18 @@
 #include "../../texture-holder/TextureHolder.h"
 #include "../../../include/random.h"
 
+void MenuCharacter::animate(float dt_as_seconds) {}
+
 MenuCharacter::MenuCharacter(float start_tile_x, float start_tile_y,  int direction) {
     int if_pacman = random(0, 1);
     if (if_pacman) {
-        std::vector<std::string> colors{"darkblue", "darkgreen", "ghost", "lightblue", "lightgreen", "orange", "pink", "purple", "red", "yellow"};
+        std::vector<std::string> colors{"darkblue", "darkgreen", "lightblue", "lightgreen", "orange", "pink", "purple", "red", "yellow"};
         int color = random(0, colors.size() - 1);
-        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-" + colors[color] + ".png"));
+        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/pacmans/pac-man-opened/pac-man-right/pac-man-" + colors[color] + ".png"));
     } else {
         std::vector<std::string> colors{"green", "pink", "yellow"};
         int color = random(0, 2);
-        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-" + colors[color] + ".png"));
+        _sprite = sf::Sprite(TextureHolder::GetTexture("../assets/graphics/ghosts/ghost-" + colors[color] + "-1-right.png"));
     }
     _sprite.setPosition(start_tile_x, start_tile_y);
 
