@@ -17,7 +17,7 @@ GameEngine::GameEngine() {
     _game_over = GameOverScreen(&_window, &_current_screen);
 
     _current_screen = MENU;
-    _menu.initialise();
+    _menu.initialise(true);
 }
 
 void GameEngine::input() {
@@ -31,19 +31,19 @@ void GameEngine::input() {
         case CONTROLS:
             _controls.input();
             if (_current_screen == MENU) {
-                _menu.initialise();
+                _menu.initialise(false);
             }
             return;
         case SETTINGS:
             _settings.input();
             if (_current_screen == MENU) {
-                _menu.initialise();
+                _menu.initialise(false);
             }
             return;
         case LOBBY:
             _lobby.input();
             if (_current_screen == MENU) {
-                _menu.initialise();
+                _menu.initialise(false);
             }
             else if (_current_screen == GAME) {
                 _game.initialise(_lobby.getPlayerInfos(), _lobby.getRounds());
@@ -51,17 +51,20 @@ void GameEngine::input() {
             return;
         case GAME:
             _game.input();
+            if (_current_screen == MENU) {
+                _menu.initialise(true);
+            }
             return;
         case BETWEEN_ROUNDS:
             _between_rounds.input();
             if (_current_screen == MENU) {
-                _menu.initialise();
+                _menu.initialise(true);
             }
             return;
         case GAME_OVER:
             _game_over.input();
             if (_current_screen == MENU) {
-                _menu.initialise();
+                _menu.initialise(true);
             }
             return;
         default:
@@ -90,6 +93,9 @@ void GameEngine::update(float dt_as_seconds) {
             }
             else if (_current_screen == GAME_OVER) {
                 _game_over.initialise(_game.getPlayerInfos());
+            }
+            else if (_current_screen == MENU) {
+                _menu.initialise(true);
             }
             return;
         case BETWEEN_ROUNDS:

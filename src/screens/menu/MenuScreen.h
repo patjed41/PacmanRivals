@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Screen.h"
+#include "../../characters/menu-character/MenuCharacter.h"
 
 class MenuScreen : Screen {
 
@@ -16,6 +17,8 @@ private:
     static const float SPACE_BETWEEN; // vertical distance between 2 options
     std::vector<sf::Text> _options;
     unsigned int _current_option;
+    std::vector<std::shared_ptr<MenuCharacter>> _menu_characters;
+    int _number_of_characters = 30;
 
 public:
 
@@ -23,7 +26,7 @@ public:
 
     MenuScreen(sf::RenderWindow* window, ScreenName* current_screen);
 
-    void initialise();
+    void initialise(bool restart_music);
 
     void input() override;
 

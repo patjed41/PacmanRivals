@@ -1,5 +1,6 @@
 #include "WinnerPrinter.h"
 #include "../../texture-holder/TextureHolder.h"
+#include "../../sound-manager/SoundManager.h"
 
 #include <iostream>
 
@@ -28,6 +29,8 @@ WinnerPrinter::WinnerPrinter(const PlayerInfo & player_info, unsigned int id, co
     _crown.setScale(3, 3);
     _crown.setPosition(_pacman.getGlobalBounds().left,
                        _pacman.getGlobalBounds().top - _crown.getGlobalBounds().height / 2);
+
+    SoundManager::playWinner();
 }
 
 void WinnerPrinter::draw(sf::RenderWindow* window) {
