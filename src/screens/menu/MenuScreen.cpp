@@ -1,4 +1,5 @@
 #include "MenuScreen.h"
+#include "../../sound-manager/SoundManager.h"
 #include "../../../include/random.h"
 
 #include <iostream>
@@ -41,6 +42,7 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
 
 void MenuScreen::initialise() {
     _current_option = 0;
+    SoundManager::playMusic();
 }
 
 void MenuScreen::input() {
