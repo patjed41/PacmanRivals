@@ -151,7 +151,7 @@ void SoundManager::playSpikes() {
 
 void SoundManager::playChomp() {
     checkIfSingleton();
-    _instance->_chomp_sound.setVolume(_instance->_sounds_volume / 4);
+    _instance->_chomp_sound.setVolume(_instance->_sounds_volume / 2);
     _instance->_chomp_sound.play();
 }
 
