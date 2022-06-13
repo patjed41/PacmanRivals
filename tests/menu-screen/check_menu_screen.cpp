@@ -20,7 +20,6 @@ int main() {
     ScreenName current_screen = MENU;
     MenuScreen menu(&window, &current_screen);
 
-    menu.initialise();
     menu.input();
     menu.update(clock.restart().asSeconds());
     err::checkEqual(MENU, current_screen);
