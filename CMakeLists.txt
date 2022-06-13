@@ -27,6 +27,7 @@ set(SOURCE_FILES
     src/characters/ghosts/LinearGhost.cpp
     src/characters/ghosts/RandomGhost.cpp
     src/characters/ghosts/CycleGhost.cpp
+    src/characters/menu-character/MenuCharacter.cpp
     src/coins/Coin.cpp
     src/screens/menu/MenuScreen.cpp
     src/screens/controls/ControlsScreen.cpp
@@ -281,7 +282,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     make_new_test(check_color_selector color-selector ${SELECTOR_FILES} src/screens/lobby/options/player/ColorSelector.cpp)
     make_new_test(check_game_options game-options ${GAME_OPTIONS_FILES})
     make_new_test(check_player_options player-options ${PLAYER_OPTIONS_FILES})
-    make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} src/screens/menu/MenuScreen.cpp)
+    make_new_test(check_menu_screen menu-screen ${SCREEN_FILES} ${CHARACTER_FILES} src/screens/menu/MenuScreen.cpp src/characters/menu-character/MenuCharacter.cpp)
     make_new_test(check_controls_screen controls-screen ${CONTROLS_SCREEN_FILES})
     make_new_test(check_settings_screen settings-screen ${SETTINGS_SCREEN_FILES})
     make_new_test(check_between_rounds_screen between-rounds-screen ${BETWEEN_ROUNDS_SCREEN_FILES})

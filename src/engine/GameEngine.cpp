@@ -91,6 +91,9 @@ void GameEngine::update(float dt_as_seconds) {
             else if (_current_screen == GAME_OVER) {
                 _game_over.initialise(_game.getPlayerInfos());
             }
+            else if (_current_screen == MENU) {
+                _menu.initialise();
+            }
             return;
         case BETWEEN_ROUNDS:
             _between_rounds.update(dt_as_seconds);

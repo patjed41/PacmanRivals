@@ -1,5 +1,6 @@
 #include "MenuScreen.h"
 #include "../../sound-manager/SoundManager.h"
+#include "../../../include/random.h"
 
 #include <iostream>
 
@@ -30,6 +31,12 @@ MenuScreen::MenuScreen(sf::RenderWindow* window, ScreenName* current_screen) : S
         _options[i].setOrigin(option_position.width / 2, option_position.height / 2);
         _options[i].setPosition(_view.getCenter().x, _view.getCenter().y + option_offset);
         option_offset += SPACE_BETWEEN;
+    }
+
+    for (int i = 0; i < _number_of_characters; ++i) {
+        int direction = random(0, 3);
+        _menu_characters.emplace_back(std::make_shared<MenuCharacter>
+                (random(0, sf::VideoMode::getDesktopMode().width - 1), random(0, sf::VideoMode::getDesktopMode().height - 1), direction));
     }
 }
 
@@ -83,6 +90,9 @@ void MenuScreen::update(float dt_as_seconds) {
     // and update(float dt_as_seconds) should be called from here. Spawning
     // new characters and removing characters that walked beyond the screen
     // should also happen here.
+    for (auto character : _menu_characters) {
+        character->update(dt_as_seconds);
+    }
 }
 
 void MenuScreen::draw() {
@@ -90,6 +100,10 @@ void MenuScreen::draw() {
     _window->setView(_view);
 
     _options[_current_option].setFillColor(sf::Color::Red);
+
+    for (auto character : _menu_characters) {
+        _window->draw(character->getSprite());
+    }
 
     for (int i = 0; i < OPTIONS_NUM; i++) {
         _options[i].setFont(_font);
